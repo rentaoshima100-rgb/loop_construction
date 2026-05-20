@@ -498,6 +498,9 @@ button { font: inherit; color: inherit; }
 .mask-reveal.is-active .mask-reveal-inner {
   transform: translateY(0);
 }
+/* Narrow-viewport safety: let big headings wrap instead of being clipped by overflow-x:hidden */
+.mask-reveal, .mask-reveal-inner { max-width: 100%; }
+h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
 
 
 /* hero pulse */
@@ -1275,7 +1278,7 @@ function HomeStats() {
               minHeight: isMobile ? 'auto' : 280,
             }}>
               <div style={{
-                fontFamily: 'var(--font-serif)', fontSize: 'clamp(56px, 7vw, 104px)',
+                fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 7vw, 104px)',
                 lineHeight: 0.95, color: 'var(--ink)', fontWeight: 500,
                 letterSpacing: '-0.025em',
               }}>{num}</div>
@@ -1893,7 +1896,7 @@ function BusinessHero() {
             fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
           }}>— Three services<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>事業案内</span></div>
           <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(72px, 11vw, 168px)',
+            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
             fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
             letterSpacing: '-0.035em',
           }}>
@@ -2238,7 +2241,7 @@ function CompanyHero() {
             fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
           }}>— Company information<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>企業情報</span></div>
           <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(72px, 11vw, 168px)',
+            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
             fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
             letterSpacing: '-0.035em',
           }}>
@@ -2595,7 +2598,7 @@ function PageHeader({ en, jp, title, italic, bg, sub }) {
             fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
           }}>— {en}<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span></div>
           <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(72px, 11vw, 160px)',
+            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 160px)',
             fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
             letterSpacing: '-0.035em',
           }}>
