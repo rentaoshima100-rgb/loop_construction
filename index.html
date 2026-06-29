@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="株式会社Loop建築｜大規模修繕・建物リニューアル。人とのつながりを大切にする、信頼と実績のLoop。1989年創業、関西エリアで1,200件超の施工実績。" />
-<title>Loop建築｜大規模修繕、建物リニューアル</title>
+<meta name="description" content="株式会社ループ｜大阪・東三国。大規模修繕・建物リニューアルから新築・公共工事まで。人とのつながりを大切にする、信頼と実績のループ。2006年設立、一級建築施工管理技士在籍、建設業許可18業種。" />
+<title>株式会社ループ｜大規模修繕・建物リニューアル</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -816,13 +816,13 @@ function Nav() {
               fontFamily: 'var(--font-serif)', fontSize: isMobile ? 22 : 26, fontWeight: 600,
               color: 'var(--ink)', letterSpacing: '0.01em', lineHeight: 1,
             }}>
-              Loop<span style={{ color: 'var(--orange)' }}>建築</span>
+              Loop<span style={{ color: 'var(--orange)' }}>.</span>
             </div>
             {!isMobile && (
               <div style={{
                 fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--stone)',
                 letterSpacing: '0.22em',
-              }}>EST. 1989</div>
+              }}>EST. 2006</div>
             )}
           </a>
 
@@ -896,7 +896,7 @@ function Nav() {
           <div style={{
             fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 600, color: 'var(--ink)',
           }}>
-            Loop<span style={{ color: 'var(--orange)' }}>建築</span>
+            Loop<span style={{ color: 'var(--orange)' }}>.</span>
           </div>
           <button onClick={() => setMenuOpen(false)} aria-label="Close menu" style={{
             width: 44, height: 44, border: 'none', background: 'transparent',
@@ -936,7 +936,7 @@ function Nav() {
             fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
             letterSpacing: '0.18em', marginTop: 16, textAlign: 'center',
           }}>
-            EST. 1989 — TEL 06-6748-7700
+            EST. 2006 — TEL 06-6394-7778
           </div>
         </div>
       </div>
@@ -961,7 +961,7 @@ function Footer() {
         fontFamily: 'var(--font-serif)', fontSize: isMobile ? 260 : 480, lineHeight: 1, fontWeight: 400,
         color: 'rgba(242,239,231,0.04)', pointerEvents: 'none',
         letterSpacing: '-0.04em',
-      }}>建築</div>
+      }}>Loop</div>
 
       <div style={{
         position: 'relative',
@@ -972,18 +972,18 @@ function Footer() {
       }}>
         <div>
           <div style={{ fontFamily: 'var(--font-serif)', fontSize: isMobile ? 36 : 44, fontWeight: 500, marginBottom: 16 }}>
-            Loop<span style={{ color: 'var(--orange)' }}>建築</span>
+            Loop<span style={{ color: 'var(--orange)' }}>.</span>
           </div>
           <div style={{
             fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: isMobile ? 17 : 20,
             color: 'var(--orange-soft)', marginBottom: 24, lineHeight: 1.4,
           }}>
-            人とのつながりを大切にする、<br />信頼と実績のLoop。
+            人とのつながりを大切にする、<br />信頼と実績のループ。
           </div>
           <div style={{ fontSize: 12.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
-            〒578-0976　大阪府東大阪市西鴻池町3丁目2-64<br />
-            TEL 06-6748-7700　FAX 06-6748-7701<br />
-            受付 9:00 – 17:00 / 平日
+            〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F<br />
+            TEL 06-6394-7778　FAX 06-6394-7779<br />
+            受付 9:00 – 18:00 / 平日（土日祝休）
           </div>
           <button onClick={() => setInquiryOpen(true)} className="btn btn--orange"
             style={{ marginTop: 24, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
@@ -993,7 +993,7 @@ function Footer() {
         </div>
         {[
           ['About', [['会社概要', 'company'], ['代表挨拶', 'company'], ['沿革', 'company'], ['私たちについて', 'about']]],
-          ['Business', [['マンション修繕', 'business'], ['商業施設修繕', 'business'], ['駐車場防水', 'business'], ['工事項目', 'business']]],
+          ['Business', [['マンション修繕', 'business'], ['店舗・クリニック新装', 'business'], ['公共工事・防水改修', 'business'], ['工事項目', 'business']]],
           ['Info', [['お知らせ', 'news'], ['よくあるご質問', 'about'], ['お取引先様', 'about'], ['採用情報', 'recruit']]],
         ].map(([h, items]) => (
           <div key={h}>
@@ -1019,13 +1019,12 @@ function Footer() {
         gap: isMobile ? 12 : 0,
         fontSize: 11, color: 'var(--stone)', letterSpacing: '0.08em',
       }}>
-        <span>© 2026 LOOP KENCHIKU CO., LTD. — All rights reserved.</span>
+        <span>© 2026 LOOP CO., LTD. — All rights reserved.</span>
         <span style={{ fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 15, color: 'var(--orange-soft)' }}>
           Restore · Renew · Loop
         </span>
         <span style={{ display: 'flex', gap: 16 }}>
-          <a className="link-underline">YouTube</a>
-          <a className="link-underline">Instagram</a>
+          <a className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
           <a className="link-underline">プライバシー</a>
         </span>
       </div>
@@ -1098,8 +1097,8 @@ function HomeHero() {
         fontFamily: 'var(--font-mono)', fontSize: isMobile ? 9 : 10.5, letterSpacing: '0.22em',
         color: 'rgba(245,237,222,0.85)', zIndex: 2,
       }}>
-        <span>VOL. 36 · 2026.01</span>
-        {!isMobile && <span>大規模修繕 · 建物リニューアル</span>}
+        <span>SINCE 2006</span>
+        {!isMobile && <span>大規模修繕 · 新築 · 公共工事</span>}
         <span>OSAKA</span>
       </div>
 
@@ -1131,10 +1130,10 @@ function HomeHero() {
             margin: 0, maxWidth: 480, color: 'rgba(245,237,222,0.92)',
             letterSpacing: '0.04em',
           }}>
-            人とのつながりを大切にする、信頼と実績のLoop。<br />
-            1989年の創業以来、大規模修繕・建物リニューアルを通じて、
+            人とのつながりを大切にする、信頼と実績のループ。<br />
+            2006年の設立以来、大規模修繕から新築・公共工事まで、
             <span style={{ color: 'var(--orange-soft)' }}>「修繕」ではなく「再生」</span>
-            という考え方で、経年建築物の価値を磨き続けています。
+            という考え方で、建物の価値を磨き続けています。
           </p>
           <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 24 : 40, flexWrap: 'wrap' }}>
             <button onClick={() => go('business')} className="btn btn--orange">
@@ -1210,7 +1209,7 @@ function HomeManifesto() {
           <div style={{
             fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--stone)',
             letterSpacing: '0.22em', marginTop: 32,
-          }}>SINCE 1989 / 36 YEARS</div>
+          }}>SINCE 2006 / 20 YEARS</div>
         </Reveal>
         <Reveal delay={120}>
           <h2 style={{
@@ -1226,9 +1225,9 @@ function HomeManifesto() {
             fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.2,
             color: 'var(--ink-soft)', marginTop: 40, maxWidth: 680, letterSpacing: '0.04em',
           }}>
-            36年前、私たちが「大規模修繕」という言葉と出会ったとき、
-            それはまだ業界の中でも珍しいものでした。建物を建てることが主役で、
-            守ることは脇役だった時代です。
+            私たちは、建物を「つくる」だけでなく、「生かし、守る」仕事を
+            大切にしてきました。新築から大規模修繕、公共工事まで、
+            建物のあらゆる時間に向き合っています。
           </p>
           <p style={{
             fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.2,
@@ -1250,10 +1249,10 @@ function HomeManifesto() {
 function HomeStats() {
   const isMobile = useMobile();
   const stats = [
-    ['36', 'Years', '創業以来の実績', '1989年の創業から、ひたすら一筋。'],
-    ['1,200+', 'Projects', '累計施工件数', '関西全域・近畿圏で積み上げてきました。'],
-    ['16', 'Permits', '建設業許可業種', '塗装・防水から解体まで、自社で完結。'],
-    ['96%', 'Repeat', '管理組合様の継続率', '一度きりではなく、長く関わる前提で。'],
+    ['20', 'Years', '設立からの歩み', '2006年（平成18年）設立。大阪・東三国にて。'],
+    ['18', 'Permits', '建設業許可業種', '土木・建築から防水・内装まで、幅広く対応。'],
+    ['4', 'Experts', '一級施工管理技士', '確かな有資格者が、現場の品質を統括。'],
+    ['17+', 'Projects', '主な施工実績', '公共・新築・修繕の、確かな実績。'],
   ];
   return (
     <section style={{
@@ -1262,7 +1261,7 @@ function HomeStats() {
       borderBottom: '1px solid var(--rule-soft)',
     }}>
       <Reveal>
-        <SectionLabel en="By the numbers" jp="02 — 数字で見る Loop建築" />
+        <SectionLabel en="By the numbers" jp="02 — 数字で見る ループ" />
       </Reveal>
       <div style={{
         display: 'grid',
@@ -1330,7 +1329,7 @@ function HomeFeatured() {
             fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
             letterSpacing: '-0.02em',
           }}>
-            神戸市<br />
+            加古川市<br />
             <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>大規模修繕。</span>
           </h2>
         </Reveal>
@@ -1339,9 +1338,9 @@ function HomeFeatured() {
             fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.1,
             color: 'var(--ink-soft)', margin: 0, maxWidth: 580, letterSpacing: '0.04em',
           }}>
-            築22年・96戸のマンション。外壁塗装の劣化、タイルの浮き、
-            屋上防水層の経年劣化——
-            すべてを統合した8ヶ月の大規模修繕。
+            築30年・66戸のマンション「リベール加古川Ⅰ」。外壁塗装の劣化、
+            タイルの浮き、屋上防水層の経年劣化——
+            すべてを統合した5ヶ月の大規模修繕。
             住民様の生活を止めずに、もう一度、建物の表情を取り戻しました。
           </p>
           <div style={{
@@ -1351,9 +1350,9 @@ function HomeFeatured() {
             paddingTop: isMobile ? 16 : 24, borderTop: '1px solid var(--rule)',
           }}>
             {[
-              ['UNITS', '96 戸'],
-              ['AGE', '築 22 年'],
-              ['PERIOD', '8 ヶ月'],
+              ['UNITS', '66 戸'],
+              ['AGE', '築 30 年'],
+              ['PERIOD', '5 ヶ月'],
               ['SCOPE', '全面改修'],
             ].map(([k, v]) => (
               <div key={k}>
@@ -1381,7 +1380,7 @@ function HomeFeatured() {
           letterSpacing: '0.22em',
         }}>
           <span>FIG. 001 — DRAG ⇄ TO COMPARE</span>
-          <span>2024.03 — 2024.11 · KOBE</span>
+          <span>2026.04 — 2026.08 · KAKOGAWA</span>
         </div>
       </Reveal>
       <div style={{ marginTop: 56, display: 'flex', justifyContent: 'center' }}>
@@ -1405,16 +1404,16 @@ function HomeBusiness() {
       meta: '関西エリア / 〜200戸 / 4〜12ヶ月',
     },
     {
-      no: '02', jp: '商業施設修繕', en: 'Facility Renovation',
+      no: '02', jp: '店舗・クリニック新装', en: 'Interior Renovation',
       img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop',
-      lead: '営業を止めない段階施工。テナント様への影響を最小化。',
-      meta: '商業ビル・モール・工場 / 〜30,000㎡',
+      lead: 'クリニック・店舗の新装・改装を、計画から施工まで一貫対応。',
+      meta: '歯科・クリニック・店舗 / 内装・設備',
     },
     {
-      no: '03', jp: '駐車場防水', en: 'Parking Waterproof',
+      no: '03', jp: '公共工事・防水改修', en: 'Public Works',
       img: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop',
-      lead: '床面の防滑シート敷設から漏水対策まで一貫対応。',
-      meta: '屋外 / 屋上 / 機械式 / 立体駐車場',
+      lead: '学校・公共住宅の外壁改修や屋上防水改修まで、確かな品質で。',
+      meta: '学校・公共施設・住宅 / 外壁・防水',
     },
   ];
   return (
@@ -1544,7 +1543,7 @@ function HomeItems() {
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 88px)',
             fontWeight: 400, margin: 0, lineHeight: 1, letterSpacing: '-0.02em',
           }}>
-            16業種を、<br />
+            18業種を、<br />
             <span style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>自社で。</span>
           </h2>
         </Reveal>
@@ -1554,9 +1553,9 @@ function HomeItems() {
             margin: 0, color: 'var(--ink-soft)', letterSpacing: '0.04em', maxWidth: 560,
             justifySelf: 'end',
           }}>
-            建築・土木・とび土工・塗装・防水・大工・石・屋根・タイル・ガラス・
-            内装仕上・解体——大阪府知事許可（特-2）第98864号として、
-            大規模修繕に関わるすべての工事を自社一貫で対応します。
+            土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・
+            塗装・防水・内装仕上・熱絶縁・建具——国土交通省大臣許可（般-3）（特-3）
+            第22143号として、18業種に対応します。
             専門業者の調整コストを最小化し、現場の判断を速くする体制です。
           </p>
         </Reveal>
@@ -1603,10 +1602,10 @@ function HomeNews() {
   const { go } = useRouter();
   const isMobile = useMobile();
   const news = [
-    ['2025.11.25', 'NOTICE', '年末年始休業のお知らせ', '平素は格別のご高配を賜り、誠にありがとうございます。弊社では誠に勝手ながら、年末年始休業を下記の通りとさせていただきます。'],
-    ['2025.09.12', 'WORKS', '神戸市 大規模修繕工事 竣工', '築22年・96戸のマンションの外壁塗装・防水・タイル補修を含む大規模修繕工事が竣工いたしました。'],
-    ['2025.07.03', 'NOTICE', '夏季休業のお知らせ', '弊社では誠に勝手ながら、夏季休業日を以下の通りとさせていただきます。'],
-    ['2025.04.18', 'MEDIA', 'My-Giken Tube 新着動画を公開', '足場組立の様子と若手職人のインタビューを公開しました。'],
+    ['2026.06', 'NOTICE', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。'],
+    ['2026.02', 'WORKS', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
+    ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
+    ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
   ];
   return (
     <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
@@ -1724,8 +1723,8 @@ function HomeRecruit() {
             color: 'var(--ink-soft)', marginTop: 36, maxWidth: 480, letterSpacing: '0.04em',
           }}>
             自ら考え行動することを大事にする会社です。
-            女性社員・シニア世代の活躍機会を広げ、DX推進と生産性向上に
-            全社で取り組んでいます。<br />
+            「ESなくしてCSはない」——従業員がいきいきと働ける環境づくりを通じて、
+            お客様に最大限のパフォーマンスをお届けします。<br />
             そんな想いに共感し、一緒に働く仲間を募集しています。
           </p>
           <div style={{
@@ -1735,9 +1734,9 @@ function HomeRecruit() {
             marginTop: 40, paddingTop: 32, borderTop: '1px solid var(--rule)',
           }}>
             {[
-              ['1989', '創業'],
-              ['16', '建設業許可業種'],
-              ['1,200+', '累計案件'],
+              ['2006', '設立'],
+              ['18', '建設業許可業種'],
+              ['4', '一級施工管理技士'],
             ].map(([n, l]) => (
               <div key={l}>
                 <div style={{
@@ -1809,8 +1808,8 @@ function HomeCTA() {
             marginTop: 28, opacity: 0.92, maxWidth: 480, letterSpacing: '0.04em',
           }}>
             現地調査・お見積りは無料です。マンション管理組合様、オーナー様、ご担当者様、
-            お気軽にご連絡ください。年間100件超の調査実績で、
-            建物の状態に応じた最適な工法をご提案します。
+            お気軽にご連絡ください。建物の状態に応じた
+            最適な工法をご提案します。
           </p>
         </div>
         <div>
@@ -1820,11 +1819,11 @@ function HomeCTA() {
           <div style={{
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 3vw, 44px)',
             fontWeight: 500, marginTop: 12, letterSpacing: '-0.005em',
-          }}>06-6748-7700</div>
+          }}>06-6394-7778</div>
           <div style={{
             fontFamily: 'var(--font-sans)', fontSize: 12, opacity: 0.85, marginTop: 10,
             letterSpacing: '0.04em',
-          }}>受付 9:00 – 17:00 / 平日</div>
+          }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
           <div style={{
@@ -1925,8 +1924,8 @@ function BusinessHero() {
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             ['01', 'マンション修繕', 'Apartment'],
-            ['02', '商業施設修繕', 'Facility'],
-            ['03', '駐車場防水', 'Parking'],
+            ['02', '店舗・クリニック新装', 'Interior'],
+            ['03', '公共工事・防水改修', 'Public'],
           ].map(([num, jp, en], i) => (
             <a key={num} href={`#service-${num}`} style={{
               padding: '40px 36px',
@@ -2129,12 +2128,12 @@ function BusinessPage() {
         jp="マンション修繕"
         en="Apartment Renovation"
         lead="築年数を重ねた集合住宅を、長期的な視野で再生。住み心地と資産価値を、両方高める修繕を。"
-        body="外壁・屋上・共用部・防水まで、住民様の生活を止めずに統合的に進めます。30年以上に渡り関西エリアの管理組合様と歩んできた経験を活かし、合意形成から長期修繕計画との整合まで丁寧にサポート。築20年〜30年の節目に、もう一度建物を機能させる仕事です。"
+        body="外壁・屋上・共用部・防水まで、住民様の生活を止めずに統合的に進めます。関西一円の管理組合様とともに、合意形成から長期修繕計画との整合まで丁寧にサポート。築20年〜30年の節目に、もう一度建物を機能させる仕事です。"
         before="https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop"
         after="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
         scope={[
-          ['TYPE', '分譲・賃貸マンション / 社宅'],
-          ['SCALE', '〜200戸 / 単棟〜複合棟'],
+          ['TYPE', '分譲・賃貸マンション / 公共住宅'],
+          ['SCALE', '〜100戸 / 単棟〜複合棟'],
           ['SCOPE', '外壁・防水・タイル・鉄部・共用部'],
           ['PERIOD', '4〜12 months'],
         ]}
@@ -2145,65 +2144,63 @@ function BusinessPage() {
           ['仕上がり保証', '材料メーカー保証＋自社保証。竣工後も定期点検でフォロー。'],
         ]}
         projects={[
-          ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '京都市 屋上工事', '屋上防水・外壁塗装', '2024'],
-          ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '池田市 廊下改修', '廊下シート・手摺', '2024'],
-          ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '神戸市 大規模修繕', '全戸96戸・8ヶ月', '2024'],
-          ['https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=82&auto=format&fit=crop', '川西市 大規模修繕', '築28年・全面改修', '2023'],
-          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '枚方市 大規模修繕', '外壁・タイル補修', '2023'],
-          ['https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop', '豊中市 屋上工事', '防水・断熱層更新', '2023'],
+          ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026'],
+          ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '大阪市 大国住宅2号館', '屋上防水改修工事', '2024'],
+          ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '大阪市 相川住宅2号館', '屋上防水改修工事', '2024'],
+          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市 浪速西第3住宅', '外壁改修その他工事', '2017'],
         ]}
       />
       <ServiceSection
         bgAlt
         no="02"
-        jp="商業施設修繕"
-        en="Facility Renovation"
-        lead="営業を止めない段階施工。テナント様・利用者様への影響を最小限に抑えながら。"
-        body="ショッピングモール、商業ビル、工場まで、用途に合わせた工事計画をご提案します。テナント営業時間に応じた夜間・早朝施工、騒音・粉塵対策、安全動線の確保まで一貫対応。来店者の動線を妨げない仮設計画と、夜間突貫の段取りが、商業修繕の経験差を分けます。"
+        jp="店舗・クリニック新装"
+        en="Interior Renovation"
+        lead="クリニックや店舗の新装・改装を、計画から施工まで。事業の門出にふさわしい空間を。"
+        body="歯科クリニックをはじめ、店舗・テナントの新装工事を数多く手がけています。内装・設備・サインまで用途に合わせて一貫対応。開業スケジュールに合わせた工程管理と、衛生・安全基準を満たす確かな施工で、利用者にも働く人にも心地よい空間をつくります。"
         before="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop"
         after="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop"
         scope={[
-          ['TYPE', '商業ビル・モール・工場'],
-          ['SCALE', '〜延床 30,000 ㎡'],
-          ['SCOPE', '外壁・屋根・防水・サイン'],
-          ['PERIOD', '3〜10 months'],
+          ['TYPE', '歯科・クリニック・店舗'],
+          ['SCALE', 'テナント〜ビル一棟'],
+          ['SCOPE', '内装・設備・サイン'],
+          ['PERIOD', '2〜6 months'],
         ]}
         features={[
-          ['段階施工', 'テナント営業を止めない計画。エリア・棟ごとの工程設計。'],
-          ['夜間・早朝施工', '騒音発生工程は営業時間外に集中させる工程管理。'],
-          ['動線確保', '来店者動線と職人動線を完全分離。安全第一の現場運営。'],
-          ['粉塵対策', '養生・集塵機器の徹底。隣接テナントへの影響をゼロに近づける。'],
+          ['開業スケジュール対応', '開業日から逆算した工程設計。確実な引き渡しを最優先に。'],
+          ['衛生・安全基準', 'クリニックに求められる衛生・安全基準を満たす施工管理。'],
+          ['内装〜設備一貫', '内装・電気・給排水・サインまで、まとめて一括対応。'],
+          ['居抜き・改装', '既存設備を活かした改装・居抜きのご相談にも対応。'],
         ]}
         projects={[
-          ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '箕面市 ショッピングモール', '外壁・防水', '2024'],
-          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市 商業ビル', '夜間施工・全面改修', '2024'],
-          ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '箕面市 商業ビル', 'タイル張替・塗装', '2023'],
+          ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '吹田市 はぴねす歯科 南千里駅前', 'クリニック新装工事', '2024'],
+          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '寝屋川市 はぴねす歯科 寝屋川駅', 'クリニック新装工事', '2026'],
+          ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '大阪市 ニッシングルメビル', '店舗ビル新築工事', '—'],
         ]}
       />
       <ServiceSection
         no="03"
-        jp="駐車場防水"
-        en="Parking Waterproof"
-        lead="床面の防滑シート敷設から漏水対策、屋上駐車場の防水工事まで、駐車場特有の課題に。"
-        body="屋外露天駐車場、機械式駐車場、立体駐車場、それぞれに最適な防水工法をご提案します。安全性と意匠性を両立し、利用者・住民様の安全を守ります。緊急の漏水補修にも対応可能、保守体制も整えています。"
+        jp="公共工事・防水改修"
+        en="Public Works"
+        lead="学校・公共住宅の外壁改修から屋上防水改修まで。官公庁の確かな基準に応える施工を。"
+        body="大阪市発注の学校・公共住宅・公共施設の外壁改修その他工事、屋上防水改修工事を数多く手がけてきました。官公庁に求められる品質・安全・書類管理の基準を満たし、近隣や利用者への配慮を徹底。新築工事にも対応し、地域の暮らしを支えるインフラづくりに携わっています。"
         before="https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop"
         after="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop"
         scope={[
-          ['TYPE', '屋外 / 屋上 / 機械式駐車場'],
-          ['SCOPE', '床面防水・防滑・漏水補修'],
-          ['MATERIAL', 'ウレタン / FRP / 塩ビシート'],
-          ['PERIOD', '1〜4 months'],
+          ['TYPE', '学校・公共住宅・公共施設'],
+          ['SCOPE', '外壁改修・屋上防水・補修'],
+          ['CLIENT', '官公庁・自治体（大阪市 ほか）'],
+          ['PERIOD', '工事内容による'],
         ]}
         features={[
-          ['防滑×意匠', '安全性と意匠性を両立する素材選定。住民様の毎日に直結する仕事。'],
-          ['漏水補修', '症状から原因を遡る診断力。下階への影響を最小化。'],
-          ['機械式対応', '機械式駐車場の停止時間を最小化する工程設計。'],
-          ['長期保証', '材料保証＋自社保証で、長く安心できる仕上がりを。'],
+          ['公共基準の品質', '官公庁の仕様・検査基準に沿った確実な施工と書類管理。'],
+          ['近隣配慮', '学校・住宅での施工。安全動線・騒音・粉塵対策を徹底。'],
+          ['外壁〜防水一貫', '外壁改修から屋上・庇の防水改修まで自社で一貫対応。'],
+          ['新築にも対応', 'マンション・施設の新築工事まで、幅広く対応します。'],
         ]}
         projects={[
-          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '茨木市 工場', '床面防滑シート', '2024'],
-          ['https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop', '泉佐野市 ショッピングセンター', 'ウレタン防水', '2023'],
-          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '東大阪市 マンション', '屋上駐車場改修', '2023'],
+          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市 墨江丘中学校', '外壁改修その他工事', '2015'],
+          ['https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop', '大阪市 長居球技場', '庇改修その他工事', '2021'],
+          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市 大淀配水場', '外壁補修その他工事', '2023'],
         ]}
       />
       <HomeCTA />
@@ -2247,8 +2244,8 @@ function CompanyHero() {
             fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
             letterSpacing: '-0.035em',
           }}>
-            <MaskReveal>36年、</MaskReveal><br />
-            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>同じ仕事を。</MaskReveal>
+            <MaskReveal>2006年から、</MaskReveal><br />
+            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>確かな仕事を。</MaskReveal>
           </h1>
         </Reveal>
         <Reveal delay={200}>
@@ -2256,7 +2253,7 @@ function CompanyHero() {
             fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
             color: 'rgba(245,237,222,0.92)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
           }}>
-            1989年の創業以来、大規模修繕・建物リニューアル一本。
+            2006年の設立以来、大規模修繕から新築・公共工事まで。
             移り変わる時代の中で、変えてはいけないものと、変えていくべきものを、
             両方持ち続けてきました。
           </p>
@@ -2291,10 +2288,10 @@ function CompanyGreeting() {
           }}>FIG. 003 — CEO PORTRAIT</div>
           <div style={{ marginTop: 18 }}>
             <div style={{ fontFamily: 'var(--font-serif)', fontSize: 28, color: 'var(--ink)', fontWeight: 500 }}>
-              藤本 真介
+              貝塚 昭
             </div>
             <div style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--stone)', marginTop: 6, letterSpacing: '0.04em' }}>
-              代表取締役社長 / Shinsuke Fujimoto · since 2010
+              代表取締役 / Akira Kaizuka · since 2006
             </div>
           </div>
         </Reveal>
@@ -2304,23 +2301,22 @@ function CompanyGreeting() {
             fontWeight: 500, margin: 0, lineHeight: 1.25, color: 'var(--ink)',
             letterSpacing: '-0.01em',
           }}>
-            修繕、ではなく<br />
-            <span style={{ color: 'var(--orange)', fontStyle: 'italic' }}>「再生」</span>という考え方。
+            従業員の力が、<br />
+            <span style={{ color: 'var(--orange)', fontStyle: 'italic' }}>お客様の満足</span>になる。
           </h2>
           <div style={{
             marginTop: 48, fontFamily: 'var(--font-serif)', fontSize: 17,
             lineHeight: 2.25, color: 'var(--ink-soft)', letterSpacing: '0.03em',
           }}>
             <p style={{ margin: 0 }}>
-              当社は建物の大規模修繕工事を主とし、1989年に設立致しました。
-              当時は「分譲マンションの大規模修繕」という言葉さえ世間に周知されていなかった時代でした。
-              しかし、今では市場規模も膨らみ、社会的役割も大きくなってきていると感じております。
+              当社は2006年の設立以来、「人を第一に考えた会社づくり」に邁進してまいりました。
+              ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、
+              お客様に対して最大限のパフォーマンスをお届けできると考えています。
             </p>
             <p style={{ marginTop: 28 }}>
-              経年建築物の老朽化対策から近年の超高層建築物まで、多様化、高度化している中、
-              更なる技術力、対応力を培ってまいります。<br />
-              女性社員・シニア世代の活躍機会を広げ、DX推進と生産性向上に取り組み、
-              時代の変化に応じた挑戦を続けてまいります。
+              大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、
+              日々、技術と対応力を培ってまいります。<br />
+              これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
             </p>
           </div>
           <div style={{
@@ -2328,9 +2324,9 @@ function CompanyGreeting() {
             display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 24 : 36,
           }}>
             {[
-              ['Vision', 'ビジョン', '熱意、誠意、創意をもって建物を守り、人々が心地よく暮らせる毎日を作る。'],
-              ['Policy', '方針', '明るく清潔で的確に、誠意と情熱をもって、技術で江湖に生きる。'],
-              ['Statement', '声明', '仕事を好きになる、会社を好きになる、仲間を好きになる。成功するまで諦めない。'],
+              ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。それが私たちのモットーです。'],
+              ['Policy', '方針', '安全性・信頼性・柔軟性。資格者がそろう体制で、幅広い工事に確かに応えます。'],
+              ['Spirit', '想い', 'ハードなものを、ソフトなマインドで。ESなくしてCSはなし。'],
             ].map(([en, jp, body]) => (
               <div key={en}>
                 <div style={{
@@ -2357,16 +2353,17 @@ function CompanyGreeting() {
 function CompanyOverview() {
   const isMobile = useMobile();
   const rows = [
-    ['会社名', 'Company', '株式会社 Loop建築'],
-    ['所在地', 'Address', '〒578-0976　大阪府東大阪市西鴻池町3丁目2-64'],
-    ['TEL / FAX', 'Phone', '06-6748-7700 / 06-6748-7701'],
-    ['代表者', 'CEO', '代表取締役社長　藤本 真介'],
-    ['設立', 'Established', '1989年12月19日'],
-    ['資本金', 'Capital', '50,000,000円'],
-    ['建設業許可', 'Permits', '大阪府知事許可（特-2）第98864号　建築・土木・とび土工・塗装・防水・大工・石・屋根・タイル・ガラス・内装仕上・解体 等 16業種'],
-    ['取引銀行', 'Banks', '関西みらい銀行 / 三井住友銀行 / 京都銀行 / 商工組合中央金庫'],
-    ['加盟団体', 'Affiliations', 'サラセーヌ工業会 / コニシベストシステム工業会 / 関西エコウレックス工業会 / 東大阪商工会議所 / NPO集合住宅改善センター / 大阪建築士事務所協会 / 全国マスチック事業協同組合連合会'],
-    ['アクセス', 'Access', 'JR片町線 鴻池新田駅より徒歩11分'],
+    ['会社名', 'Company', '株式会社ループ（LOOP CO., LTD.）'],
+    ['所在地', 'Address', '〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F'],
+    ['TEL / FAX', 'Phone', '06-6394-7778 / 06-6394-7779'],
+    ['代表者', 'CEO', '代表取締役　貝塚 昭'],
+    ['設立', 'Established', '2006年（平成18年）8月10日'],
+    ['資本金', 'Capital', '4,000万円'],
+    ['建設業許可', 'Permits', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
+    ['取引銀行', 'Banks', 'りそな銀行 / 北おおさか信用金庫'],
+    ['有資格者', 'Qualified', '一級建築施工管理技士 4名'],
+    ['事業内容', 'Business', '大規模修繕 / 新築工事 / 店舗・クリニック新装 / 公共工事・防水改修'],
+    ['アクセス', 'Access', '大阪メトロ御堂筋線「東三国」駅より徒歩4分'],
   ];
   return (
     <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)', borderBottom: '1px solid var(--rule-soft)' }}>
@@ -2413,16 +2410,15 @@ function CompanyOverview() {
 function CompanyHistory() {
   const isMobile = useMobile();
   const rows = [
-    ['1989.12', 'FOUNDED', '東大阪市横沼町1丁目に塗装・防水請負業者「株式会社マイ技建」を設立（資本金2,000万円）'],
-    ['1990.11', 'PERMIT', '塗装・防水工事の建設業一般許可を取得'],
-    ['1991.06', 'CEO', '別曽和夫が社長に就任'],
-    ['1996.02', 'MOVE', '横沼町2丁目へ移転'],
-    ['2007.03', 'MOVE', '西鴻池町3丁目へ移転、現本社所在地に'],
-    ['2009.09', 'EXPAND', '大工・左官・石・屋根・タイル等、建設業許可を順次拡大'],
-    ['2010.04', 'CEO', '藤本真介が代表取締役社長に就任'],
-    ['2011.03', 'CAPITAL', '資本金を5,000万円に増資、特定建設業許可へ移行'],
-    ['2016.07', 'PERMIT', '解体工事業の許可を取得（16業種体制が完成）'],
-    ['2026.01', 'REBRAND', '「株式会社Loop建築」へ社名変更・新ブランディング始動'],
+    ['2006.08', 'FOUNDED', '大阪市淀川区東三国にて「株式会社ループ」を設立（資本金4,000万円）'],
+    ['2015.09', 'PUBLIC', '墨江丘中学校 外壁改修その他工事（大阪市）に着工'],
+    ['2018.06', 'BUILD', '阿倍野区美章園2丁目マンション新築工事に着工'],
+    ['2021.08', 'PUBLIC', '長居球技場 庇改修その他工事（大阪市）に着工'],
+    ['2021.12', 'BUILD', '「ループ天神」（豊中市）新築工事に着工'],
+    ['2023.08', 'PUBLIC', '大淀配水場 配水ポンプ場 外壁補修その他工事（大阪市）に着工'],
+    ['2024.11', 'RENEW', '大国住宅2号館 屋上防水改修工事（大阪市）に着工'],
+    ['2026.02', 'BUILD', 'はぴねす歯科 寝屋川駅クリニック 新装工事に着工'],
+    ['2026.04', 'RENEW', 'リベール加古川Ⅰ 修繕工事（66戸）に着工'],
   ];
   return (
     <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-deep)', color: 'var(--ink)', position: 'relative', overflow: 'hidden' }}>
@@ -2442,8 +2438,8 @@ function CompanyHistory() {
             fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
             color: 'var(--ink-soft)', marginTop: 32, letterSpacing: '0.04em',
           }}>
-            創業より36年。一貫して大規模修繕の現場に立ち続け、
-            技術と関係を、積み重ねてきました。
+            2006年の設立より、修繕から新築・公共工事まで。
+            一つひとつの現場で、確かな実績を積み重ねてきました。
           </p>
         </Reveal>
         <div style={{ position: 'relative', paddingLeft: 32 }}>
@@ -2513,9 +2509,9 @@ function CompanyWhy() {
         gap: isMobile ? 20 : 32, marginTop: isMobile ? 40 : 72,
       }}>
         {[
-          ['01', '36年の現場知', 'On-site knowledge', '創業以来、大規模修繕一本。1,200件を超える現場で積み上げた、建物の素材ごと・年代ごとの判断軸があります。', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop'],
-          ['02', '16業種の自社対応', 'Integrated trades', '建築・土木・塗装・防水・解体まで16業種の許可を保有。専門業者の調整コストを最小化します。', 'https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop'],
-          ['03', '人と関係を、Loopさせる', 'Long relationships', '管理組合様・オーナー様との関係を一度きりにしない。点検・小規模補修・再修繕まで、長く付き合う前提で関わります。', 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop'],
+          ['01', '安全性', 'Safety', '安全確認を徹底し、積極的なコミュニケーションによって、現場の安全確保に努めます。', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop'],
+          ['02', '信頼性', 'Reliability', '最後までやり遂げることはもちろん、責任を持って工期にあわせます。', 'https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop'],
+          ['03', '柔軟性', 'Flexibility', '資格保有者を多く有し、様々な建設工事に幅広く対応。特殊な工事もお任せください。', 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop'],
         ].map(([num, jp, en, body, img], i) => (
           <Reveal key={num} delay={i * 100}>
             <div style={{
@@ -2630,9 +2626,9 @@ function AboutPage() {
         en="About us"
         jp="私たちについて"
         title="建物を、"
-        italic="守る人たち。"
+        italic="つくる人たち。"
         bg="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop"
-        sub="熱意、誠意、創意をもって建物を守り、人々が心地よく暮らせる毎日を作る。みんなから愛される企業を目指す——それが、私たちLoop建築のビジョンです。"
+        sub="未来をつくり、暮らしをつくり、笑顔をつくる。多様化するニーズに応えるべく日々技術を研鑽し、最良のソリューションを提供する——それが、私たちループの考え方です。"
       />
       <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
         <Reveal>
@@ -2642,9 +2638,9 @@ function AboutPage() {
           display: 'grid', gridTemplateColumns: '1fr', gap: isMobile ? 40 : 56, marginTop: isMobile ? 32 : 56,
         }}>
           {[
-            ['Vision', 'ビジョン', '熱意、誠意、創意をもって建物を守り、人々が心地よく暮らせる毎日を作る。みんなから愛される企業を目指す。', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop'],
-            ['Policy', '方針', '明るく清潔で的確に、誠意と情熱をもって、技術で江湖に生きる。', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=82&auto=format&fit=crop'],
-            ['Statement', '声明', '仕事を好きになる、会社を好きになる、仲間を好きになる。成功するまで諦めない。', 'https://images.unsplash.com/photo-1597762470488-3877b1f538c6?w=1600&q=82&auto=format&fit=crop'],
+            ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。街や建物に求められる「より豊かで快適な暮らし」を実現します。', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop'],
+            ['Policy', '方針', '安全性・信頼性・柔軟性。資格保有者を多く有し、特殊な工事まで幅広く、確かに対応します。', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=82&auto=format&fit=crop'],
+            ['Spirit', '想い', '人を第一に。ESなくしてCSはなし。ハードなものを、ソフトなマインドでつくり続けます。', 'https://images.unsplash.com/photo-1597762470488-3877b1f538c6?w=1600&q=82&auto=format&fit=crop'],
           ].map(([en, jp, body, img], i) => (
             <Reveal key={en} delay={i * 80}>
               <div style={{
@@ -2690,24 +2686,30 @@ function WorksPage() {
   const isMobile = useMobile();
   const [filter, setFilter] = useState('all');
   const all = [
-    ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '京都市 屋上工事', '屋上防水・外壁塗装', '2024', 'apt'],
-    ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '池田市 廊下改修', '廊下シート・手摺', '2024', 'apt'],
-    ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '神戸市 大規模修繕', '全戸96戸・8ヶ月', '2024', 'apt'],
-    ['https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=82&auto=format&fit=crop', '川西市 大規模修繕', '築28年・全面改修', '2023', 'apt'],
-    ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '箕面市 ショッピングモール', '外壁・防水', '2024', 'fac'],
-    ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市 商業ビル', '夜間施工・全面改修', '2024', 'fac'],
-    ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '茨木市 工場', '床面防滑シート', '2024', 'park'],
-    ['https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop', '泉佐野市 ショッピングセンター', 'ウレタン防水', '2023', 'park'],
-    ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '枚方市 大規模修繕', '外壁・タイル補修', '2023', 'apt'],
-    ['https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop', '豊中市 屋上工事', '防水・断熱層更新', '2023', 'apt'],
-    ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '箕面市 商業ビル', 'タイル張替・塗装', '2023', 'fac'],
-    ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '東大阪市 マンション', '屋上駐車場改修', '2023', 'park'],
+    ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026', 'reno'],
+    ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 大国住宅2号館', '屋上防水改修工事', '2024', 'reno'],
+    ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '大阪市東淀川区 相川住宅2号館', '屋上防水改修工事', '2024', 'reno'],
+    ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 浪速西第3住宅', '外壁改修その他工事', '2017', 'reno'],
+    ['https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop', '大阪市住吉区 墨江丘中学校', '外壁改修その他工事', '2015', 'pub'],
+    ['https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1600&q=82&auto=format&fit=crop', '大阪市東淀川区 菅原小学校', '外壁改修その他工事', '2016', 'pub'],
+    ['https://images.unsplash.com/photo-1562516710-38da0a64eb1e?w=1600&q=82&auto=format&fit=crop', '大阪市城東区 鯰江東小学校', '外壁改修その他工事', '2017', 'pub'],
+    ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=82&auto=format&fit=crop', '大阪市阿倍野区 工芸・第二工芸高校', '外壁改修その他工事', '2018', 'pub'],
+    ['https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=82&auto=format&fit=crop', '大阪市東住吉区 長居球技場', '庇改修その他工事', '2021', 'pub'],
+    ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市北区 大淀配水場', '外壁補修その他工事', '2023', 'pub'],
+    ['https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop', '大阪市阿倍野区 美章園2丁目', 'マンション新築工事', '2018', 'new'],
+    ['https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=82&auto=format&fit=crop', '大阪市生野区 新今里', 'マンション新築工事', '—', 'new'],
+    ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop', '和歌山市 和歌山大学', '野球部寮 新築工事', '—', 'new'],
+    ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 難波元町', 'ニッシングルメビル新築', '—', 'new'],
+    ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=82&auto=format&fit=crop', '豊中市 ループ天神', 'マンション新築工事', '2021', 'new'],
+    ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=82&auto=format&fit=crop', '豊中市 ループ北町', 'マンション新築工事', '2019', 'new'],
+    ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '吹田市 はぴねす歯科 南千里駅前', 'クリニック新装工事', '2024', 'new'],
+    ['https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&q=82&auto=format&fit=crop', '寝屋川市 はぴねす歯科 寝屋川駅', 'クリニック新装工事', '2026', 'new'],
   ];
   const filters = [
     ['all', 'すべて', 'All'],
-    ['apt', 'マンション修繕', 'Apartment'],
-    ['fac', '商業施設修繕', 'Facility'],
-    ['park', '駐車場防水', 'Parking'],
+    ['reno', '修繕・改修', 'Renovation'],
+    ['pub', '公共工事', 'Public works'],
+    ['new', '新築・新装', 'New build'],
   ];
   const visible = filter === 'all' ? all : all.filter(p => p[4] === filter);
   return (
@@ -2715,10 +2717,10 @@ function WorksPage() {
       <PageHeader
         en="Project archive"
         jp="施工事例"
-        title="36年分の、"
+        title="これまでの、"
         italic="現場の記録。"
         bg="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
-        sub="関西全域・近畿圏で積み上げてきた1,200件を超える施工事例。住み手の毎日と一緒に、建物が時間を重ねていきます。"
+        sub="大阪を中心に積み重ねてきた、公共・新築・修繕の施工事例。住み手の毎日と一緒に、建物が時間を重ねていきます。"
       />
       <section style={{ padding: isMobile ? '48px 20px 32px' : '96px 56px 56px', background: 'var(--bg)' }}>
         <div style={{
@@ -2784,14 +2786,12 @@ function WorksPage() {
 function NewsPage() {
   const isMobile = useMobile();
   const items = [
-    ['2025.11.25', 'NOTICE', '年末年始休業のお知らせ', '平素は格別のご高配を賜り、誠にありがとうございます。弊社では誠に勝手ながら、年末年始休業を下記の通りとさせていただきます。'],
-    ['2025.09.12', 'WORKS', '神戸市 大規模修繕工事 竣工', '築22年・96戸のマンションの外壁塗装・防水・タイル補修を含む大規模修繕工事が竣工いたしました。'],
-    ['2025.07.03', 'NOTICE', '夏季休業のお知らせ', '弊社では誠に勝手ながら、夏季休業日を以下の通りとさせていただきます。'],
-    ['2025.04.18', 'MEDIA', 'My-Giken Tube 新着動画を公開', '足場組立の様子と若手職人のインタビューを公開しました。'],
-    ['2025.03.04', 'NOTICE', '休業日のお知らせ', '弊社では誠に勝手ながら、休業日を下記のとおりとさせていただきます。'],
-    ['2025.01.20', 'WORKS', '川西市 大規模修繕 竣工', '築28年マンションの全面改修工事が竣工しました。'],
-    ['2024.12.05', 'NEWS', 'My-Giken Tube 開設', '採用情報・施工事例の発信を開始しました。'],
-    ['2024.10.12', 'NEWS', 'DX推進プロジェクト始動', '現場管理のデジタル化に向けた取り組みを開始。'],
+    ['2026.06', 'NOTICE', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。今後ともよろしくお願いいたします。'],
+    ['2026.04', 'WORKS', 'リベール加古川Ⅰ 修繕工事 着工', '加古川市にて、66戸のマンション「リベール加古川Ⅰ」の大規模修繕工事に着手いたしました。'],
+    ['2026.02', 'WORKS', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
+    ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
+    ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
+    ['2023.08', 'WORKS', '大淀配水場 外壁補修その他工事', '大阪市北区にて、大淀配水場 配水ポンプ場の外壁補修その他工事を実施いたしました。'],
   ];
   return (
     <div className="page-enter" data-screen-label="05 News">
@@ -2799,7 +2799,7 @@ function NewsPage() {
         en="News & Updates"
         jp="お知らせ"
         title="お知らせ"
-        sub="休業日のお知らせから、施工事例、メディア掲載まで、Loop建築からの最新情報をお届けします。"
+        sub="施工事例やお知らせなど、株式会社ループからの最新情報をお届けします。"
       />
       <section style={{ padding: isMobile ? '48px 20px' : '96px 56px', background: 'var(--bg)' }}>
         <div style={{ borderTop: '1px solid var(--rule)' }}>
@@ -2856,7 +2856,7 @@ function RecruitPage() {
         title="自ら、"
         italic="考える人へ。"
         bg="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop"
-        sub="自ら考え行動することを大事にする会社です。女性社員・シニア世代の活躍機会を広げ、DX推進と生産性向上に全社で取り組んでいます。"
+        sub="確かな技術と、人を大切にする社風。施工管理職を中心に、一緒に建物の未来をつくる仲間を募集しています。"
       />
       <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)' }}>
         <Reveal>
@@ -2866,9 +2866,9 @@ function RecruitPage() {
           display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 20 : 32, marginTop: isMobile ? 32 : 56,
         }}>
           {[
-            ['01', '現場で学べる', '36年間積み上げた現場知のすべて。経験者から若手まで、毎日が学びの場です。'],
-            ['02', '一貫体制で動ける', '16業種を自社で持つ強み。専門の境を超えた仕事ができます。'],
-            ['03', '長く付き合う', 'プロジェクトが一度きりではない関係性。あなたの仕事が、長く続く価値を生みます。'],
+            ['01', '資格取得を支援', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられます。'],
+            ['02', '幅広い現場', 'マンション修繕から新築・公共工事まで。18業種の許可を持つ会社で、多様な経験を積めます。'],
+            ['03', '人を大切にする', 'ESなくしてCSはなし。賞与年2回・社宅・保養所・社員旅行など、長く働ける環境を整えています。'],
           ].map(([num, jp, body], i) => (
             <Reveal key={num} delay={i * 80}>
               <div style={{
@@ -2906,10 +2906,7 @@ function RecruitPage() {
           marginTop: 56, borderTop: '1px solid var(--rule)',
         }}>
           {[
-            ['現場監督 / 施工管理', 'Site Manager', '正社員', '大規模修繕の現場全体を管理。職人とお客様の橋渡し役。', '350万〜650万円'],
-            ['営業 / 提案職', 'Sales & Proposals', '正社員', '管理組合様への提案・見積り作成・現地調査。', '320万〜600万円'],
-            ['設計 / 積算', 'Design & Estimator', '正社員', '工事計画書作成・図面作成・積算業務。', '320万〜580万円'],
-            ['塗装職人', 'Painter', '正社員 / 契約', '塗装工事の専門職人。経験者歓迎。', '300万〜550万円'],
+            ['建築施工管理 / 工事監理', 'Construction Manager', '正社員', 'マンション修繕の施工管理。現場全体の管理と、品質・工程・安全の統括をお任せします。', '月給35万円〜'],
           ].map(([jp, en, type, body, salary], i) => (
             <Reveal key={i} delay={i * 60}>
               <div style={{
@@ -2946,6 +2943,52 @@ function RecruitPage() {
                   }}>{salary}</div>
                 </div>
                 {!isMobile && <span style={{ color: 'var(--orange)', fontSize: 22 }}>→</span>}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)' }}>
+        <Reveal>
+          <SectionLabel en="Requirements" jp="03 — 募集要項" />
+          <h2 style={{
+            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
+            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
+            letterSpacing: '-0.025em',
+          }}>募集要項</h2>
+        </Reveal>
+        <div style={{ marginTop: 56, borderTop: '1px solid var(--rule)' }}>
+          {[
+            ['給与', 'Salary', '月給350,000円〜（固定残業代 月30時間分／5万円以上を含む）。一級建築施工管理技士の有資格者は月給40万円〜。試用期間6ヶ月（条件変更なし）。'],
+            ['勤務地', 'Location', '〒532-0002 大阪府大阪市淀川区東三国2-32-17 ループ大阪6F（大阪メトロ御堂筋線「東三国」駅より徒歩4分）'],
+            ['勤務時間', 'Hours', '8:30〜17:30（実働8時間）。残業は月20時間以内（経験・スキルにより変動）。'],
+            ['休日休暇', 'Holidays', '月6〜9日休み（月1〜3回 土曜出勤あり）／祝日／有給休暇／慶弔休暇／GW休暇（4日）／夏季休暇（9日）／年末年始休暇（9日）／産前産後・育児・介護休業。'],
+            ['待遇・福利厚生', 'Benefits', '社会保険完備／賞与 年2回（8月・12月／実績による）／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行（ハワイ など）／マイカー通勤可／オフィス内分煙。'],
+            ['求める人物像', 'Profile', '普通自動車運転免許（AT限定可）をお持ちの方／人とコミュニケーションを取るのが好きな方／物事にコツコツ取り組める方／専門スキルを身につけ市場価値を高めたい方／頑張りが正当に評価される環境で働きたい方。施工管理の実務経験、マンション修繕工事の経験がある方は歓迎します。'],
+            ['選考フロー', 'Process', '書類選考 → 面接 → 内定'],
+            ['応募方法', 'Apply', 'お電話またはメールにてご連絡ください。TEL 06-6394-7778 ／ loop_kanri@kabuloop.sakura.ne.jp'],
+          ].map(([k, en, v], i) => (
+            <Reveal key={i} delay={i * 40}>
+              <div style={{
+                padding: isMobile ? '20px 0' : '28px 0', borderBottom: '1px solid var(--rule)',
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : '200px 1fr',
+                gap: isMobile ? 8 : 40, alignItems: 'baseline',
+              }}>
+                <div>
+                  <div style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
+                    letterSpacing: '0.22em', marginBottom: 4,
+                  }}>{en.toUpperCase()}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink)',
+                    fontWeight: 600, letterSpacing: '0.05em',
+                  }}>{k}</div>
+                </div>
+                <div style={{
+                  fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--ink)', lineHeight: 1.95,
+                }}>{v}</div>
               </div>
             </Reveal>
           ))}
@@ -3068,12 +3111,12 @@ function InquiryModal() {
               <div style={{ padding: '24px 48px 48px' }}>
                 <FormGroup label="ご相談の種類" en="Type">
                   <Radios value={data.type} onChange={(v) => update('type', v)} options={[
-                    'マンション修繕', '商業施設修繕', '駐車場防水', '工事項目別の相談', 'その他',
+                    'マンション修繕', '店舗・クリニック新装', '公共工事・防水改修', '新築工事', 'その他',
                   ]} />
                 </FormGroup>
                 <FormGroup label="建物の種類" en="Building type">
                   <Radios value={data.building} onChange={(v) => update('building', v)} options={[
-                    '分譲マンション', '賃貸マンション / 社宅', '商業ビル / モール', '工場 / 倉庫', '駐車場', 'その他',
+                    '分譲マンション', '賃貸マンション / 社宅', '店舗 / クリニック', 'ビル / 商業施設', '公共施設 / 学校', 'その他',
                   ]} />
                 </FormGroup>
                 <FormGroup label="規模" en="Scale" optional>
