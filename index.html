@@ -12,33 +12,44 @@
 /* Loop建築 — Editorial Architectural site styles */
 
 :root {
-  /* Palette: clean editorial DARK MODE.
-     Near-black warm bg × off-white ink × vivid rust accent.
-     "高級雑誌のクリーンさをダークで" — Selldorf inverted. */
-  --bg: #0E0E0C;            /* page background, near-black warm-neutral */
-  --bg-cream: #1A1816;      /* elevated surface — cards, modal */
-  --bg-deep: #050505;       /* deepest — heavy sections */
-  --bg-stone: #2A2624;      /* mid-tone panel */
-  --ink: #F2EFE7;           /* primary text — clean off-white */
-  --ink-soft: #BFB8AB;      /* secondary text */
-  --stone: #7A7468;         /* muted text */
-  --stone-light: #57524C;
-  --rule: #2D2A25;          /* border lines, subtle on dark */
-  --rule-soft: #3F3B34;
+  /* Palette: clean, bright, trustworthy LIGHT MODE.
+     White / off-white base × deep navy ink × low-saturation corporate blue.
+     BtoB 向けの誠実さと、採用向けの風通しの良さを両立させる。 */
+  --bg: #FFFFFF;            /* page background — pure white */
+  --bg-cream: #F7F9FC;      /* elevated surface — cards, modal */
+  --bg-deep: #EDF2F8;       /* deepest tint — heavy sections (still light) */
+  --bg-stone: #E1E9F2;      /* mid-tone panel / hover */
+  --ink: #17222E;           /* primary text — deep navy-black */
+  --ink-soft: #51606F;      /* secondary text */
+  --stone: #8492A1;         /* muted text */
+  --stone-light: #A8B3BF;
+  --rule: #E4E9F0;          /* border lines, subtle on light */
+  --rule-soft: #D2DAE4;
 
-  /* Primary accent — vivid rust pop on dark */
-  --orange: #D04E26;
-  --orange-deep: #A33B1B;
-  --orange-soft: #E37352;
+  /* Primary accent — corporate blue. Low saturation, high trust. */
+  --brand: #1D5FA8;
+  --brand-deep: #16487F;
+  --brand-soft: #4C86C4;
+  --brand-pale: #E9F1FA;
 
-  /* Secondary accent */
-  --green: #8E9C73;
-  --green-deep: #6E7C54;
-  --green-soft: #B0BC95;
+  /* Secondary accent — restrained warm sand, used sparingly (採用まわり) */
+  --sand: #B08356;
+  --sand-pale: #F6EFE6;
 
-  --shadow-soft: 0 1px 3px rgba(0,0,0,0.4), 0 8px 30px rgba(0,0,0,0.5);
+  /* Back-compat aliases: 既存の下層ページが --orange 系を参照しているため、
+     変数名は残したままブルーへ差し替える。新規コードは --brand を使うこと。 */
+  --orange: var(--brand);
+  --orange-deep: var(--brand-deep);
+  --orange-soft: var(--brand-soft);
 
-  --font-serif: "Shippori Mincho", "Noto Serif JP", "Cormorant Garamond", serif;
+  --green: #5F8A70;
+  --green-deep: #4B7159;
+  --green-soft: #8FB09C;
+
+  --shadow-soft: 0 1px 2px rgba(23,34,46,0.04), 0 8px 28px rgba(23,34,46,0.07);
+  --shadow-lift: 0 2px 4px rgba(23,34,46,0.05), 0 18px 44px rgba(23,34,46,0.11);
+
+  --font-serif: "Shippori Mincho", "Noto Serif JP", serif;
   --font-sans: "Zen Kaku Gothic New", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --font-latin: "Cormorant Garamond", "Shippori Mincho", serif;
@@ -52,7 +63,11 @@ html, body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-feature-settings: "palt" 1;
+  /* 横スクロール抑止。overflow-x: hidden は position: sticky を無効化するため、
+     対応ブラウザでは scroll container を作らない overflow-x: clip を使う。
+     （clip 非対応ブラウザでは hidden にフォールバックする） */
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -148,41 +163,58 @@ button { font: inherit; color: inherit; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 28px;
+  gap: 16px;
+  padding: 20px 36px;
+  min-height: 60px;
+  border-radius: 3px;
   font-family: var(--font-sans);
-  font-size: 12.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   cursor: pointer;
   transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color .3s, color .3s;
+              background-color .3s, color .3s, border-color .3s, box-shadow .3s;
   border: 1px solid transparent;
   white-space: nowrap;
 }
 .btn--solid {
-  background: var(--ink);
-  color: var(--bg-cream);
+  background: var(--brand);
+  color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(29,95,168,0.16), 0 8px 20px rgba(29,95,168,0.16);
 }
 .btn--solid:hover {
-  background: var(--orange);
+  background: var(--brand-deep);
+  box-shadow: 0 2px 4px rgba(29,95,168,0.18), 0 14px 30px rgba(29,95,168,0.22);
 }
 .btn--outline {
-  background: transparent;
-  color: var(--ink);
-  border-color: var(--ink);
+  background: #FFFFFF;
+  color: var(--brand);
+  border-color: var(--rule-soft);
 }
 .btn--outline:hover {
-  background: var(--ink);
-  color: var(--bg-cream);
+  border-color: var(--brand);
+  background: var(--brand-pale);
 }
+/* legacy alias — 下層ページが btn--orange を参照している */
 .btn--orange {
-  background: var(--orange);
-  color: var(--bg-cream);
+  background: var(--brand);
+  color: #FFFFFF;
 }
 .btn--orange:hover {
-  background: var(--orange-deep);
+  background: var(--brand-deep);
+}
+/* 白背景・写真上で使う反転ボタン */
+.btn--ghost {
+  background: rgba(255,255,255,0.14);
+  color: #FFFFFF;
+  border-color: rgba(255,255,255,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.btn--ghost:hover {
+  background: #FFFFFF;
+  color: var(--ink);
+  border-color: #FFFFFF;
 }
 .btn .btn-arrow {
   display: inline-block;
@@ -225,8 +257,10 @@ button { font: inherit; color: inherit; }
 }
 
 /* ─── Page transition ──────────────────────────── */
+/* fill-mode は backwards。both だと終了後も transform が残り、
+   子孫の position: fixed / sticky の基準がこの要素になってしまう。 */
 .page-enter {
-  animation: pageEnter .8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: pageEnter .8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 @keyframes pageEnter {
   from { opacity: 0; transform: translateY(20px); }
@@ -324,7 +358,7 @@ button { font: inherit; color: inherit; }
   transition: background-color .35s, border-color .35s, padding .35s;
 }
 .nav-root.is-scrolled {
-  background: rgba(14, 14, 12, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--rule);
@@ -508,6 +542,260 @@ h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
   0%, 100% { opacity: 1; transform: scaleX(1); }
   50% { opacity: 0.4; transform: scaleX(0.5); transform-origin: left; }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Light redesign utilities (2026) — 白基調・信頼感・余白広め
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Lift card — 事業内容 / 施工事例 / 強み で共通利用 */
+.card-lift {
+  background: #FFFFFF;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform .5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow .5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color .4s;
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--brand-soft);
+}
+
+/* クリックできるカード（強み → 施工実績へ） */
+.card-action {
+  text-decoration: none;
+  color: inherit;
+}
+.card-action .card-action-arrow {
+  display: inline-block;
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-action:hover .card-action-arrow,
+.card-action:focus-visible .card-action-arrow {
+  transform: translateX(4px);
+}
+.card-action:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+/* 事業カテゴリボタン（トップ → 施工実績の該当セクションへ） */
+.cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  padding: 28px 26px 26px;
+  min-height: 172px;
+  background: #FFFFFF;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow .4s, border-color .3s, background-color .3s;
+}
+.cat-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand);
+  background: var(--brand-pale);
+  box-shadow: var(--shadow-lift);
+}
+.cat-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+.cat-btn-en {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--stone);
+}
+.cat-btn-jp {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.cat-btn-lead {
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+.cat-btn-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--brand);
+}
+.cat-btn-arrow {
+  display: inline-block;
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cat-btn:hover .cat-btn-arrow { transform: translateX(4px); }
+
+@media (max-width: 480px) {
+  .cat-btn { padding: 20px 16px 18px; min-height: 132px; }
+  .cat-btn-jp { font-size: 18px; }
+  .cat-btn-lead { display: none; }
+  .cat-btn-foot { font-size: 12.5px; padding-top: 12px; }
+}
+
+/* 施工実績の詳細ポップアップ */
+.wm-backdrop {
+  position: fixed; inset: 0;
+  z-index: 320;
+  background: rgba(12, 25, 40, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.wm-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.wm-panel {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 24px 80px rgba(12, 25, 40, 0.34);
+  transform: translateY(18px) scale(0.985);
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wm-backdrop.is-open .wm-panel { transform: translateY(0) scale(1); }
+.wm-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(12, 25, 40, 0.18);
+  transition: background-color .2s, color .2s;
+  z-index: 2;
+}
+.wm-close:hover { background: var(--ink); color: #FFFFFF; }
+@media (max-width: 720px) {
+  .wm-backdrop { padding: 0; align-items: flex-end; }
+  .wm-panel { max-height: 92vh; border-radius: 5px 5px 0 0; }
+}
+
+/* 数字ストリップ — 実績をトップビューで見せる */
+.stat-strip {
+  display: grid;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  background: var(--rule);
+  gap: 1px;
+}
+.stat-strip > * {
+  background: #FFFFFF;
+  border-right: 1px solid transparent;
+}
+
+/* セクション見出しの細いブルーの縦罫 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--brand);
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--brand);
+  flex: 0 0 auto;
+}
+
+/* 強みの番号 */
+.strength-no {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--brand);
+}
+
+/* 写真の上に敷く白のにじみ（明るいトーンを保つ） */
+.photo-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(12,25,40,0.44) 0%,
+    rgba(12,25,40,0.30) 45%,
+    rgba(12,25,40,0.55) 100%);
+}
+
+/* 薄い罫線リスト */
+.rule-list > * + * { border-top: 1px solid var(--rule); }
+
+/* 動きを減らす設定への配慮。
+   全停止はせず「大きな移動・拡大」だけを抑え、フェードは残す。
+   （OS 側で視覚効果オフでも、演出が消えたようには見えないようにする） */
+@media (prefers-reduced-motion: reduce) {
+  /* 上下移動をやめてフェードのみに */
+  .reveal {
+    transform: none !important;
+    transition: opacity .5s ease !important;
+  }
+  .reveal.is-visible { transform: none !important; }
+
+  /* マスクのせり上がりをやめてフェードのみに */
+  .mask-reveal-inner {
+    transform: none !important;
+    opacity: 0;
+    transition: opacity .55s ease !important;
+  }
+  .mask-reveal.is-active .mask-reveal-inner { opacity: 1; }
+
+  /* 画像のワイプ＋ズームはフェードに置き換え */
+  .reveal-image::after { transition: opacity .5s ease !important; transform: translateX(101%) !important; opacity: 1; }
+  .reveal-image.is-visible::after { opacity: 0; }
+  .reveal-image img { transform: none !important; transition: none !important; }
+
+  /* ページ遷移は移動なしのフェードに */
+  .page-enter { animation: pageEnterFade .5s ease backwards; }
+
+  /* ホバーで浮き上がる動きは抑制（色の変化は残す） */
+  .card-lift:hover, .cat-btn:hover { transform: none !important; }
+
+  /* 流れ続ける・自動で動く要素は止める */
+  .marquee-inner, .hero-slide img { animation: none !important; transform: none !important; }
+
+  html { scroll-behavior: auto; }
+}
+
+@keyframes pageEnterFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -533,6 +821,8 @@ function RouterProvider({ children }) {
     return (location.hash || '#home').replace('#', '') || 'home';
   });
   const [inquiryOpen, setInquiryOpen] = useState(false);
+  // 施工実績ページで開くカテゴリ（トップの事業ボタンから指定される）
+  const [worksCat, setWorksCat] = useState(null);
 
   useEffect(() => {
     const onHash = () => setRoute((location.hash || '#home').replace('#', '') || 'home');
@@ -540,13 +830,21 @@ function RouterProvider({ children }) {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
-  const go = useCallback((r) => {
+  const go = useCallback((r, opt) => {
     if (r === 'inquiry') { setInquiryOpen(true); return; }
+    setWorksCat(opt && opt.cat ? opt.cat : null);
+    if ((location.hash || '#home').replace('#', '') === r) {
+      // 同じルート内での指定はハッシュが変わらないため、手動で再通知する
+      setRoute(r);
+    }
     location.hash = '#' + r;
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  const value = useMemo(() => ({ route, go, inquiryOpen, setInquiryOpen }), [route, inquiryOpen]);
+  const value = useMemo(
+    () => ({ route, go, inquiryOpen, setInquiryOpen, worksCat, setWorksCat }),
+    [route, inquiryOpen, worksCat]
+  );
   return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>;
 }
 
@@ -840,12 +1138,15 @@ function Nav() {
                       paddingBottom: 4, transition: 'border-color .3s, color .3s',
                     }}>
                     <span style={{
-                      fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 14,
-                      color: isCurrent ? 'var(--orange)' : 'var(--ink-soft)',
-                      letterSpacing: '0.02em',
-                    }}>{it.en}</span>
-                    <span style={{ fontSize: 10, color: 'var(--stone)', letterSpacing: '0.1em' }}>
-                      {it.jp}
+                      fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
+                      color: isCurrent ? 'var(--brand)' : 'var(--ink)',
+                      letterSpacing: '0.04em',
+                    }}>{it.jp}</span>
+                    <span style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 9.5, fontWeight: 600,
+                      color: 'var(--stone)', letterSpacing: '0.14em',
+                    }}>
+                      {it.en.toUpperCase()}
                     </span>
                   </a>
                 );
@@ -853,9 +1154,9 @@ function Nav() {
               <button
                 onClick={() => setInquiryOpen(true)}
                 className="btn btn--solid"
-                style={{ marginLeft: 12, padding: '12px 22px', fontSize: 11.5 }}
+                style={{ marginLeft: 12, padding: '14px 24px', fontSize: 13.5, minHeight: 48 }}
               >
-                <span>Contact</span>
+                <span>お問い合わせ</span>
                 <span className="btn-arrow">→</span>
               </button>
             </nav>
@@ -917,19 +1218,24 @@ function Nav() {
                   fontWeight: 500, flex: '1 1 auto', whiteSpace: 'nowrap',
                 }}>{it.jp}</span>
                 <span style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 13,
-                  color: isCurrent ? 'var(--orange)' : 'var(--stone)',
-                  letterSpacing: '0.02em', flex: '0 0 auto',
-                }}>{it.en}</span>
-                <span style={{ color: 'var(--orange)', fontSize: 16, flex: '0 0 auto' }}>→</span>
+                  fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 600,
+                  color: isCurrent ? 'var(--brand)' : 'var(--stone)',
+                  letterSpacing: '0.14em', flex: '0 0 auto',
+                }}>{it.en.toUpperCase()}</span>
+                <span style={{ color: 'var(--brand)', fontSize: 16, flex: '0 0 auto' }}>→</span>
               </a>
             );
           })}
         </nav>
         <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--rule)', flex: '0 0 auto' }}>
           <button onClick={() => { setMenuOpen(false); setInquiryOpen(true); }}
-            className="btn btn--orange" style={{ width: '100%', justifyContent: 'space-between' }}>
+            className="btn btn--solid" style={{ width: '100%', justifyContent: 'space-between' }}>
             <span>無料現地調査・お見積り</span>
+            <span className="btn-arrow">→</span>
+          </button>
+          <button onClick={() => { setMenuOpen(false); go('recruit'); }}
+            className="btn btn--outline" style={{ width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
+            <span>採用情報を見る</span>
             <span className="btn-arrow">→</span>
           </button>
           <div style={{
@@ -959,7 +1265,7 @@ function Footer() {
       <div style={{
         position: 'absolute', left: -40, bottom: -200,
         fontFamily: 'var(--font-serif)', fontSize: isMobile ? 260 : 480, lineHeight: 1, fontWeight: 400,
-        color: 'rgba(242,239,231,0.04)', pointerEvents: 'none',
+        color: 'rgba(23,34,46,0.045)', pointerEvents: 'none',
         letterSpacing: '-0.04em',
       }}>Loop</div>
 
@@ -975,8 +1281,8 @@ function Footer() {
             Loop<span style={{ color: 'var(--orange)' }}>.</span>
           </div>
           <div style={{
-            fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: isMobile ? 17 : 20,
-            color: 'var(--orange-soft)', marginBottom: 24, lineHeight: 1.4,
+            fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19, fontWeight: 600,
+            color: 'var(--brand)', marginBottom: 24, lineHeight: 1.75,
           }}>
             人とのつながりを大切にする、<br />信頼と実績のループ。
           </div>
@@ -985,22 +1291,28 @@ function Footer() {
             TEL 06-6394-7778　FAX 06-6394-7779<br />
             受付 9:00 – 18:00 / 平日（土日祝休）
           </div>
-          <button onClick={() => setInquiryOpen(true)} className="btn btn--orange"
+          <button onClick={() => setInquiryOpen(true)} className="btn btn--solid"
             style={{ marginTop: 24, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
             <span>無料現地調査・お見積り</span>
             <span className="btn-arrow">→</span>
           </button>
         </div>
         {[
-          ['About', [['会社概要', 'company'], ['代表挨拶', 'company'], ['沿革', 'company'], ['私たちについて', 'about']]],
-          ['Business', [['マンション修繕', 'business'], ['店舗・クリニック新装', 'business'], ['公共工事・防水改修', 'business'], ['工事項目', 'business']]],
-          ['Info', [['お知らせ', 'news'], ['よくあるご質問', 'about'], ['お取引先様', 'about'], ['採用情報', 'recruit']]],
-        ].map(([h, items]) => (
+          ['企業情報', 'ABOUT', [['会社概要', 'company'], ['代表挨拶', 'company'], ['沿革', 'company'], ['私たちについて', 'about']]],
+          ['事業内容', 'BUSINESS', [['新築工事', 'business'], ['大規模修繕・建物リニューアル', 'business'], ['公共工事', 'business'], ['派遣事業', 'business'], ['その他', 'business']]],
+          ['インフォメーション', 'INFO', [['施工事例', 'works'], ['お知らせ', 'news'], ['採用情報', 'recruit'], ['お問い合わせ', 'inquiry']]],
+        ].map(([h, en, items]) => (
           <div key={h}>
-            <div style={{
-              fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: isMobile ? 18 : 22,
-              color: 'var(--orange)', marginBottom: 16, letterSpacing: '0.02em',
-            }}>— {h}</div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+                fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em',
+              }}>{h}</div>
+              <div style={{
+                fontFamily: 'var(--font-sans)', fontSize: 9.5, fontWeight: 600,
+                color: 'var(--stone)', letterSpacing: '0.16em', marginTop: 3,
+              }}>{en}</div>
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13 }}>
               {items.map(([label, target]) => (
                 <a key={label} onClick={() => go(target)} className="link-underline" style={{ color: 'var(--ink)', alignSelf: 'flex-start' }}>
@@ -1020,8 +1332,8 @@ function Footer() {
         fontSize: 11, color: 'var(--stone)', letterSpacing: '0.08em',
       }}>
         <span>© 2026 LOOP CO., LTD. — All rights reserved.</span>
-        <span style={{ fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 15, color: 'var(--orange-soft)' }}>
-          Restore · Renew · Loop
+        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
+          RESTORE · RENEW · LOOP
         </span>
         <span style={{ display: 'flex', gap: 16 }}>
           <a className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
@@ -1037,728 +1349,976 @@ window.Footer = Footer;
 
 
 /* ─── src/home-hero.jsx ─── */
-// Loop建築 — Home page
+// 株式会社ループ — トップページ（2026 リニューアル）
+// 方針: 白基調 / 余白広め / 実績を最上部に前面配置 / 採用訴求を全体に効かせる
 
-function HeroSlideshow() {
-  const slides = ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop', 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop'];
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % slides.length), 5000);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-      {slides.map((s, i) => (
-        <div key={s} className={`hero-slide ${i === idx ? 'is-active' : ''}`}>
-          <img src={s} alt="" style={{ filter: 'contrast(1.05) saturate(0.9) brightness(0.92)' }} />
-        </div>
-      ))}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(28,25,23,0.05) 0%, rgba(28,25,23,0.45) 100%)',
-      }} />
-      {/* slide indicator */}
-      <div style={{
-        position: 'absolute', right: 56, bottom: 80,
-        display: 'flex', gap: 24, color: 'var(--ink)', alignItems: 'center',
-        fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.22em',
-      }}>
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIdx(i)}
-            style={{
-              border: 'none', background: 'transparent', cursor: 'pointer',
-              color: i === idx ? 'var(--ink)' : 'rgba(242,239,231,0.5)',
-              fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.22em',
-              padding: 0,
-              borderBottom: i === idx ? '1px solid var(--ink)' : '1px solid transparent',
-              paddingBottom: 4, transition: 'all .3s',
-            }}>0{i + 1}</button>
-        ))}
-      </div>
-    </div>
-  );
-}
+// ─── 共通データ（会社の実データに基づく） ─────────────────────────────
+const LOOP_STATS = [
+  { num: '20', unit: '年', label: '2006年設立からの歩み', note: '大阪・東三国' },
+  { num: '18', unit: '業種', label: '建設業許可', note: '国土交通大臣許可' },
+  { num: '4', unit: '名', label: '一級建築施工管理技士', note: '有資格者が在籍' },
+  { num: '18', unit: '件', label: '主な施工実績', note: '公共・新築・修繕' },
+];
 
+const LOOP_STRENGTHS = [
+  {
+    no: '01',
+    title: '2006年設立、\n積み上げた信頼と実績',
+    body: '大阪・東三国を拠点に、20年にわたって現場を重ねてきました。取引先様との関係を一件ごとに積み上げることを、何より大切にしています。',
+  },
+  {
+    no: '02',
+    title: '建設業許可18業種\nワンストップ対応',
+    body: '土木・建築・防水・塗装・内装仕上ほか18業種の許可を保有。専門業者の調整コストを抑え、現場判断を速くする体制です。',
+  },
+  {
+    no: '03',
+    title: '一級建築施工管理技士\n4名が在籍',
+    body: '有資格者が品質・工程・安全を統括。官公庁の検査基準や書類管理にも確実に対応し、任せられる現場をつくります。',
+  },
+  {
+    no: '04',
+    title: '新築・大規模修繕・\n公共工事までの総合力',
+    body: 'マンション新築から大規模修繕、学校・公共施設の改修まで。建物のあらゆる時間に、一社で向き合えます。',
+  },
+  {
+    no: '05',
+    title: '人とのつながりを\n大切にする現場対応',
+    body: '「ESなくしてCSはなし」。社員が誠実に働ける環境を整えることが、そのまま現場の対応品質になると考えています。',
+  },
+];
+
+// ─── 事業カテゴリ（トップの実績ボタン ＝ 施工実績ページのセクション） ────
+const LOOP_CATEGORIES = [
+  { key: 'new',   jp: '新築工事',       en: 'NEW CONSTRUCTION', lead: 'マンション・ビル・施設の新築' },
+  { key: 'reno',  jp: '大規模修繕',     en: 'RENOVATION',       lead: '外壁・屋上防水・共用部の改修' },
+  { key: 'pub',   jp: '公共工事',       en: 'PUBLIC WORKS',     lead: '学校・公共施設の改修工事' },
+  { key: 'other', jp: '派遣事業・その他', en: 'STAFFING & OTHERS', lead: '施工管理の派遣・店舗新装ほか' },
+];
+
+// 施工実績。※写真はすべて仮画像。実際の施工写真に差し替えること。
+const IMG = (id) => `https://images.unsplash.com/photo-${id}?w=1600&q=82&auto=format&fit=crop`;
+
+const LOOP_WORKS = [
+  // ── 新築工事 ──────────────────────────────────────────────
+  {
+    id: 'loop-tenjin', cat: 'new', img: IMG('1486325212027-8081e485255e'),
+    name: 'ループ天神', area: '大阪府豊中市', type: 'マンション新築工事', year: '2021',
+    summary: '豊中市にて、マンションの新築工事を実施しました。着工から引き渡しまで、自社で一貫して施工管理を担当しています。',
+    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['着工', '2021年12月']],
+  },
+  {
+    id: 'loop-kitamachi', cat: 'new', img: IMG('1481253127861-534498168948'),
+    name: 'ループ北町', area: '大阪府豊中市', type: 'マンション新築工事', year: '2019',
+    summary: '豊中市にて、マンションの新築工事を実施しました。',
+    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['竣工', '2019年']],
+  },
+  {
+    id: 'bishoen', cat: 'new', img: IMG('1448630360428-65456885c650'),
+    name: '美章園2丁目 マンション', area: '大阪市阿倍野区', type: 'マンション新築工事', year: '2018',
+    summary: '大阪市阿倍野区美章園2丁目にて、マンションの新築工事に着工しました。',
+    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪市阿倍野区'], ['着工', '2018年6月']],
+  },
+  {
+    id: 'shinimazato', cat: 'new', img: IMG('1545324418-cc1a3fa10c00'),
+    name: '新今里 マンション', area: '大阪市生野区', type: 'マンション新築工事', year: '—',
+    summary: '大阪市生野区新今里にて、マンションの新築工事を実施しました。',
+    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪市生野区']],
+  },
+  {
+    id: 'wakayama-dorm', cat: 'new', img: IMG('1486406146926-c627a92ad1ab'),
+    name: '和歌山大学 野球部寮', area: '和歌山県和歌山市', type: '寮 新築工事', year: '—',
+    summary: '和歌山大学の野球部寮の新築工事を実施しました。',
+    specs: [['用途', '寮'], ['工種', '新築工事'], ['所在地', '和歌山県和歌山市']],
+  },
+  {
+    id: 'nisshin-gourmet', cat: 'new', img: IMG('1497366811353-6870744d04b2'),
+    name: 'ニッシングルメビル', area: '大阪市浪速区 難波元町', type: '店舗ビル新築工事', year: '—',
+    summary: '大阪市浪速区難波元町にて、店舗ビルの新築工事を実施しました。',
+    specs: [['用途', '店舗ビル'], ['工種', '新築工事'], ['所在地', '大阪市浪速区']],
+  },
+
+  // ── 大規模修繕 ────────────────────────────────────────────
+  {
+    id: 'liberte-kakogawa', cat: 'reno', img: IMG('1545324418-cc1a3fa10c00'),
+    name: 'リベール加古川Ⅰ', area: '兵庫県加古川市', type: '大規模修繕工事', year: '2026',
+    summary: '築30年・66戸のマンションの大規模修繕工事。外壁塗装の劣化、タイルの浮き、屋上防水層の経年劣化に対し、住民様の生活を止めずに統合的に改修を進めています。',
+    specs: [['戸数', '66戸'], ['築年数', '築30年'], ['工種', '外壁・タイル・屋上防水'], ['着工', '2026年4月']],
+  },
+  {
+    id: 'daikoku-2', cat: 'reno', img: IMG('1448630360428-65456885c650'),
+    name: '大国住宅2号館', area: '大阪市浪速区 大国', type: '屋上防水改修工事', year: '2024',
+    summary: '大阪市浪速区大国にて、屋上防水改修工事を実施しました。',
+    specs: [['用途', '住宅'], ['工種', '屋上防水改修'], ['所在地', '大阪市浪速区'], ['着工', '2024年11月']],
+  },
+  {
+    id: 'aikawa-2', cat: 'reno', img: IMG('1481253127861-534498168948'),
+    name: '相川住宅2号館', area: '大阪市東淀川区 相川', type: '屋上防水改修工事', year: '2024',
+    summary: '大阪市東淀川区相川にて、屋上防水改修工事を実施しました。',
+    specs: [['用途', '住宅'], ['工種', '屋上防水改修'], ['所在地', '大阪市東淀川区'], ['施工', '2024年12月']],
+  },
+  {
+    id: 'naniwanishi-3', cat: 'reno', img: IMG('1486406146926-c627a92ad1ab'),
+    name: '浪速西第3住宅', area: '大阪市浪速区', type: '外壁改修その他工事', year: '2017',
+    summary: '大阪市浪速区にて、外壁改修その他工事を実施しました。',
+    specs: [['用途', '住宅'], ['工種', '外壁改修'], ['所在地', '大阪市浪速区'], ['施工', '2017年']],
+  },
+
+  // ── 公共工事 ──────────────────────────────────────────────
+  {
+    id: 'oyodo-haisuijo', cat: 'pub', img: IMG('1487958449943-2429e8be8625'),
+    name: '大淀配水場 配水ポンプ場', area: '大阪市北区', type: '外壁補修その他工事', year: '2023',
+    summary: '大阪市発注の大淀配水場 配水ポンプ場において、外壁補修その他工事を実施しました。官公庁の仕様・検査基準に沿った施工と書類管理を行っています。',
+    specs: [['発注', '大阪市'], ['用途', '公共施設'], ['工種', '外壁補修'], ['着工', '2023年8月']],
+  },
+  {
+    id: 'nagai-stadium', cat: 'pub', img: IMG('1486406146926-c627a92ad1ab'),
+    name: '長居球技場', area: '大阪市東住吉区', type: '庇改修その他工事', year: '2021',
+    summary: '大阪市発注の長居球技場において、庇改修その他工事を実施しました。利用者への安全動線に配慮しながら施工しています。',
+    specs: [['発注', '大阪市'], ['用途', '公共施設'], ['工種', '庇改修'], ['着工', '2021年8月']],
+  },
+  {
+    id: 'kogei-hs', cat: 'pub', img: IMG('1486325212027-8081e485255e'),
+    name: '工芸高校・第二工芸高校', area: '大阪市阿倍野区', type: '外壁改修その他工事', year: '2018',
+    summary: '大阪市発注の工芸高校・第二工芸高校において、外壁改修その他工事を実施しました。',
+    specs: [['発注', '大阪市'], ['用途', '学校'], ['工種', '外壁改修'], ['施工', '2018年']],
+  },
+  {
+    id: 'namazue-es', cat: 'pub', img: IMG('1591588582259-e675bd2e6088'),
+    name: '鯰江東小学校', area: '大阪市城東区', type: '外壁改修その他工事', year: '2017',
+    summary: '大阪市発注の鯰江東小学校において、外壁改修その他工事を実施しました。児童の安全確保のため、動線・騒音・粉塵対策を徹底しています。',
+    specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['施工', '2017年']],
+  },
+  {
+    id: 'sugawara-es', cat: 'pub', img: IMG('1487958449943-2429e8be8625'),
+    name: '菅原小学校', area: '大阪市東淀川区', type: '外壁改修その他工事', year: '2016',
+    summary: '大阪市発注の菅原小学校において、外壁改修その他工事を実施しました。',
+    specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['施工', '2016年']],
+  },
+  {
+    id: 'sumieoka-jhs', cat: 'pub', img: IMG('1481253127861-534498168948'),
+    name: '墨江丘中学校', area: '大阪市住吉区', type: '外壁改修その他工事', year: '2015',
+    summary: '大阪市発注の墨江丘中学校において、外壁改修その他工事に着工しました。',
+    specs: [['発注', '大阪市'], ['用途', '中学校'], ['工種', '外壁改修'], ['着工', '2015年9月']],
+  },
+
+  // ── 派遣事業・その他 ──────────────────────────────────────
+  {
+    id: 'happiness-neyagawa', cat: 'other', img: IMG('1629909613654-28e377c37b09'),
+    name: 'はぴねす歯科 寝屋川駅クリニック', area: '大阪府寝屋川市 東大利町', type: 'クリニック新装工事', year: '2026',
+    summary: '寝屋川市東大利町にて、歯科クリニックの新装工事に着手しました。開業日から逆算した工程設計と、衛生・安全基準を満たす施工管理を行っています。',
+    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府寝屋川市'], ['着工', '2026年2月']],
+  },
+  {
+    id: 'happiness-minamisenri', cat: 'other', img: IMG('1497366216548-37526070297c'),
+    name: 'はぴねす歯科 南千里駅前クリニック', area: '大阪府吹田市', type: 'クリニック新装工事', year: '2024',
+    summary: '吹田市にて、歯科クリニックの新装工事を実施しました。内装・電気・給排水・サインまで一貫して対応しています。',
+    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024年']],
+  },
+];
+
+const worksByCat = (key) => LOOP_WORKS.filter(w => w.cat === key);
+
+window.LOOP_CATEGORIES = LOOP_CATEGORIES;
+window.LOOP_WORKS = LOOP_WORKS;
+window.worksByCat = worksByCat;
+
+// ─── トップビュー ───────────────────────────────────────────────────
 function HomeHero() {
-  const { go, setInquiryOpen } = useRouter();
+  const { go } = useRouter();
   const isMobile = useMobile();
+
+  const shots = [
+    {
+      img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=82&auto=format&fit=crop',
+      place: '加古川市 リベール加古川Ⅰ',
+      type: '大規模修繕・66戸',
+      year: '2026',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=82&auto=format&fit=crop',
+      place: '大阪市 大淀配水場',
+      type: '外壁補修その他工事',
+      year: '2023',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1000&q=82&auto=format&fit=crop',
+      place: '豊中市 ループ天神',
+      type: 'マンション新築工事',
+      year: '2021',
+    },
+  ];
+
   return (
-    <section style={{
-      position: 'relative', height: isMobile ? '88vh' : '92vh', minHeight: isMobile ? 580 : 720,
-      overflow: 'hidden', color: 'var(--ink)',
-    }}>
-      <HeroSlideshow />
-      {/* meta strip top */}
+    <section style={{ background: 'var(--bg)' }}>
+      {/* ── メインコピー + 実績写真 ───────────────────────── */}
       <div style={{
-        position: 'absolute', top: isMobile ? 16 : 100, left: isMobile ? 20 : 56, right: isMobile ? 20 : 56,
-        display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap',
-        fontFamily: 'var(--font-mono)', fontSize: isMobile ? 9 : 10.5, letterSpacing: '0.22em',
-        color: 'rgba(245,237,222,0.85)', zIndex: 2,
+        padding: isMobile ? '32px 20px 40px' : '72px 56px 80px',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1.05fr',
+        gap: isMobile ? 36 : 64,
+        alignItems: 'center',
+        maxWidth: 1560, margin: '0 auto',
       }}>
-        <span>SINCE 2006</span>
-        {!isMobile && <span>大規模修繕 · 新築 · 公共工事</span>}
-        <span>OSAKA</span>
+        {/* 左：コピー */}
+        <div>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
+              SINCE 2006 — 大阪・東三国
+            </div>
+            <h1 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(32px, 9.5vw, 44px)' : 'clamp(42px, 4.3vw, 68px)',
+              lineHeight: 1.3, margin: 0, color: 'var(--ink)',
+              letterSpacing: '-0.01em',
+            }}>
+              信頼は、<br />
+              <span style={{ color: 'var(--brand)' }}>一件ずつ</span>、<br />
+              積み上げる。
+            </h1>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
+              lineHeight: 2.05, color: 'var(--ink-soft)',
+              marginTop: isMobile ? 20 : 28, marginBottom: 0,
+              maxWidth: 520, letterSpacing: '0.03em',
+            }}>
+              新築から大規模修繕、公共工事まで。
+              2006年の設立以来、株式会社ループは大阪を中心に、
+              一つひとつの現場を誠実に積み重ねてきました。
+            </p>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div style={{
+              display: 'flex', gap: 12, marginTop: isMobile ? 28 : 40, flexWrap: 'wrap',
+            }}>
+              <button onClick={() => go('works')} className="btn btn--solid"
+                style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+                <span>施工実績を見る</span>
+                <span className="btn-arrow">→</span>
+              </button>
+              <button onClick={() => go('recruit')} className="btn btn--outline"
+                style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+                <span>採用情報</span>
+                <span className="btn-arrow">→</span>
+              </button>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* 右：実績写真（最初に実績が目に入る） */}
+        <Reveal delay={160}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1.35fr 1fr',
+            gridTemplateRows: isMobile ? '190px 190px' : 'minmax(200px, 1fr) minmax(200px, 1fr)',
+            gap: isMobile ? 10 : 14,
+          }}>
+            {shots.map((s, i) => (
+              <figure key={s.place} className="img-zoom" style={{
+                margin: 0, position: 'relative', borderRadius: 4, overflow: 'hidden',
+                gridRow: i === 0 ? 'span 2' : 'auto',
+                background: 'var(--bg-stone)',
+              }}>
+                <img src={s.img} alt={`${s.place} ${s.type}`} loading={i === 0 ? 'eager' : 'lazy'}
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.94) brightness(1.02)',
+                  }} />
+                <figcaption style={{
+                  position: 'absolute', left: 0, right: 0, bottom: 0,
+                  padding: isMobile ? '22px 12px 10px' : '36px 16px 14px',
+                  background: 'linear-gradient(180deg, rgba(12,25,40,0) 0%, rgba(12,25,40,0.72) 100%)',
+                  color: '#FFFFFF',
+                }}>
+                  <div style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 9.5,
+                    letterSpacing: '0.18em', opacity: 0.88, marginBottom: 4,
+                  }}>{s.year}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 11.5 : 13,
+                    fontWeight: 700, lineHeight: 1.45,
+                  }}>{s.place}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 10 : 11.5,
+                    opacity: 0.9, marginTop: 2, lineHeight: 1.4,
+                  }}>{s.type}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Reveal>
       </div>
 
+      {/* ── 事業から実績を探す ──────────────────────────── */}
       <div style={{
-        position: 'absolute', left: isMobile ? 20 : 56, right: isMobile ? 20 : 56,
-        bottom: isMobile ? 64 : 96,
-        display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 24 : 56,
-        alignItems: 'end', zIndex: 2,
+        padding: isMobile ? '0 20px 32px' : '0 56px 56px',
+        maxWidth: 1560, margin: '0 auto',
       }}>
-        <div>
+        <Reveal>
           <div style={{
-            fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: isMobile ? 20 : 28,
-            marginBottom: isMobile ? 14 : 24, color: 'var(--orange-soft)', letterSpacing: '0.02em',
-          }}>— Restore · Renew · Loop</div>
-          <h1 style={{
-            fontFamily: 'var(--font-serif)', fontWeight: 500,
-            fontSize: isMobile ? 'clamp(40px, 12vw, 60px)' : 'clamp(56px, 8.5vw, 132px)',
-            lineHeight: 0.95, margin: 0, letterSpacing: '-0.015em',
-            textShadow: '0 2px 30px rgba(0,0,0,0.2)',
+            display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
+            marginBottom: isMobile ? 14 : 18,
           }}>
-            <MaskReveal>建物を、</MaskReveal><br />
-            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>もう一度、</MaskReveal><br />
-            <MaskReveal delay={320}>生かす仕事。</MaskReveal>
-          </h1>
-        </div>
-        <div style={{ paddingBottom: isMobile ? 0 : 12 }}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 15, lineHeight: 2,
-            margin: 0, maxWidth: 480, color: 'rgba(245,237,222,0.92)',
-            letterSpacing: '0.04em',
+            <span className="eyebrow">WORKS BY BUSINESS</span>
+            <span style={{
+              fontFamily: 'var(--font-sans)', fontSize: 12.5,
+              color: 'var(--ink-soft)', letterSpacing: '0.03em',
+            }}>事業ごとの施工実績をご覧いただけます</span>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            gap: isMobile ? 8 : 12,
           }}>
-            人とのつながりを大切にする、信頼と実績のループ。<br />
-            2006年の設立以来、大規模修繕から新築・公共工事まで、
-            <span style={{ color: 'var(--orange-soft)' }}>「修繕」ではなく「再生」</span>
-            という考え方で、建物の価値を磨き続けています。
-          </p>
-          <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 24 : 40, flexWrap: 'wrap' }}>
-            <button onClick={() => go('business')} className="btn btn--orange">
-              <span>事業案内をみる</span>
-              <span className="btn-arrow">→</span>
-            </button>
-            <button onClick={() => setInquiryOpen(true)} className="btn btn--outline" style={{
-              color: 'var(--ink)', borderColor: 'var(--ink)',
+            {LOOP_CATEGORIES.map((c) => (
+              <button
+                key={c.key}
+                className="cat-btn"
+                onClick={() => go('works', { cat: c.key })}
+                aria-label={`${c.jp}の施工実績を見る`}
+              >
+                <span className="cat-btn-en">{c.en}</span>
+                <span className="cat-btn-jp">{c.jp}</span>
+                <span className="cat-btn-lead">{c.lead}</span>
+                <span className="cat-btn-foot">
+                  実績を見る<span className="cat-btn-arrow">→</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ── 実績の数字 ─────────────────────────────────── */}
+      <div style={{
+        padding: isMobile ? '0 20px 40px' : '0 56px 72px',
+        maxWidth: 1560, margin: '0 auto',
+      }}>
+        <Reveal>
+          <div className="stat-strip" style={{
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            borderRadius: 4, overflow: 'hidden',
+          }}>
+            {LOOP_STATS.map((s) => (
+              <div key={s.label} style={{
+                padding: isMobile ? '20px 16px' : '32px 32px 30px',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                  <span style={{
+                    fontFamily: 'var(--font-serif)', fontWeight: 600,
+                    fontSize: isMobile ? 38 : 'clamp(40px, 3.6vw, 60px)',
+                    lineHeight: 1, color: 'var(--brand)', letterSpacing: '-0.02em',
+                  }}>{s.num}</span>
+                  <span style={{
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 15,
+                    fontWeight: 700, color: 'var(--brand)',
+                  }}>{s.unit}</span>
+                </div>
+                <div style={{
+                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 13.5,
+                  fontWeight: 700, color: 'var(--ink)', marginTop: isMobile ? 10 : 14,
+                  letterSpacing: '0.03em', lineHeight: 1.5,
+                }}>{s.label}</div>
+                <div style={{
+                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 10.5 : 11.5,
+                  color: 'var(--stone)', marginTop: 4, letterSpacing: '0.03em',
+                }}>{s.note}</div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ── 5つの強み ─────────────────────────────────── */}
+      <div style={{
+        background: 'var(--bg-deep)',
+        borderTop: '1px solid var(--rule)',
+        borderBottom: '1px solid var(--rule)',
+        padding: isMobile ? '40px 20px 44px' : '72px 56px 80px',
+      }}>
+        <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+          <Reveal>
+            <div style={{
+              display: 'flex', alignItems: 'baseline',
+              justifyContent: 'space-between', gap: 16, flexWrap: 'wrap',
+              marginBottom: isMobile ? 24 : 40,
             }}>
-              <span>無料現地調査</span>
-              <span className="btn-arrow">→</span>
-            </button>
+              <div>
+                <div className="eyebrow" style={{ marginBottom: 14 }}>OUR STRENGTHS</div>
+                <h2 style={{
+                  fontFamily: 'var(--font-serif)', fontWeight: 600,
+                  fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3vw, 44px)',
+                  margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.005em',
+                }}>
+                  ループが選ばれている、<span style={{ color: 'var(--brand)' }}>5つの理由</span>。
+                </h2>
+              </div>
+              {!isMobile && (
+                <p style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
+                  color: 'var(--ink-soft)', margin: 0, maxWidth: 380, letterSpacing: '0.03em',
+                }}>
+                  派手さよりも、確実さを。長くお付き合いいただいている
+                  取引先様に、選び続けていただく理由がここにあります。
+                </p>
+              )}
+            </div>
+          </Reveal>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: isMobile ? 10 : 16,
+          }}>
+            {LOOP_STRENGTHS.map((s, i) => (
+              <Reveal key={s.no} delay={i * 70}>
+                <a
+                  className="card-lift card-action"
+                  role="link"
+                  tabIndex={0}
+                  aria-label={`${s.title.replace('\n', '')} — 施工実績を見る`}
+                  onClick={() => go('works')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go('works'); }
+                  }}
+                  style={{
+                    height: '100%', cursor: 'pointer',
+                    padding: isMobile ? '20px 18px' : '28px 24px 24px',
+                    display: 'flex', flexDirection: 'column',
+                  }}>
+                  <div className="strength-no">{s.no}</div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-serif)', fontWeight: 600,
+                    fontSize: isMobile ? 17 : 19, lineHeight: 1.55,
+                    margin: '12px 0 0', color: 'var(--ink)',
+                    whiteSpace: 'pre-line', letterSpacing: '0.005em',
+                  }}>{s.title}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                    color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
+                    flex: '1 1 auto',
+                  }}>{s.body}</p>
+                  <span style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    gap: 10, marginTop: 18, paddingTop: 14,
+                    borderTop: '1px solid var(--rule)',
+                    fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
+                    letterSpacing: '0.06em', color: 'var(--brand)',
+                  }}>
+                    施工実績を見る
+                    <span className="card-action-arrow">→</span>
+                  </span>
+                </a>
+              </Reveal>
+            ))}
           </div>
         </div>
       </div>
-
-      {/* scroll cue */}
-      <div style={{
-        position: 'absolute', left: 56, bottom: 28,
-        fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.22em',
-        color: 'rgba(245,237,222,0.85)', zIndex: 2,
-        display: 'flex', alignItems: 'center', gap: 12,
-      }}>
-        <span>SCROLL</span>
-        <span style={{
-          width: 36, height: 1, background: 'var(--orange-soft)',
-          animation: 'pulse 1.8s ease-in-out infinite',
-        }} />
-      </div>
     </section>
   );
 }
 
-function HomeMarquee() {
-  const items = ['大規模修繕', '塗装', '防水', 'シーリング', 'タイル', '鉄部', '足場', '解体', '内装仕上', '断熱', '建具', 'バリアフリー化', '駐車場防水', '屋上防水', '外壁補修'];
-  return (
-    <div style={{
-      background: 'var(--bg-deep)', color: 'var(--ink)',
-      padding: '20px 0', overflow: 'hidden',
-      borderTop: '1px solid var(--rule)',
-      borderBottom: '1px solid var(--rule)',
-    }}>
-      <div className="marquee">
-        <div className="marquee-inner">
-          {[...items, ...items].map((it, i) => (
-            <span key={i} style={{
-              fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 28,
-              color: i % 4 === 0 ? 'var(--orange-soft)' : 'var(--ink)',
-              letterSpacing: '0.02em',
-              display: 'inline-flex', alignItems: 'center', gap: 56,
-            }}>
-              {it}
-              <span style={{ color: 'var(--stone)', fontSize: 14, fontStyle: 'normal' }}>·</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HomeManifesto() {
+// ─── トップビュー直下：会社紹介本文 ─────────────────────────────────
+function HomeIntro() {
+  const { go } = useRouter();
   const isMobile = useMobile();
-  return (
-    <section className="wrap" style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '0.7fr 1.3fr',
-        gap: isMobile ? 32 : 80, alignItems: 'start',
-      }}>
-        <Reveal>
-          <SectionLabel en="Manifesto" jp="01 — 私たちの考え方" />
-          <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--stone)',
-            letterSpacing: '0.22em', marginTop: 32,
-          }}>SINCE 2006 / 20 YEARS</div>
-        </Reveal>
-        <Reveal delay={120}>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 4.5vw, 64px)',
-            fontWeight: 500, margin: 0, lineHeight: 1.35, color: 'var(--ink)',
-            letterSpacing: '-0.01em',
-          }}>
-            建物の寿命を延ばすことは、<br />
-            <span style={{ color: 'var(--orange)' }}>そこに暮らす人の時間</span>を、<br />
-            つないでいくこと。
-          </h2>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.2,
-            color: 'var(--ink-soft)', marginTop: 40, maxWidth: 680, letterSpacing: '0.04em',
-          }}>
-            私たちは、建物を「つくる」だけでなく、「生かし、守る」仕事を
-            大切にしてきました。新築から大規模修繕、公共工事まで、
-            建物のあらゆる時間に向き合っています。
-          </p>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.2,
-            color: 'var(--ink-soft)', marginTop: 24, maxWidth: 680, letterSpacing: '0.04em',
-          }}>
-            けれど私たちは、最初から知っていました——
-            <span style={{ color: 'var(--ink)', fontWeight: 600 }}>
-              建物は完成した日からゆっくりと変わり続け、
-              その変化に応える仕事こそが、人と建物の関係を深めていく
-            </span>のだと。<br />
-            修繕ではなく、再生。一度きりではなく、Loop。
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function HomeStats() {
-  const isMobile = useMobile();
-  const stats = [
-    ['20', 'Years', '設立からの歩み', '2006年（平成18年）設立。大阪・東三国にて。'],
-    ['18', 'Permits', '建設業許可業種', '土木・建築から防水・内装まで、幅広く対応。'],
-    ['4', 'Experts', '一級施工管理技士', '確かな有資格者が、現場の品質を統括。'],
-    ['17+', 'Projects', '主な施工実績', '公共・新築・修繕の、確かな実績。'],
-  ];
   return (
     <section style={{
-      background: 'var(--bg-cream)', padding: isMobile ? '48px 20px' : '120px 56px',
-      borderTop: '1px solid var(--rule-soft)',
-      borderBottom: '1px solid var(--rule-soft)',
+      background: 'var(--bg)',
+      padding: isMobile ? '56px 20px' : '120px 56px',
     }}>
-      <Reveal>
-        <SectionLabel en="By the numbers" jp="02 — 数字で見る ループ" />
-      </Reveal>
       <div style={{
+        maxWidth: 1180, margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-        gap: isMobile ? 24 : 0,
-        marginTop: isMobile ? 32 : 56,
+        gridTemplateColumns: isMobile ? '1fr' : '0.85fr 1.15fr',
+        gap: isMobile ? 28 : 72,
+        alignItems: 'start',
       }}>
-        {stats.map(([num, en, jp, sub], i) => (
-          <Reveal key={i} delay={i * 80}>
-            <div style={{
-              paddingLeft: isMobile ? 0 : 28, paddingRight: isMobile ? 0 : 28,
-              borderLeft: (!isMobile && i !== 0) ? '1px solid var(--rule)' : 'none',
-              minHeight: isMobile ? 'auto' : 280,
-            }}>
-              <div style={{
-                fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 7vw, 104px)',
-                lineHeight: 0.95, color: 'var(--ink)', fontWeight: 500,
-                letterSpacing: '-0.025em',
-              }}>{num}</div>
-              <div style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 22,
-                color: 'var(--orange)', marginTop: 14, letterSpacing: '0.02em',
-              }}>{en}</div>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink)',
-                marginTop: 14, fontWeight: 600,
-              }}>{jp}</div>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: 11.5, color: 'var(--stone)',
-                marginTop: 6, lineHeight: 1.8, letterSpacing: '0.04em',
-              }}>{sub}</div>
-            </div>
-          </Reveal>
-        ))}
+        <Reveal style={isMobile ? {} : { position: 'sticky', top: 110 }}>
+          <div className="eyebrow" style={{ marginBottom: 18 }}>ABOUT US</div>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7.5vw, 34px)' : 'clamp(30px, 3.2vw, 46px)',
+            margin: 0, color: 'var(--ink)', lineHeight: 1.45, letterSpacing: '-0.005em',
+          }}>
+            人を第一に考えた<br />
+            会社づくりを、<br />
+            <span style={{ color: 'var(--brand)' }}>ずっと。</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <div style={{
+            fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
+            lineHeight: 2.15, color: 'var(--ink-soft)', letterSpacing: '0.03em',
+          }}>
+            <p style={{ margin: 0 }}>
+              株式会社ループは、2006年に大阪市淀川区東三国で設立した総合建設会社です。
+              マンションの大規模修繕、店舗・クリニックの新装、学校や公共施設の改修工事、
+              そしてマンションの新築工事まで、建物にまつわる幅広い工事を手がけてきました。
+            </p>
+            <p style={{ margin: '24px 0 0' }}>
+              私たちが設立以来ずっと大切にしてきたのは、
+              <span style={{ color: 'var(--ink)', fontWeight: 700 }}>「人を第一に考えた会社づくり」</span>
+              です。ESなくしてCSはない——社員がいきいきと働ける環境を整えることが、
+              そのままお客様への対応品質になると考えています。
+            </p>
+            <p style={{ margin: '24px 0 0' }}>
+              だからこそ、目先の受注よりも、一つひとつの現場を誠実にやり切ることを優先します。
+              長くお付き合いいただいている取引先様、協力会社の皆様に支えられて、
+              いまのループがあります。ハードなものを、ソフトなマインドで。
+              これからも変わらず、つくり続けてまいります。
+            </p>
+          </div>
+
+          {/* 理念の3本柱 */}
+          <div className="stat-strip" style={{
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            marginTop: isMobile ? 28 : 40,
+            borderRadius: 4, overflow: 'hidden',
+          }}>
+            {[
+              ['安全性', '安全確認を徹底し、積極的なコミュニケーションで現場の安全を確保します。'],
+              ['信頼性', '最後までやり遂げ、責任を持って工期にあわせます。'],
+              ['柔軟性', '資格保有者を多く有し、特殊な工事まで幅広く対応します。'],
+            ].map(([t, b]) => (
+              <div key={t} style={{ padding: isMobile ? '18px 16px' : '24px 22px' }}>
+                <div style={{
+                  fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+                  fontWeight: 600, color: 'var(--brand)', marginBottom: 10,
+                }}>{t}</div>
+                <p style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.9,
+                  color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                }}>{b}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 24 : 32, flexWrap: 'wrap' }}>
+            <button onClick={() => go('company')} className="btn btn--outline"
+              style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+              <span>会社概要・沿革</span>
+              <span className="btn-arrow">→</span>
+            </button>
+            <button onClick={() => go('about')} className="btn btn--outline"
+              style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+              <span>私たちの考え方</span>
+              <span className="btn-arrow">→</span>
+            </button>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
 window.HomeHero = HomeHero;
-window.HomeMarquee = HomeMarquee;
-window.HomeManifesto = HomeManifesto;
-window.HomeStats = HomeStats;
+window.HomeIntro = HomeIntro;
+window.LOOP_STATS = LOOP_STATS;
+window.LOOP_STRENGTHS = LOOP_STRENGTHS;
 
 
 /* ─── src/home-mid.jsx ─── */
-// Loop建築 — Home page (part 2): featured project, business preview, items, news, recruit, CTA
+// 株式会社ループ — トップページ（実績 / 事業内容 / 採用）
 
-function HomeFeatured() {
+// ─── 施工実績ハイライト ─────────────────────────────────────────────
+function HomeWorks() {
   const { go } = useRouter();
   const isMobile = useMobile();
+
+  // 施工実績は LOOP_WORKS を唯一の情報源とする（実績ページと共通）
+  const pickup = ['liberte-kakogawa', 'happiness-neyagawa', 'daikoku-2',
+                  'oyodo-haisuijo', 'nagai-stadium', 'loop-tenjin'];
+  const works = pickup
+    .map(id => LOOP_WORKS.find(w => w.id === id))
+    .filter(Boolean);
+
   return (
     <section style={{
-      background: 'var(--bg)', padding: isMobile ? '56px 20px' : '160px 56px',
+      background: 'var(--bg-cream)',
+      borderTop: '1px solid var(--rule)',
+      padding: isMobile ? '56px 20px' : '120px 56px',
     }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '0.7fr 1.3fr',
-        gap: isMobile ? 32 : 64, marginBottom: isMobile ? 40 : 64, alignItems: 'end',
-      }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
         <Reveal>
-          <SectionLabel en="Featured project" jp="03 — 厳選プロジェクト" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(40px, 5vw, 72px)',
-            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-            letterSpacing: '-0.02em',
-          }}>
-            加古川市<br />
-            <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>大規模修繕。</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={120}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.1,
-            color: 'var(--ink-soft)', margin: 0, maxWidth: 580, letterSpacing: '0.04em',
-          }}>
-            築30年・66戸のマンション「リベール加古川Ⅰ」。外壁塗装の劣化、
-            タイルの浮き、屋上防水層の経年劣化——
-            すべてを統合した5ヶ月の大規模修繕。
-            住民様の生活を止めずに、もう一度、建物の表情を取り戻しました。
-          </p>
           <div style={{
-            marginTop: isMobile ? 24 : 32, display: 'grid',
-            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-            gap: isMobile ? 16 : 24,
-            paddingTop: isMobile ? 16 : 24, borderTop: '1px solid var(--rule)',
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+            gap: 20, flexWrap: 'wrap', marginBottom: isMobile ? 28 : 48,
           }}>
-            {[
-              ['UNITS', '66 戸'],
-              ['AGE', '築 30 年'],
-              ['PERIOD', '5 ヶ月'],
-              ['SCOPE', '全面改修'],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                  letterSpacing: '0.22em', marginBottom: 8,
-                }}>{k}</div>
-                <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)', fontWeight: 500,
-                }}>{v}</div>
-              </div>
-            ))}
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 16 }}>WORKS — 施工実績</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 600,
+                fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(32px, 3.4vw, 50px)',
+                margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
+              }}>
+                現場が、いちばんの<span style={{ color: 'var(--brand)' }}>説明</span>です。
+              </h2>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+                lineHeight: 2, color: 'var(--ink-soft)', margin: '18px 0 0',
+                maxWidth: 620, letterSpacing: '0.03em',
+              }}>
+                大阪を中心に積み重ねてきた、公共・新築・修繕の施工事例。
+                工事の内容と規模を、そのまま公開しています。
+              </p>
+            </div>
+            {!isMobile && (
+              <button onClick={() => go('works')} className="btn btn--solid">
+                <span>施工実績をすべて見る</span>
+                <span className="btn-arrow">→</span>
+              </button>
+            )}
           </div>
         </Reveal>
-      </div>
-      <Reveal>
-        <BeforeAfter
-          before="https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop"
-          after="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
-          height={isMobile ? 360 : 640}
-        />
+
         <div style={{
-          marginTop: 16, display: 'flex', justifyContent: 'space-between',
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--stone)',
-          letterSpacing: '0.22em',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? 16 : 24,
         }}>
-          <span>FIG. 001 — DRAG ⇄ TO COMPARE</span>
-          <span>2026.04 — 2026.08 · KAKOGAWA</span>
-        </div>
-      </Reveal>
-      <div style={{ marginTop: 56, display: 'flex', justifyContent: 'center' }}>
-        <button onClick={() => go('business')} className="btn btn--outline">
-          <span>もっと施工事例をみる</span>
-          <span className="btn-arrow">→</span>
-        </button>
-      </div>
-    </section>
-  );
-}
-
-function HomeBusiness() {
-  const { go } = useRouter();
-  const isMobile = useMobile();
-  const services = [
-    {
-      no: '01', jp: 'マンション修繕', en: 'Apartment Renovation',
-      img: 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop',
-      lead: '築年数を重ねた集合住宅を、長期的な視野で再生。',
-      meta: '関西エリア / 〜200戸 / 4〜12ヶ月',
-    },
-    {
-      no: '02', jp: '店舗・クリニック新装', en: 'Interior Renovation',
-      img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop',
-      lead: 'クリニック・店舗の新装・改装を、計画から施工まで一貫対応。',
-      meta: '歯科・クリニック・店舗 / 内装・設備',
-    },
-    {
-      no: '03', jp: '公共工事・防水改修', en: 'Public Works',
-      img: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop',
-      lead: '学校・公共住宅の外壁改修や屋上防水改修まで、確かな品質で。',
-      meta: '学校・公共施設・住宅 / 外壁・防水',
-    },
-  ];
-  return (
-    <section style={{
-      background: 'var(--bg-deep)', padding: isMobile ? '56px 20px' : '160px 56px',
-    }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        gap: isMobile ? 24 : 56, alignItems: 'end',
-        marginBottom: isMobile ? 40 : 80,
-      }}>
-        <Reveal>
-          <SectionLabel en="Business" jp="04 — 事業案内" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(56px, 7vw, 108px)',
-            fontWeight: 500, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
-          }}>
-            3つの<br />
-            <span style={{ fontStyle: 'italic' }}>事業領域。</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={120}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.1,
-            color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.04em',
-          }}>
-            塗装壁をタイル壁に変えるだけでも、建物の表情は大きく変わります。
-            エントランス工事から大規模修繕工事まで、お客様のご要望に応じて
-            建物のリニューアルを承ります。
-          </p>
-        </Reveal>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-        gap: isMobile ? 20 : 28,
-      }}>
-        {services.map((s, i) => (
-          <Reveal key={s.no} delay={i * 100}>
-            <a onClick={() => go('business')} style={{
-              display: 'block', background: 'var(--bg-cream)',
-              border: '1px solid var(--rule)', overflow: 'hidden',
-              transition: 'box-shadow .4s, transform .4s',
-              cursor: 'pointer',
-            }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-soft)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = ''; e.currentTarget.style.transform = ''; }}
-            >
-              <div className="img-zoom" style={{ aspectRatio: '4/3' }}>
-                <img src={s.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
-              <div style={{ padding: '32px 32px 36px' }}>
-                <div style={{
-                  display: 'flex', justifyContent: 'space-between',
-                  fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--stone)',
-                  letterSpacing: '0.22em', marginBottom: 20,
-                }}>
-                  <span>NO. {s.no}</span>
-                  <span>SERVICE</span>
+          {works.map((w, i) => (
+            <Reveal key={w.id} delay={(i % 3) * 80}>
+              <a onClick={() => go('works', { cat: w.cat })} className="card-lift" style={{
+                display: 'block', height: '100%', cursor: 'pointer',
+              }}>
+                <div className="img-zoom" style={{ aspectRatio: '4/3', background: 'var(--bg-stone)' }}>
+                  <img src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.94) brightness(1.02)',
+                  }} />
                 </div>
-                <div style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 17,
-                  color: 'var(--orange)', marginBottom: 6, letterSpacing: '0.02em',
-                }}>{s.en}</div>
-                <h3 style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500,
-                  margin: 0, color: 'var(--ink)', letterSpacing: '-0.005em',
-                }}>{s.jp}</h3>
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 13, lineHeight: 1.9,
-                  color: 'var(--ink-soft)', marginTop: 16, letterSpacing: '0.04em',
-                }}>{s.lead}</p>
-                <div style={{
-                  marginTop: 28, paddingTop: 20, borderTop: '1px solid var(--rule)',
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                    letterSpacing: '0.16em',
-                  }}>{s.meta}</span>
-                  <span style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--ink)',
-                    fontWeight: 600, letterSpacing: '0.16em',
-                    display: 'flex', alignItems: 'center', gap: 8,
-                  }}>READ <span>→</span></span>
-                </div>
-              </div>
-            </a>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function HomeItems() {
-  const isMobile = useMobile();
-  const items = [
-    ['01', '共通仮設工事', '現場事務所・倉庫・廃材処理等、工事準備項目。'],
-    ['02', '直接仮設工事', '足場・ゴンドラ等、作業床確保のための工事。'],
-    ['03', '躯体修繕工事', 'ひび割れ・露出鉄筋・欠損補修。化粧前のベース作り。'],
-    ['04', 'シーリング工事', '打継目地・サッシ廻りの隙間補修・材料取替え。'],
-    ['05', '塗装工事', '建物の保護・意匠性を担う中核工事。'],
-    ['06', '防水工事', '漏水対策・建物の保護を主目的とする。'],
-    ['07', '防滑塩ビシート敷設', '住民様の安全確保・意匠性。'],
-    ['08', 'その他工事', '玄関扉・手摺・樋・バリアフリー化等。'],
-  ];
-  return (
-    <section style={{
-      background: 'var(--bg-deep)', color: 'var(--ink)', padding: isMobile ? '56px 20px' : '160px 56px',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <div style={{
-        position: 'absolute', right: -100, top: -80,
-        fontFamily: 'var(--font-serif)', fontSize: isMobile ? 260 : 480, lineHeight: 1, fontWeight: 400,
-        color: 'rgba(242,239,231,0.04)', pointerEvents: 'none',
-        letterSpacing: '-0.04em',
-      }}>項目</div>
-
-      <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.7fr 1.3fr', gap: isMobile ? 24 : 64, marginBottom: isMobile ? 40 : 72 }}>
-        <Reveal>
-          <SectionLabel en="Construction items" jp="05 — 工事項目" color="var(--orange-soft)" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 88px)',
-            fontWeight: 400, margin: 0, lineHeight: 1, letterSpacing: '-0.02em',
-          }}>
-            18業種を、<br />
-            <span style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>自社で。</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={120}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.1,
-            margin: 0, color: 'var(--ink-soft)', letterSpacing: '0.04em', maxWidth: 560,
-            justifySelf: 'end',
-          }}>
-            土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・
-            塗装・防水・内装仕上・熱絶縁・建具——国土交通省大臣許可（般-3）（特-3）
-            第22143号として、18業種に対応します。
-            専門業者の調整コストを最小化し、現場の判断を速くする体制です。
-          </p>
-        </Reveal>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-        borderTop: '1px solid var(--rule)', borderLeft: '1px solid var(--rule)',
-        position: 'relative',
-      }}>
-        {items.map(([num, jp, desc], i) => (
-          <Reveal key={num} delay={(i % 4) * 60}>
-            <div style={{
-              padding: '36px 28px 32px', minHeight: 240,
-              borderRight: '1px solid var(--rule)', borderBottom: '1px solid var(--rule)',
-              transition: 'background-color .4s',
-              cursor: 'pointer',
-            }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-stone)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = ''}
-            >
-              <div style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 64,
-                color: 'var(--orange-soft)', lineHeight: 1, marginBottom: 20, fontWeight: 300,
-              }}>{num}</div>
-              <h3 style={{
-                fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 500,
-                margin: 0, color: 'var(--ink)', letterSpacing: '0.01em',
-              }}>{jp}</h3>
-              <p style={{
-                fontFamily: 'var(--font-sans)', fontSize: 12, lineHeight: 1.85,
-                color: 'var(--ink-soft)', marginTop: 16, letterSpacing: '0.03em', marginBottom: 0,
-              }}>{desc}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function HomeNews() {
-  const { go } = useRouter();
-  const isMobile = useMobile();
-  const news = [
-    ['2026.06', 'NOTICE', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。'],
-    ['2026.02', 'WORKS', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
-    ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
-    ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
-  ];
-  return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.5fr 1.5fr', gap: isMobile ? 32 : 56 }}>
-        <Reveal>
-          <SectionLabel en="News & Updates" jp="06 — お知らせ" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
-          }}>お知らせ</h2>
-          <button onClick={() => go('news')} className="btn btn--outline" style={{ marginTop: 40 }}>
-            <span>すべて見る</span>
-            <span className="btn-arrow">→</span>
-          </button>
-        </Reveal>
-        <div style={{ borderTop: '1px solid var(--rule)' }}>
-          {news.map(([date, tag, title, desc], i) => (
-            <Reveal key={i} delay={i * 60}>
-              <a style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : '120px 80px 1fr 24px',
-                gap: isMobile ? 10 : 28, padding: isMobile ? '20px 0' : '32px 0', alignItems: 'baseline',
-                borderBottom: '1px solid var(--rule)',
-                transition: 'background-color .3s',
-                cursor: 'pointer',
-              }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.4)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
-              >
-                <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--stone)',
-                  letterSpacing: '0.08em',
-                }}>{date}</span>
-                <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--orange)',
-                  letterSpacing: '0.18em', border: '1px solid var(--orange)',
-                  padding: '4px 8px', justifySelf: 'start', textAlign: 'center',
-                }}>{tag}</span>
-                <div>
+                <div style={{ padding: isMobile ? '18px 18px 20px' : '24px 24px 26px' }}>
                   <div style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)',
-                    marginBottom: 8, fontWeight: 500, letterSpacing: '0.005em',
-                  }}>{title}</div>
-                  <div style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
-                    lineHeight: 1.8, letterSpacing: '0.04em',
-                  }}>{desc}</div>
+                    display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
+                  }}>
+                    <span style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
+                      letterSpacing: '0.1em', color: 'var(--brand)',
+                      background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
+                    }}>{(LOOP_CATEGORIES.find(c => c.key === w.cat) || {}).jp}</span>
+                    <span style={{
+                      fontFamily: 'var(--font-mono)', fontSize: 10.5,
+                      letterSpacing: '0.14em', color: 'var(--stone)',
+                    }}>{w.year}</span>
+                  </div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+                    fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.5,
+                  }}>{w.name}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
+                    margin: '8px 0 0', letterSpacing: '0.03em', lineHeight: 1.7,
+                  }}>{w.area}　/　{w.type}</p>
                 </div>
-                {!isMobile && (
-                  <span style={{
-                    color: 'var(--orange)', fontFamily: 'var(--font-serif)', fontSize: 22,
-                    transition: 'transform .3s',
-                  }}>→</span>
-                )}
               </a>
             </Reveal>
           ))}
         </div>
+
+        {isMobile && (
+          <button onClick={() => go('works')} className="btn btn--solid"
+            style={{ marginTop: 24, width: '100%', justifyContent: 'space-between' }}>
+            <span>施工実績をすべて見る</span>
+            <span className="btn-arrow">→</span>
+          </button>
+        )}
       </div>
     </section>
   );
 }
 
-window.HomeFeatured = HomeFeatured;
+// ─── 事業内容（5カテゴリ） ──────────────────────────────────────────
+function HomeBusiness() {
+  const { go } = useRouter();
+  const isMobile = useMobile();
+
+  const services = [
+    {
+      no: '01', jp: '新築工事', en: 'New Construction',
+      img: 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1200&q=82&auto=format&fit=crop',
+      lead: 'マンション・ビル・施設の新築工事。計画から引き渡しまで一貫して担当します。',
+      tags: ['マンション', 'ビル', '寮・施設'],
+    },
+    {
+      no: '02', jp: '大規模修繕・建物リニューアル', en: 'Renovation',
+      img: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1200&q=82&auto=format&fit=crop',
+      lead: '外壁・防水・タイル・鉄部・共用部まで。住民様の生活を止めずに建物を再生します。',
+      tags: ['外壁改修', '屋上防水', '共用部'],
+    },
+    {
+      no: '03', jp: '公共工事', en: 'Public Works',
+      img: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=82&auto=format&fit=crop',
+      lead: '学校・公共住宅・公共施設の改修工事。官公庁の品質・安全・書類基準に確実に対応します。',
+      tags: ['学校', '公共住宅', '公共施設'],
+    },
+    {
+      no: '04', jp: '派遣事業', en: 'Staffing',
+      img: 'https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1200&q=82&auto=format&fit=crop',
+      lead: '現場監督（施工管理）の派遣。一級建築施工管理技士をはじめ、有資格者が現場を支えます。',
+      tags: ['現場監督', '施工管理', '有資格者'],
+    },
+    {
+      no: '05', jp: 'その他', en: 'Others',
+      img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=82&auto=format&fit=crop',
+      lead: '店舗・クリニックの新装、内装・設備工事、バリアフリー化など。まずはご相談ください。',
+      tags: ['店舗・クリニック', '内装', 'バリアフリー'],
+    },
+  ];
+
+  return (
+    <section style={{
+      background: 'var(--bg)',
+      padding: isMobile ? '56px 20px' : '120px 56px',
+    }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+        <Reveal>
+          <div style={{
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+            gap: 20, flexWrap: 'wrap', marginBottom: isMobile ? 28 : 48,
+          }}>
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 16 }}>BUSINESS — 事業内容</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 600,
+                fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(32px, 3.4vw, 50px)',
+                margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
+              }}>
+                建物の、<span style={{ color: 'var(--brand)' }}>すべての時間</span>に。
+              </h2>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+                lineHeight: 2, color: 'var(--ink-soft)', margin: '18px 0 0',
+                maxWidth: 620, letterSpacing: '0.03em',
+              }}>
+                建設業許可18業種を保有し、新築から修繕、公共工事、
+                施工管理の派遣まで幅広く対応しています。
+              </p>
+            </div>
+            {!isMobile && (
+              <button onClick={() => go('business')} className="btn btn--outline">
+                <span>事業案内を見る</span>
+                <span className="btn-arrow">→</span>
+              </button>
+            )}
+          </div>
+        </Reveal>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? 14 : 20,
+        }}>
+          {services.map((s, i) => (
+            <Reveal key={s.no} delay={(i % 3) * 80}>
+              <a onClick={() => go('business')} className="card-lift" style={{
+                display: 'flex', flexDirection: 'column', height: '100%', cursor: 'pointer',
+              }}>
+                <div className="img-zoom" style={{ aspectRatio: '16/10', background: 'var(--bg-stone)' }}>
+                  <img src={s.img} alt={s.jp} loading="lazy" style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.94) brightness(1.02)',
+                  }} />
+                </div>
+                <div style={{
+                  padding: isMobile ? '20px 18px 22px' : '26px 24px 28px',
+                  display: 'flex', flexDirection: 'column', flex: '1 1 auto',
+                }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10,
+                  }}>
+                    <span className="strength-no">{s.no}</span>
+                    <span style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
+                      color: 'var(--stone)', fontWeight: 600,
+                    }}>{s.en.toUpperCase()}</span>
+                  </div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 22,
+                    fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.45,
+                  }}>{s.jp}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                    color: 'var(--ink-soft)', margin: '12px 0 0', letterSpacing: '0.03em',
+                    flex: '1 1 auto',
+                  }}>{s.lead}</p>
+                  <div style={{
+                    display: 'flex', gap: 6, flexWrap: 'wrap',
+                    marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--rule)',
+                  }}>
+                    {s.tags.map(t => (
+                      <span key={t} style={{
+                        fontFamily: 'var(--font-sans)', fontSize: 10.5, color: 'var(--ink-soft)',
+                        border: '1px solid var(--rule-soft)', borderRadius: 2,
+                        padding: '4px 9px', letterSpacing: '0.04em',
+                      }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+
+        {isMobile && (
+          <button onClick={() => go('business')} className="btn btn--outline"
+            style={{ marginTop: 20, width: '100%', justifyContent: 'space-between' }}>
+            <span>事業案内を見る</span>
+            <span className="btn-arrow">→</span>
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+window.HomeWorks = HomeWorks;
 window.HomeBusiness = HomeBusiness;
-window.HomeItems = HomeItems;
-window.HomeNews = HomeNews;
 
 
 /* ─── src/home-end.jsx ─── */
-// Loop建築 — Home page (part 3): recruit, CTA + Home root
+// 株式会社ループ — トップページ（採用訴求 / お知らせ / CTA）
 
+// ─── 採用訴求 ───────────────────────────────────────────────────────
 function HomeRecruit() {
   const { go } = useRouter();
   const isMobile = useMobile();
+
+  const points = [
+    ['資格取得を、会社が支援する', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられる環境です。'],
+    ['幅広い現場を、経験できる', 'マンション修繕から新築、公共工事まで。18業種の許可を持つ会社だからこそ、多様な現場を経験できます。'],
+    ['頑張りが、正当に評価される', '賞与年2回・資格手当・職能手当・役職手当。社宅や保養所、社員旅行など、長く働ける環境を整えています。'],
+  ];
+
+  const facts = [
+    ['月給 35万円〜', '一級建築施工管理技士は40万円〜'],
+    ['賞与 年2回', '8月・12月（実績による）'],
+    ['月6〜9日休み', 'GW・夏季9日・年末年始9日'],
+    ['残業 月20時間以内', '8:30〜17:30（実働8時間）'],
+  ];
+
   return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)' }}>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.1fr 0.9fr',
-        gap: isMobile ? 40 : 80, alignItems: 'center',
-      }}>
+    <section style={{
+      background: 'var(--bg-deep)',
+      borderTop: '1px solid var(--rule)',
+      padding: isMobile ? '56px 20px' : '120px 56px',
+    }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? 32 : 72,
+          alignItems: 'center',
+          marginBottom: isMobile ? 36 : 64,
+        }}>
+          <Reveal>
+            <div style={{
+              display: 'grid', gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows: isMobile ? '145px 145px' : '215px 215px',
+              gap: isMobile ? 10 : 14,
+            }}>
+              {[
+                ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=82&auto=format&fit=crop', 'span 2'],
+                ['https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=82&auto=format&fit=crop', 'auto'],
+                ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=82&auto=format&fit=crop', 'auto'],
+              ].map(([img, rowSpan], i) => (
+                <div key={i} style={{
+                  gridRow: rowSpan,
+                  borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
+                }}>
+                  <img src={img} alt="" loading="lazy" style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.94) brightness(1.03)',
+                  }} />
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>RECRUIT — 採用情報</div>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(26px, 8vw, 36px)' : 'clamp(32px, 3.4vw, 52px)',
+              margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
+            }}>
+              会社のことを、<br />
+              <span style={{ color: 'var(--brand)' }}>自分ごと</span>で考える人へ。
+            </h2>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
+              lineHeight: 2.15, color: 'var(--ink-soft)', margin: '22px 0 0',
+              letterSpacing: '0.03em', maxWidth: 520,
+            }}>
+              ループは、自ら考え行動することを大事にする会社です。
+              指示を待つのではなく、現場で何が最善かを考えられる人が育っています。
+              <br /><br />
+              「ESなくしてCSはない」——社員がいきいきと働ける環境を整えることが、
+              お客様への最大限のパフォーマンスにつながると本気で考えています。
+              その想いに共感し、一緒に働く仲間を募集しています。
+            </p>
+
+            <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 26 : 36, flexWrap: 'wrap' }}>
+              <button onClick={() => go('recruit')} className="btn btn--solid"
+                style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+                <span>募集要項を見る</span>
+                <span className="btn-arrow">→</span>
+              </button>
+              <button onClick={() => go('about')} className="btn btn--outline"
+                style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
+                <span>私たちの考え方</span>
+                <span className="btn-arrow">→</span>
+              </button>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* 働く環境の3つのポイント */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? 12 : 20,
+          marginBottom: isMobile ? 24 : 36,
+        }}>
+          {points.map(([t, b], i) => (
+            <Reveal key={t} delay={i * 80}>
+              <div className="card-lift" style={{
+                height: '100%', padding: isMobile ? '22px 20px' : '30px 28px 32px',
+              }}>
+                <div className="strength-no">{String(i + 1).padStart(2, '0')}</div>
+                <h3 style={{
+                  fontFamily: 'var(--font-serif)', fontSize: isMobile ? 18 : 20,
+                  fontWeight: 600, margin: '12px 0 0', color: 'var(--ink)', lineHeight: 1.5,
+                }}>{t}</h3>
+                <p style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                  color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
+                }}>{b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* 待遇のファクト */}
         <Reveal>
-          <div style={{
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: isMobile ? 10 : 16,
-            gridTemplateRows: isMobile ? '120px 160px 160px 120px' : '180px 240px 240px 180px',
+          <div className="stat-strip" style={{
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            borderRadius: 4, overflow: 'hidden',
           }}>
-            <div className="reveal-image is-visible" style={{ gridRow: 'span 2' }}>
-              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="reveal-image is-visible" style={{ marginTop: 36 }}>
-              <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=82&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="reveal-image is-visible">
-              <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="reveal-image is-visible" style={{ gridRow: 'span 2', marginTop: -36 }}>
-              <img src="https://images.unsplash.com/photo-1597762470488-3877b1f538c6?w=1600&q=82&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          </div>
-        </Reveal>
-        <Reveal delay={120}>
-          <SectionLabel en="Become a professional" jp="07 — 採用情報" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(56px, 7vw, 108px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.95, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
-          }}>
-            自ら、<br />
-            <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>考える人。</span>
-          </h2>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 15, lineHeight: 2.2,
-            color: 'var(--ink-soft)', marginTop: 36, maxWidth: 480, letterSpacing: '0.04em',
-          }}>
-            自ら考え行動することを大事にする会社です。
-            「ESなくしてCSはない」——従業員がいきいきと働ける環境づくりを通じて、
-            お客様に最大限のパフォーマンスをお届けします。<br />
-            そんな想いに共感し、一緒に働く仲間を募集しています。
-          </p>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? 14 : 24,
-            marginTop: 40, paddingTop: 32, borderTop: '1px solid var(--rule)',
-          }}>
-            {[
-              ['2006', '設立'],
-              ['18', '建設業許可業種'],
-              ['4', '一級施工管理技士'],
-            ].map(([n, l]) => (
-              <div key={l}>
+            {facts.map(([t, b]) => (
+              <div key={t} style={{ padding: isMobile ? '18px 14px' : '26px 24px' }}>
                 <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 36, fontWeight: 500,
-                  color: 'var(--ink)', letterSpacing: '-0.01em',
-                }}>{n}</div>
+                  fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 19,
+                  fontWeight: 600, color: 'var(--ink)', lineHeight: 1.4,
+                }}>{t}</div>
                 <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                  letterSpacing: '0.18em', marginTop: 4,
-                }}>{l}</div>
+                  fontFamily: 'var(--font-sans)', fontSize: 11.5, color: 'var(--stone)',
+                  marginTop: 8, letterSpacing: '0.03em', lineHeight: 1.6,
+                }}>{b}</div>
               </div>
             ))}
-          </div>
-          <div style={{ display: 'flex', gap: 14, marginTop: 40, flexWrap: 'wrap' }}>
-            <button onClick={() => go('recruit')} className="btn btn--solid">
-              <span>採用情報をみる</span>
-              <span className="btn-arrow">→</span>
-            </button>
-            <button onClick={() => go('recruit')} className="btn btn--outline">
-              <span>社員インタビュー</span>
-              <span className="btn-arrow">→</span>
-            </button>
           </div>
         </Reveal>
       </div>
@@ -1766,79 +2326,212 @@ function HomeRecruit() {
   );
 }
 
+// ─── お知らせ ───────────────────────────────────────────────────────
+function HomeNews() {
+  const { go } = useRouter();
+  const isMobile = useMobile();
+  const news = [
+    ['2026.06', 'お知らせ', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。'],
+    ['2026.02', '施工実績', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
+    ['2024.12', '施工実績', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
+    ['2024.11', '施工実績', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
+  ];
+
+  return (
+    <section style={{
+      background: 'var(--bg)',
+      padding: isMobile ? '56px 20px' : '120px 56px',
+    }}>
+      <div style={{
+        maxWidth: 1180, margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '0.5fr 1.5fr',
+        gap: isMobile ? 24 : 64,
+      }}>
+        <Reveal>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>NEWS</div>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7vw, 30px)' : 'clamp(28px, 2.8vw, 40px)',
+            margin: 0, color: 'var(--ink)', lineHeight: 1.35,
+          }}>お知らせ</h2>
+          {!isMobile && (
+            <button onClick={() => go('news')} className="btn btn--outline" style={{ marginTop: 28 }}>
+              <span>すべて見る</span>
+              <span className="btn-arrow">→</span>
+            </button>
+          )}
+        </Reveal>
+
+        <div className="rule-list" style={{ borderTop: '1px solid var(--rule)' }}>
+          {news.map(([date, tag, title, desc], i) => (
+            <Reveal key={i} delay={i * 60}>
+              <a onClick={() => go('news')} style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : '110px 92px 1fr',
+                gap: isMobile ? 8 : 24,
+                padding: isMobile ? '18px 0' : '26px 4px',
+                alignItems: 'baseline', cursor: 'pointer',
+                transition: 'background-color .3s',
+                borderBottom: i === news.length - 1 ? '1px solid var(--rule)' : 'none',
+              }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-cream)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
+              >
+                <span style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--stone)',
+                  letterSpacing: '0.06em',
+                }}>{date}</span>
+                <span style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
+                  letterSpacing: '0.1em', color: 'var(--brand)',
+                  background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
+                  justifySelf: 'start',
+                }}>{tag}</span>
+                <div>
+                  <div style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 18,
+                    color: 'var(--ink)', fontWeight: 600, lineHeight: 1.55,
+                  }}>{title}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
+                    lineHeight: 1.85, letterSpacing: '0.03em', marginTop: 6,
+                  }}>{desc}</div>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+
+        {isMobile && (
+          <button onClick={() => go('news')} className="btn btn--outline"
+            style={{ width: '100%', justifyContent: 'space-between' }}>
+            <span>すべて見る</span>
+            <span className="btn-arrow">→</span>
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─── CTA（取引先向け + 採用向けの2本立て） ──────────────────────────
 function HomeCTA() {
-  const { setInquiryOpen } = useRouter();
+  const { go, setInquiryOpen } = useRouter();
   const isMobile = useMobile();
   return (
-    <section
-      className="cursor-eye-host"
-      style={{
-        background: 'var(--orange)', color: 'var(--ink)',
-        padding: isMobile ? '56px 20px' : '140px 56px',
-        position: 'relative', overflow: 'hidden',
-        cursor: 'pointer',
-      }}
-      onClick={() => setInquiryOpen(true)}
-    >
+    <section style={{
+      background: 'var(--brand)', color: '#FFFFFF',
+      padding: isMobile ? '48px 20px' : '96px 56px',
+      position: 'relative', overflow: 'hidden',
+    }}>
       <div style={{
-        position: 'absolute', right: -80, top: -60,
-        fontFamily: 'var(--font-serif)', fontSize: isMobile ? 280 : 520, lineHeight: 1, fontWeight: 400,
-        color: 'rgba(245,237,222,0.10)', pointerEvents: 'none',
-        letterSpacing: '-0.04em',
+        position: 'absolute', right: -60, top: -70,
+        fontFamily: 'var(--font-serif)', fontSize: isMobile ? 240 : 440,
+        lineHeight: 1, fontWeight: 600, color: 'rgba(255,255,255,0.07)',
+        pointerEvents: 'none', letterSpacing: '-0.04em', userSelect: 'none',
       }}>Loop</div>
+
       <div style={{
-        position: 'relative', display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr 1fr',
-        gap: isMobile ? 32 : 56, alignItems: 'end',
+        position: 'relative', maxWidth: 1180, margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap: isMobile ? 32 : 56,
       }}>
+        {/* 取引先向け */}
         <div>
           <div style={{
-            fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 24,
-            marginBottom: 12, opacity: 0.92,
-          }}>— Get in touch</div>
+            fontFamily: 'var(--font-sans)', fontSize: 11.5, fontWeight: 700,
+            letterSpacing: '0.16em', opacity: 0.86, marginBottom: 14,
+          }}>CONTACT — お取引・ご相談</div>
           <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6.5vw, 92px)',
-            fontWeight: 400, margin: 0, lineHeight: 1, letterSpacing: '-0.02em',
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 2.9vw, 42px)',
+            margin: 0, lineHeight: 1.4, letterSpacing: '-0.005em',
           }}>
-            まずは、<br />
-            <span style={{ fontStyle: 'italic' }}>建物を見せてください。</span>
+            まずは、建物を<br />見せてください。
           </h2>
           <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 2,
-            marginTop: 28, opacity: 0.92, maxWidth: 480, letterSpacing: '0.04em',
+            fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+            lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
+            letterSpacing: '0.03em', maxWidth: 460,
           }}>
-            現地調査・お見積りは無料です。マンション管理組合様、オーナー様、ご担当者様、
-            お気軽にご連絡ください。建物の状態に応じた
-            最適な工法をご提案します。
+            現地調査・お見積りは無料です。管理組合様、オーナー様、
+            協力会社の皆様、お気軽にご連絡ください。
           </p>
+          <div style={{ marginTop: isMobile ? 22 : 28 }}>
+            <div style={{
+              fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
+              letterSpacing: '0.16em', opacity: 0.8, marginBottom: 6,
+            }}>TEL</div>
+            <a href="tel:0663947778" style={{
+              fontFamily: 'var(--font-serif)', fontSize: isMobile ? 30 : 38,
+              fontWeight: 600, letterSpacing: '-0.005em', color: '#FFFFFF',
+              display: 'inline-block',
+            }}>06-6394-7778</a>
+            <div style={{
+              fontFamily: 'var(--font-sans)', fontSize: 12, opacity: 0.85,
+              marginTop: 6, letterSpacing: '0.03em',
+            }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
+          </div>
+          <button onClick={() => setInquiryOpen(true)} className="btn"
+            style={{
+              marginTop: 24, background: '#FFFFFF', color: 'var(--brand)',
+              ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}),
+            }}>
+            <span>無料現地調査・お見積り</span>
+            <span className="btn-arrow">→</span>
+          </button>
         </div>
-        <div>
+
+        {/* 採用向け */}
+        <div style={{
+          borderLeft: isMobile ? 'none' : '1px solid rgba(255,255,255,0.24)',
+          borderTop: isMobile ? '1px solid rgba(255,255,255,0.24)' : 'none',
+          paddingLeft: isMobile ? 0 : 56,
+          paddingTop: isMobile ? 32 : 0,
+        }}>
           <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.22em', opacity: 0.85,
-          }}>BY PHONE</div>
-          <div style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 3vw, 44px)',
-            fontWeight: 500, marginTop: 12, letterSpacing: '-0.005em',
-          }}>06-6394-7778</div>
-          <div style={{
-            fontFamily: 'var(--font-sans)', fontSize: 12, opacity: 0.85, marginTop: 10,
-            letterSpacing: '0.04em',
-          }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
-          <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.22em', opacity: 0.85,
-          }}>BY EMAIL</div>
-          <button onClick={(e) => { e.stopPropagation(); setInquiryOpen(true); }} className="btn" style={{
-            background: 'var(--bg-cream)', color: 'var(--ink)',
-            padding: '18px 28px', fontSize: 12,
+            fontFamily: 'var(--font-sans)', fontSize: 11.5, fontWeight: 700,
+            letterSpacing: '0.16em', opacity: 0.86, marginBottom: 14,
+          }}>RECRUIT — 採用について</div>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 2.9vw, 42px)',
+            margin: 0, lineHeight: 1.4, letterSpacing: '-0.005em',
           }}>
-            <span>無料で見積もる</span>
+            この会社で、<br />腕を上げませんか。
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+            lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
+            letterSpacing: '0.03em', maxWidth: 460,
+          }}>
+            建築施工管理・工事監理を募集しています。
+            資格取得支援制度あり。未経験からでも、有資格者としても、
+            まずは一度お話をさせてください。
+          </p>
+          <div style={{ marginTop: isMobile ? 22 : 28 }}>
+            <div style={{
+              fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
+              letterSpacing: '0.16em', opacity: 0.8, marginBottom: 6,
+            }}>E-MAIL</div>
+            <a href="mailto:loop_kanri@kabuloop.sakura.ne.jp" style={{
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
+              fontWeight: 600, color: '#FFFFFF', wordBreak: 'break-all',
+              display: 'inline-block', lineHeight: 1.6,
+            }}>loop_kanri@kabuloop.sakura.ne.jp</a>
+          </div>
+          <button onClick={() => go('recruit')} className="btn btn--ghost"
+            style={{
+              marginTop: 24,
+              ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}),
+            }}>
+            <span>採用情報を見る</span>
             <span className="btn-arrow">→</span>
           </button>
         </div>
       </div>
-      <div className="cursor-eye">無料相談</div>
     </section>
   );
 }
@@ -1847,20 +2540,18 @@ function HomePage() {
   return (
     <div className="page-enter" data-screen-label="01 Home">
       <HomeHero />
-      <HomeMarquee />
-      <HomeManifesto />
-      <HomeStats />
-      <HomeFeatured />
+      <HomeIntro />
+      <HomeWorks />
       <HomeBusiness />
-      <HomeItems />
-      <HomeNews />
       <HomeRecruit />
+      <HomeNews />
       <HomeCTA />
     </div>
   );
 }
 
 window.HomeRecruit = HomeRecruit;
+window.HomeNews = HomeNews;
 window.HomeCTA = HomeCTA;
 window.HomePage = HomePage;
 
@@ -1881,12 +2572,12 @@ function BusinessHero() {
       </div>
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(20,17,13,0.15) 0%, rgba(20,17,13,0.35) 50%, rgba(20,17,13,0.7) 100%)',
+        background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
       }} />
 
       <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
         <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(245,237,222,0.85)',
+          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
           letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
         }}>
           Home / 事業案内 — Business
@@ -1894,21 +2585,21 @@ function BusinessHero() {
         <Reveal>
           <div style={{
             marginBottom: 12, fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
-          }}>— Three services<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>事業案内</span></div>
+            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
+          }}>— Three services<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>事業案内</span></div>
           <h1 style={{
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
+            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
             letterSpacing: '-0.035em',
           }}>
-            <MaskReveal style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>建物の表情</MaskReveal>を、<br />
+            <MaskReveal style={{ fontStyle: 'italic', color: '#9EC7ED' }}>建物の表情</MaskReveal>を、<br />
             <MaskReveal delay={160}>ひとつひとつ。</MaskReveal>
           </h1>
         </Reveal>
         <Reveal delay={200}>
           <p style={{
             fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-            color: 'rgba(245,237,222,0.92)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
+            color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
           }}>
             塗装壁をタイル壁に変えるだけでも、建物の表情は大きく変わります。
             エントランス工事から大規模修繕工事まで、お客様のご要望に応じて
@@ -2144,7 +2835,7 @@ function BusinessPage() {
           ['仕上がり保証', '材料メーカー保証＋自社保証。竣工後も定期点検でフォロー。'],
         ]}
         projects={[
-          ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026'],
+          ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026'],
           ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '大阪市 大国住宅2号館', '屋上防水改修工事', '2024'],
           ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '大阪市 相川住宅2号館', '屋上防水改修工事', '2024'],
           ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市 浪速西第3住宅', '外壁改修その他工事', '2017'],
@@ -2183,8 +2874,8 @@ function BusinessPage() {
         en="Public Works"
         lead="学校・公共住宅の外壁改修から屋上防水改修まで。官公庁の確かな基準に応える施工を。"
         body="大阪市発注の学校・公共住宅・公共施設の外壁改修その他工事、屋上防水改修工事を数多く手がけてきました。官公庁に求められる品質・安全・書類管理の基準を満たし、近隣や利用者への配慮を徹底。新築工事にも対応し、地域の暮らしを支えるインフラづくりに携わっています。"
-        before="https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop"
-        after="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop"
+        before="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop"
+        after="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop"
         scope={[
           ['TYPE', '学校・公共住宅・公共施設'],
           ['SCOPE', '外壁改修・屋上防水・補修'],
@@ -2198,9 +2889,9 @@ function BusinessPage() {
           ['新築にも対応', 'マンション・施設の新築工事まで、幅広く対応します。'],
         ]}
         projects={[
-          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市 墨江丘中学校', '外壁改修その他工事', '2015'],
-          ['https://images.unsplash.com/photo-1545239351-cefa43af60f3?w=1600&q=82&auto=format&fit=crop', '大阪市 長居球技場', '庇改修その他工事', '2021'],
-          ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市 大淀配水場', '外壁補修その他工事', '2023'],
+          ['https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop', '大阪市 墨江丘中学校', '外壁改修その他工事', '2015'],
+          ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop', '大阪市 長居球技場', '庇改修その他工事', '2021'],
+          ['https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop', '大阪市 大淀配水場', '外壁補修その他工事', '2023'],
         ]}
       />
       <HomeCTA />
@@ -2227,31 +2918,31 @@ function CompanyHero() {
       </div>
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(20,17,13,0.15) 0%, rgba(20,17,13,0.35) 50%, rgba(20,17,13,0.7) 100%)',
+        background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
       }} />
       <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
         <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(245,237,222,0.85)',
+          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
           letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
         }}>Home / 企業情報 — Company</div>
         <Reveal>
           <div style={{
             marginBottom: 12, fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
-          }}>— Company information<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>企業情報</span></div>
+            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
+          }}>— Company information<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>企業情報</span></div>
           <h1 style={{
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
+            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
             letterSpacing: '-0.035em',
           }}>
             <MaskReveal>2006年から、</MaskReveal><br />
-            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>確かな仕事を。</MaskReveal>
+            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: '#9EC7ED' }}>確かな仕事を。</MaskReveal>
           </h1>
         </Reveal>
         <Reveal delay={200}>
           <p style={{
             fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-            color: 'rgba(245,237,222,0.92)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
+            color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
           }}>
             2006年の設立以来、大規模修繕から新築・公共工事まで。
             移り変わる時代の中で、変えてはいけないものと、変えていくべきものを、
@@ -2425,7 +3116,7 @@ function CompanyHistory() {
       <div style={{
         position: 'absolute', left: -60, bottom: -180,
         fontFamily: 'var(--font-serif)', fontSize: 460, lineHeight: 1, fontWeight: 400,
-        color: 'rgba(245,237,222,0.04)', pointerEvents: 'none', letterSpacing: '-0.04em',
+        color: 'rgba(23,34,46,0.045)', pointerEvents: 'none', letterSpacing: '-0.04em',
       }}>沿革</div>
       <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.5fr 1.5fr', gap: isMobile ? 32 : 64 }}>
         <Reveal>
@@ -2510,7 +3201,7 @@ function CompanyWhy() {
       }}>
         {[
           ['01', '安全性', 'Safety', '安全確認を徹底し、積極的なコミュニケーションによって、現場の安全確保に努めます。', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop'],
-          ['02', '信頼性', 'Reliability', '最後までやり遂げることはもちろん、責任を持って工期にあわせます。', 'https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop'],
+          ['02', '信頼性', 'Reliability', '最後までやり遂げることはもちろん、責任を持って工期にあわせます。', 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop'],
           ['03', '柔軟性', 'Flexibility', '資格保有者を多く有し、様々な建設工事に幅広く対応。特殊な工事もお任せください。', 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop'],
         ].map(([num, jp, en, body, img], i) => (
           <Reveal key={num} delay={i * 100}>
@@ -2581,34 +3272,34 @@ function PageHeader({ en, jp, title, italic, bg, sub }) {
           </div>
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(20,17,13,0.15) 0%, rgba(20,17,13,0.35) 50%, rgba(20,17,13,0.7) 100%)',
+            background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
           }} />
         </>
       )}
       <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
         <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(245,237,222,0.85)',
+          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
           letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
         }}>Home / {jp} — {en}</div>
         <Reveal>
           <div style={{ marginBottom: 12,
             fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: 'var(--orange-soft)', letterSpacing: '0.02em',
-          }}>— {en}<span style={{ color: 'rgba(245,237,222,0.65)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span></div>
+            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
+          }}>— {en}<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span></div>
           <h1 style={{
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 160px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: 'var(--ink)',
+            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
             letterSpacing: '-0.035em',
           }}>
             <MaskReveal>{title}</MaskReveal>
-            {italic && <><br /><MaskReveal delay={160} style={{ fontStyle: 'italic', color: 'var(--orange-soft)' }}>{italic}</MaskReveal></>}
+            {italic && <><br /><MaskReveal delay={160} style={{ fontStyle: 'italic', color: '#9EC7ED' }}>{italic}</MaskReveal></>}
           </h1>
         </Reveal>
         {sub && (
           <Reveal delay={200}>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-              color: 'rgba(245,237,222,0.92)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
+              color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
             }}>{sub}</p>
           </Reveal>
         )}
@@ -2639,8 +3330,8 @@ function AboutPage() {
         }}>
           {[
             ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。街や建物に求められる「より豊かで快適な暮らし」を実現します。', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop'],
-            ['Policy', '方針', '安全性・信頼性・柔軟性。資格保有者を多く有し、特殊な工事まで幅広く、確かに対応します。', 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=82&auto=format&fit=crop'],
-            ['Spirit', '想い', '人を第一に。ESなくしてCSはなし。ハードなものを、ソフトなマインドでつくり続けます。', 'https://images.unsplash.com/photo-1597762470488-3877b1f538c6?w=1600&q=82&auto=format&fit=crop'],
+            ['Policy', '方針', '安全性・信頼性・柔軟性。資格保有者を多く有し、特殊な工事まで幅広く、確かに対応します。', 'https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1600&q=82&auto=format&fit=crop'],
+            ['Spirit', '想い', '人を第一に。ESなくしてCSはなし。ハードなものを、ソフトなマインドでつくり続けます。', 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=82&auto=format&fit=crop'],
           ].map(([en, jp, body, img], i) => (
             <Reveal key={en} delay={i * 80}>
               <div style={{
@@ -2681,37 +3372,135 @@ function AboutPage() {
   );
 }
 
+// ─── 施工実績の詳細ポップアップ ─────────────────────────────────────────
+function WorkModal({ work, onClose }) {
+  const isMobile = useMobile();
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    if (!work) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    if (closeRef.current) closeRef.current.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [work, onClose]);
+
+  const cat = work ? LOOP_CATEGORIES.find(c => c.key === work.cat) : null;
+
+  return (
+    <div
+      className={`wm-backdrop ${work ? 'is-open' : ''}`}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={work ? `${work.name} の施工実績詳細` : '施工実績詳細'}
+    >
+      <div className="wm-panel" onClick={(e) => e.stopPropagation()}>
+        <button ref={closeRef} className="wm-close" onClick={onClose} aria-label="閉じる">×</button>
+        {work && (
+          <>
+            <div style={{
+              aspectRatio: isMobile ? '4/3' : '16/9',
+              background: 'var(--bg-stone)', overflow: 'hidden',
+            }}>
+              <img src={work.img} alt={`${work.name} ${work.type}`} style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                filter: 'saturate(0.94) brightness(1.02)',
+              }} />
+            </div>
+
+            <div style={{ padding: isMobile ? '24px 20px 28px' : '36px 40px 40px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                <span style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
+                  letterSpacing: '0.1em', color: 'var(--brand)',
+                  background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
+                }}>{cat ? cat.jp : ''}</span>
+                <span style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 11,
+                  letterSpacing: '0.14em', color: 'var(--stone)',
+                }}>{work.year}</span>
+              </div>
+
+              <h2 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 600,
+                fontSize: isMobile ? 22 : 30, lineHeight: 1.4,
+                margin: 0, color: 'var(--ink)', letterSpacing: '-0.005em',
+              }}>{work.name}</h2>
+              <div style={{
+                fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
+                marginTop: 8, letterSpacing: '0.03em',
+              }}>{work.area}　/　{work.type}</div>
+
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+                lineHeight: 2.05, color: 'var(--ink-soft)',
+                margin: '22px 0 0', letterSpacing: '0.03em',
+              }}>{work.summary}</p>
+
+              <div className="stat-strip" style={{
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : `repeat(${work.specs.length}, 1fr)`,
+                marginTop: 26, borderRadius: 4, overflow: 'hidden',
+              }}>
+                {work.specs.map(([k, v]) => (
+                  <div key={k} style={{ padding: isMobile ? '14px 12px' : '18px 18px' }}>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
+                      letterSpacing: '0.12em', color: 'var(--stone)', marginBottom: 6,
+                    }}>{k}</div>
+                    <div style={{
+                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 14 : 16,
+                      fontWeight: 600, color: 'var(--ink)', lineHeight: 1.5,
+                    }}>{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: 11.5, lineHeight: 1.8,
+                color: 'var(--stone)', margin: '20px 0 0', letterSpacing: '0.02em',
+              }}>
+                ※ 掲載写真はイメージです。詳しい施工内容についてはお問い合わせください。
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Works ───────────────────────────────────────────────────────────────
 function WorksPage() {
   const isMobile = useMobile();
-  const [filter, setFilter] = useState('all');
-  const all = [
-    ['https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026', 'reno'],
-    ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 大国住宅2号館', '屋上防水改修工事', '2024', 'reno'],
-    ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '大阪市東淀川区 相川住宅2号館', '屋上防水改修工事', '2024', 'reno'],
-    ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 浪速西第3住宅', '外壁改修その他工事', '2017', 'reno'],
-    ['https://images.unsplash.com/photo-1577760258779-e787a1733016?w=1600&q=82&auto=format&fit=crop', '大阪市住吉区 墨江丘中学校', '外壁改修その他工事', '2015', 'pub'],
-    ['https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1600&q=82&auto=format&fit=crop', '大阪市東淀川区 菅原小学校', '外壁改修その他工事', '2016', 'pub'],
-    ['https://images.unsplash.com/photo-1562516710-38da0a64eb1e?w=1600&q=82&auto=format&fit=crop', '大阪市城東区 鯰江東小学校', '外壁改修その他工事', '2017', 'pub'],
-    ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=82&auto=format&fit=crop', '大阪市阿倍野区 工芸・第二工芸高校', '外壁改修その他工事', '2018', 'pub'],
-    ['https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=82&auto=format&fit=crop', '大阪市東住吉区 長居球技場', '庇改修その他工事', '2021', 'pub'],
-    ['https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1600&q=82&auto=format&fit=crop', '大阪市北区 大淀配水場', '外壁補修その他工事', '2023', 'pub'],
-    ['https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop', '大阪市阿倍野区 美章園2丁目', 'マンション新築工事', '2018', 'new'],
-    ['https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=82&auto=format&fit=crop', '大阪市生野区 新今里', 'マンション新築工事', '—', 'new'],
-    ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop', '和歌山市 和歌山大学', '野球部寮 新築工事', '—', 'new'],
-    ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '大阪市浪速区 難波元町', 'ニッシングルメビル新築', '—', 'new'],
-    ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=82&auto=format&fit=crop', '豊中市 ループ天神', 'マンション新築工事', '2021', 'new'],
-    ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=82&auto=format&fit=crop', '豊中市 ループ北町', 'マンション新築工事', '2019', 'new'],
-    ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '吹田市 はぴねす歯科 南千里駅前', 'クリニック新装工事', '2024', 'new'],
-    ['https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&q=82&auto=format&fit=crop', '寝屋川市 はぴねす歯科 寝屋川駅', 'クリニック新装工事', '2026', 'new'],
-  ];
-  const filters = [
-    ['all', 'すべて', 'All'],
-    ['reno', '修繕・改修', 'Renovation'],
-    ['pub', '公共工事', 'Public works'],
-    ['new', '新築・新装', 'New build'],
-  ];
-  const visible = filter === 'all' ? all : all.filter(p => p[4] === filter);
+  const { worksCat, setWorksCat } = useRouter();
+  const [active, setActive] = useState(null);
+
+  // トップの事業ボタンから来た場合、該当セクションへスクロール
+  useEffect(() => {
+    if (!worksCat) return;
+    const t = setTimeout(() => {
+      const el = document.getElementById(`works-${worksCat}`);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - (isMobile ? 72 : 96);
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      setWorksCat(null);
+    }, 120);
+    return () => clearTimeout(t);
+  }, [worksCat]);
+
+  const jumpTo = (key) => {
+    const el = document.getElementById(`works-${key}`);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - (isMobile ? 72 : 96);
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   return (
     <div className="page-enter" data-screen-label="04 Works">
       <PageHeader
@@ -2720,63 +3509,194 @@ function WorksPage() {
         title="これまでの、"
         italic="現場の記録。"
         bg="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
-        sub="大阪を中心に積み重ねてきた、公共・新築・修繕の施工事例。住み手の毎日と一緒に、建物が時間を重ねていきます。"
+        sub="大阪を中心に積み重ねてきた、新築・大規模修繕・公共工事の施工事例。事業ごとにご覧いただけます。"
       />
-      <section style={{ padding: isMobile ? '48px 20px 32px' : '96px 56px 56px', background: 'var(--bg)' }}>
+
+      {/* カテゴリへのジャンプナビ */}
+      <div style={{
+        position: 'sticky', top: isMobile ? 56 : 64, zIndex: 60,
+        background: 'rgba(255,255,255,0.94)',
+        backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--rule)',
+        padding: isMobile ? '14px 20px' : '18px 56px',
+      }}>
         <div style={{
-          display: 'flex', gap: 8, marginBottom: isMobile ? 32 : 56, flexWrap: 'wrap',
-          borderTop: '1px solid var(--rule)', borderBottom: '1px solid var(--rule)',
-          padding: '16px 0',
+          maxWidth: 1560, margin: '0 auto',
+          display: 'flex', gap: isMobile ? 6 : 10, flexWrap: 'wrap', alignItems: 'center',
         }}>
-          {filters.map(([k, jp, en]) => (
-            <button key={k} onClick={() => setFilter(k)} style={{
-              padding: '12px 22px',
-              border: 'none', cursor: 'pointer',
-              background: filter === k ? 'var(--ink)' : 'transparent',
-              color: filter === k ? 'var(--bg-cream)' : 'var(--ink)',
-              fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: '0.06em',
-              fontWeight: filter === k ? 600 : 400,
-              transition: 'all .3s',
-              display: 'flex', alignItems: 'baseline', gap: 10,
-            }}>
-              <span>{jp}</span>
-              <span style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 13,
-                color: filter === k ? 'var(--orange-soft)' : 'var(--orange)',
-              }}>— {en}</span>
+          {LOOP_CATEGORIES.map((c) => (
+            <button key={c.key} onClick={() => jumpTo(c.key)} style={{
+              padding: isMobile ? '12px 16px' : '14px 26px',
+              minHeight: isMobile ? 44 : 52,
+              border: '1px solid var(--rule-soft)', borderRadius: 3,
+              background: '#FFFFFF', color: 'var(--ink)', cursor: 'pointer',
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 14.5,
+              fontWeight: 700, letterSpacing: '0.04em',
+              transition: 'border-color .3s, background-color .3s, color .3s',
+            }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--brand)';
+                e.currentTarget.style.background = 'var(--brand-pale)';
+                e.currentTarget.style.color = 'var(--brand)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--rule-soft)';
+                e.currentTarget.style.background = '#FFFFFF';
+                e.currentTarget.style.color = 'var(--ink)';
+              }}
+            >
+              {c.jp}
+              <span style={{ color: 'var(--stone)', fontWeight: 600, marginLeft: 6 }}>
+                {worksByCat(c.key).length}
+              </span>
             </button>
           ))}
-          <span style={{
-            marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 11,
-            color: 'var(--stone)', letterSpacing: '0.22em', alignSelf: 'center',
-          }}>{visible.length} CASES</span>
+          {!isMobile && (
+            <span style={{
+              marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 11,
+              color: 'var(--stone)', letterSpacing: '0.18em',
+            }}>{LOOP_WORKS.length} CASES</span>
+          )}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 24 : 28 }}>
-          {visible.map(([img, place, type, year], i) => (
-            <Reveal key={img + i} delay={(i % 3) * 80}>
-              <a className="img-zoom" style={{ display: 'block', cursor: 'pointer' }}>
-                <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
-                  <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+
+      {/* カテゴリごとのセクション */}
+      {LOOP_CATEGORIES.map((c, ci) => {
+        const items = worksByCat(c.key);
+        return (
+          <section
+            key={c.key}
+            id={`works-${c.key}`}
+            style={{
+              scrollMarginTop: isMobile ? 110 : 130,
+              background: ci % 2 === 0 ? 'var(--bg)' : 'var(--bg-cream)',
+              borderTop: ci === 0 ? 'none' : '1px solid var(--rule)',
+              padding: isMobile ? '48px 20px' : '96px 56px',
+            }}>
+            <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+              <Reveal>
+                <div style={{
+                  display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+                  gap: 16, flexWrap: 'wrap', marginBottom: isMobile ? 24 : 40,
+                  paddingBottom: isMobile ? 16 : 22, borderBottom: '1px solid var(--rule)',
+                }}>
+                  <div>
+                    <div className="eyebrow" style={{ marginBottom: 14 }}>{c.en}</div>
+                    <h2 style={{
+                      fontFamily: 'var(--font-serif)', fontWeight: 600,
+                      fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 3vw, 44px)',
+                      margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
+                    }}>{c.jp}</h2>
+                    <p style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.9,
+                      color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
+                    }}>{c.lead}</p>
+                  </div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 11,
+                    color: 'var(--stone)', letterSpacing: '0.18em',
+                  }}>{items.length} CASES</span>
                 </div>
-              </a>
-              <div style={{
-                marginTop: 16, display: 'flex', justifyContent: 'space-between',
-                fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)', letterSpacing: '0.18em',
-              }}>
-                <span>CASE {String(i + 1).padStart(3, '0')}</span>
-                <span>{year}</span>
-              </div>
-              <div style={{
-                fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)', marginTop: 8, fontWeight: 500,
-              }}>{place}</div>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--stone)',
-                marginTop: 4, letterSpacing: '0.04em',
-              }}>{type}</div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+              </Reveal>
+
+              {items.length === 0 ? (
+                <Reveal>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
+                    color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                  }}>
+                    現在、こちらのカテゴリで公開している事例はありません。
+                  </p>
+                </Reveal>
+              ) : (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                  gap: isMobile ? 16 : 24,
+                }}>
+                  {items.map((w, i) => (
+                    <Reveal key={w.id} delay={(i % 3) * 80}>
+                      <a
+                        className="card-lift card-action"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`${w.name} の詳細を見る`}
+                        onClick={() => setActive(w)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(w); }
+                        }}
+                        style={{
+                          display: 'flex', flexDirection: 'column',
+                          height: '100%', cursor: 'pointer',
+                        }}>
+                        <div className="img-zoom" style={{ aspectRatio: '4/3', background: 'var(--bg-stone)' }}>
+                          <img src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                            width: '100%', height: '100%', objectFit: 'cover',
+                            filter: 'saturate(0.94) brightness(1.02)',
+                          }} />
+                        </div>
+                        <div style={{
+                          padding: isMobile ? '18px 18px 18px' : '24px 24px 22px',
+                          display: 'flex', flexDirection: 'column', flex: '1 1 auto',
+                        }}>
+                          <div style={{
+                            fontFamily: 'var(--font-mono)', fontSize: 10.5,
+                            letterSpacing: '0.14em', color: 'var(--stone)', marginBottom: 10,
+                          }}>{w.year}</div>
+                          <h3 style={{
+                            fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+                            fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.5,
+                          }}>{w.name}</h3>
+                          <p style={{
+                            fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
+                            margin: '8px 0 0', letterSpacing: '0.03em', lineHeight: 1.7,
+                            flex: '1 1 auto',
+                          }}>{w.area}　/　{w.type}</p>
+                          <span style={{
+                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                            gap: 10, marginTop: 16, paddingTop: 14,
+                            borderTop: '1px solid var(--rule)',
+                            fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
+                            letterSpacing: '0.06em', color: 'var(--brand)',
+                          }}>
+                            詳細を見る
+                            <span className="card-action-arrow">→</span>
+                          </span>
+                        </div>
+                      </a>
+                    </Reveal>
+                  ))}
+                </div>
+              )}
+
+              {c.key === 'other' && (
+                <Reveal>
+                  <div style={{
+                    marginTop: isMobile ? 20 : 28,
+                    padding: isMobile ? '20px 18px' : '26px 28px',
+                    background: 'var(--brand-pale)', borderRadius: 4,
+                    border: '1px solid var(--rule)',
+                  }}>
+                    <div style={{
+                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 18,
+                      fontWeight: 600, color: 'var(--ink)', marginBottom: 8,
+                    }}>派遣事業について</div>
+                    <p style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                      color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                    }}>
+                      現場監督（施工管理）の派遣は、一級建築施工管理技士をはじめとする有資格者が対応しています。
+                      派遣先ごとの個別対応となるため、実績の詳細はお問い合わせください。
+                    </p>
+                  </div>
+                </Reveal>
+              )}
+            </div>
+          </section>
+        );
+      })}
+
+      <WorkModal work={active} onClose={() => setActive(null)} />
       <HomeCTA />
     </div>
   );
@@ -2812,7 +3732,7 @@ function NewsPage() {
                 borderBottom: '1px solid var(--rule)',
                 transition: 'background-color .3s', cursor: 'pointer',
               }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.4)'}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-cream)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
               >
                 <span style={{
@@ -2917,7 +3837,7 @@ function RecruitPage() {
                 transition: 'background-color .3s',
                 cursor: 'pointer',
               }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.4)'}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-cream)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
               >
                 <div>
@@ -3111,7 +4031,7 @@ function InquiryModal() {
               <div style={{ padding: '24px 48px 48px' }}>
                 <FormGroup label="ご相談の種類" en="Type">
                   <Radios value={data.type} onChange={(v) => update('type', v)} options={[
-                    'マンション修繕', '店舗・クリニック新装', '公共工事・防水改修', '新築工事', 'その他',
+                    '新築工事', '大規模修繕・建物リニューアル', '公共工事', '派遣事業（施工管理）', '店舗・クリニック新装', 'その他',
                   ]} />
                 </FormGroup>
                 <FormGroup label="建物の種類" en="Building type">
