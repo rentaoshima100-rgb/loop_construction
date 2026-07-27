@@ -1362,7 +1362,7 @@ function Footer() {
         {[
           ['企業情報', 'COMPANY', [['会社概要', 'company'], ['代表挨拶', 'company']]],
           ['事業内容', 'BUSINESS', [['新築工事', 'business'], ['大規模修繕', 'business'], ['公共工事', 'business'], ['派遣事業', 'business'], ['道路維持・保全事業', 'business']]],
-          ['インフォメーション', 'INFO', [['施工事例', 'works'], ['お知らせ', 'news'], ['採用情報', 'recruit'], ['お問い合わせ', 'inquiry']]],
+          ['インフォメーション', 'INFO', [['施工事例', 'works'], ['お知らせ', 'news'], ['採用情報', 'recruit'], ['お問い合わせ', 'inquiry'], ['プライバシーポリシー', 'privacy']]],
         ].map(([h, en, items]) => (
           <div key={h}>
             <div style={{ marginBottom: 16 }}>
@@ -1399,7 +1399,7 @@ function Footer() {
         </span>
         <span style={{ display: 'flex', gap: 16 }}>
           <a className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
-          <a className="link-underline">プライバシー</a>
+          <a className="link-underline" onClick={() => go('privacy')} style={{ cursor: 'pointer' }}>プライバシーポリシー</a>
         </span>
       </div>
     </footer>
@@ -3729,6 +3729,114 @@ function NewsPage() {
   );
 }
 
+// ─── プライバシーポリシー ─────────────────────────────────────────────
+//     ※ 内容は一般的な雛形をもとにした案です。公開前に先方（必要なら顧問）に
+//        ご確認いただくこと。特に「利用目的」「委託」「開示請求の窓口」は要確認。
+function PrivacyPage() {
+  const isMobile = useMobile();
+  const sections = [
+    ['個人情報の取得について',
+      '当社は、お問い合わせ、お見積りのご依頼、採用へのご応募などの際に、お名前・会社名・電話番号・メールアドレス・ご相談内容など、必要な範囲で個人情報をご提供いただく場合があります。個人情報の取得にあたっては、適法かつ公正な手段によるものとします。'],
+    ['利用目的',
+      '取得した個人情報は、次の目的の範囲内で利用いたします。\n・お問い合わせ、ご相談へのご回答\n・現地調査、お見積りのご提示および工事のご提案\n・工事の施工、施工後のアフターフォロー\n・採用選考およびご連絡\n・当社サービスに関するご案内\nこれらの目的以外で利用する場合は、あらかじめご本人の同意を得るものとします。'],
+    ['第三者への提供',
+      '当社は、次の場合を除き、ご本人の同意なく個人情報を第三者に提供いたしません。\n・法令に基づく場合\n・人の生命、身体または財産の保護のために必要がある場合であって、ご本人の同意を得ることが困難であるとき\n・国の機関等の法令に定める事務の遂行に協力する必要がある場合'],
+    ['業務の委託',
+      '工事の施工にあたり、協力会社に業務の一部を委託する場合があります。この場合、委託先に対して必要かつ適切な監督を行い、個人情報の適正な取扱いを確保いたします。'],
+    ['安全管理措置',
+      '当社は、個人情報の漏えい、滅失またはき損の防止その他の個人情報の安全管理のため、必要かつ適切な措置を講じます。'],
+    ['開示・訂正・利用停止等のご請求',
+      '当社が保有する個人情報について、ご本人からの開示、訂正、追加、削除、利用停止または第三者提供の停止のご請求があった場合、ご本人であることを確認のうえ、法令に従い速やかに対応いたします。ご請求は下記の窓口までご連絡ください。'],
+    ['アクセス情報の取得について',
+      '当ウェブサイトでは、サービス向上のためにアクセス状況を記録する場合があります。これらの情報に個人を特定する情報は含まれません。ブラウザの設定により、Cookieの利用を拒否することができます。'],
+    ['法令等の遵守と見直し',
+      '当社は、個人情報の取扱いに関する法令その他の規範を遵守するとともに、本方針の内容を適宜見直し、継続的な改善に努めます。'],
+  ];
+
+  return (
+    <div className="page-enter" data-screen-label="07 Privacy">
+      <PageHeader
+        en="Privacy policy"
+        jp="プライバシーポリシー"
+        title="個人情報の"
+        italic="取扱いについて"
+        sub="株式会社ループ（以下「当社」といいます）は、お客様および採用にご応募いただく皆様の個人情報を適切に保護することが社会的責務であると考え、次のとおり個人情報保護方針を定め、これを遵守いたします。"
+      />
+
+      <section style={{
+        background: 'var(--bg)',
+        padding: isMobile ? '40px 20px 48px' : '72px 56px 88px',
+      }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <ol style={{
+            listStyle: 'none', margin: 0, padding: 0,
+            borderTop: '1px solid var(--rule)',
+          }}>
+            {sections.map(([h, body], i) => (
+              <Reveal key={h} delay={i * 40} as="li">
+                <div style={{
+                  padding: isMobile ? '24px 0' : '32px 0',
+                  borderBottom: '1px solid var(--rule)',
+                }}>
+                  <div style={{ display: 'flex', gap: isMobile ? 12 : 18, alignItems: 'baseline' }}>
+                    <span style={{
+                      fontFamily: 'var(--font-mono)', fontSize: isMobile ? 12 : 13,
+                      color: 'var(--brand)', fontWeight: 600, flex: '0 0 auto',
+                    }}>{String(i + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h2 style={{
+                        fontFamily: 'var(--font-serif)', fontWeight: 600,
+                        fontSize: isMobile ? 17 : 21, margin: 0,
+                        color: 'var(--ink)', lineHeight: 1.5,
+                      }}>{h}</h2>
+                      <p style={{
+                        fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+                        lineHeight: 2.1, color: 'var(--ink-soft)',
+                        margin: '12px 0 0', letterSpacing: '0.03em',
+                        whiteSpace: 'pre-line',
+                      }}>{body}</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+
+          {/* 窓口 */}
+          <Reveal>
+            <div style={{
+              marginTop: isMobile ? 28 : 40,
+              padding: isMobile ? '22px 20px 24px' : '30px 32px 32px',
+              background: 'var(--bg-cream)', border: '1px solid var(--rule)', borderRadius: 4,
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 20,
+                fontWeight: 600, color: 'var(--ink)', marginBottom: 14,
+              }}>個人情報に関するお問い合わせ窓口</div>
+              <div style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+                lineHeight: 2.05, color: 'var(--ink-soft)', letterSpacing: '0.03em',
+              }}>
+                株式会社ループ<br />
+                〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F<br />
+                TEL 06-6394-7778（受付 9:00 – 18:00 / 平日）<br />
+                E-MAIL loop_kanri@kabuloop.sakura.ne.jp
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--stone)',
+              marginTop: 24, letterSpacing: '0.04em', textAlign: isMobile ? 'left' : 'right',
+            }}>制定日：2026年7月27日　株式会社ループ　代表取締役　貝塚 昭</p>
+          </Reveal>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 // ─── Recruit ─────────────────────────────────────────────────────────────
 function RecruitPage() {
   const isMobile = useMobile();
@@ -3917,6 +4025,7 @@ function RecruitPage() {
   );
 }
 
+window.PrivacyPage = PrivacyPage;
 window.WorksPage = WorksPage;
 window.NewsPage = NewsPage;
 window.RecruitPage = RecruitPage;
@@ -3924,6 +4033,28 @@ window.RecruitPage = RecruitPage;
 
 /* ─── src/app.jsx ─── */
 // Loop建築 — Inquiry modal + main App
+
+// ─── お問い合わせの送信先 ────────────────────────────────────────────
+//     GitHub Pages は静的ホスティングのため、送信はフォームサービスに預ける。
+//     Formspree / SSGform などで発行したエンドポイントURLをここに入れると
+//     そのままPOST送信が有効になる。
+//     空のままの場合は、メールソフトを起動する方式にフォールバックする
+//     （＝送信できたふりをせず、必ず担当者に届く経路を残す）。
+const FORM_ENDPOINT = '';
+const INQUIRY_MAILTO = 'loop_kanri@kabuloop.sakura.ne.jp';
+
+const INQUIRY_LABELS = {
+  type: 'ご相談の種類', building: '建物の種類', size: '規模', issue: '主なご相談内容',
+  name: 'お名前', org: '所属 / 法人名', email: 'メールアドレス',
+  phone: '電話番号', message: 'その他ご要望',
+};
+
+const buildInquiryBody = (data) =>
+  Object.keys(INQUIRY_LABELS)
+    .map((k) => `${INQUIRY_LABELS[k]}：${data[k] || '（未記入）'}`)
+    .join('\n');
+
+const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
 function InquiryModal() {
   const { inquiryOpen, setInquiryOpen } = useRouter();
@@ -3933,12 +4064,18 @@ function InquiryModal() {
     name: '', org: '', email: '', phone: '', message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+  const [viaMail, setViaMail] = useState(false);
 
   useEffect(() => {
     if (inquiryOpen) {
       document.body.style.overflow = 'hidden';
       setStep(1);
       setSubmitted(false);
+      setSending(false);
+      setError('');
+      setViaMail(false);
     } else {
       document.body.style.overflow = '';
     }
@@ -3946,7 +4083,43 @@ function InquiryModal() {
 
   const update = (k, v) => setData(d => ({ ...d, [k]: v }));
   const canContinue1 = data.type && data.building;
-  const canContinue2 = data.name && data.email;
+  const canContinue2 = data.name && isValidEmail(data.email);
+
+  const submit = async () => {
+    if (sending) return;
+    setError('');
+
+    // エンドポイント未設定時：メールソフトを起動して確実に届ける
+    if (!FORM_ENDPOINT) {
+      const subject = `【お問い合わせ】${data.type || 'ご相談'}／${data.name || ''} 様`;
+      window.location.href = `mailto:${INQUIRY_MAILTO}`
+        + `?subject=${encodeURIComponent(subject)}`
+        + `&body=${encodeURIComponent(buildInquiryBody(data))}`;
+      setViaMail(true);
+      setSubmitted(true);
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          _subject: `【お問い合わせ】${data.type}／${data.name} 様`,
+          送信元: 'コーポレートサイト お問い合わせフォーム',
+        }),
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      setSubmitted(true);
+    } catch (e) {
+      setError('送信に失敗しました。時間をおいて再度お試しいただくか、'
+        + 'お電話（06-6394-7778）にてご連絡ください。');
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className={`modal-backdrop ${inquiryOpen ? 'is-open' : ''}`} onClick={() => setInquiryOpen(false)}>
@@ -3991,13 +4164,26 @@ function InquiryModal() {
             <h3 style={{
               fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500,
               margin: 0, color: 'var(--ink)',
-            }}>送信されました</h3>
+            }}>{viaMail ? 'メールソフトを開きました' : '送信されました'}</h3>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 2,
               color: 'var(--ink-soft)', marginTop: 16, letterSpacing: '0.04em',
             }}>
-              お問い合わせありがとうございます。<br />
-              担当者より2営業日以内にご連絡いたします。
+              {viaMail ? (
+                <>
+                  ご入力内容を差し込んだメールを作成しました。<br />
+                  内容をご確認のうえ、そのまま送信してください。<br />
+                  メールソフトが開かない場合は、お手数ですが<br />
+                  <a href={`mailto:${INQUIRY_MAILTO}`} className="link-underline"
+                    style={{ color: 'var(--brand)', fontWeight: 700 }}>{INQUIRY_MAILTO}</a>
+                  {' '}宛にご連絡ください。
+                </>
+              ) : (
+                <>
+                  お問い合わせありがとうございます。<br />
+                  担当者より2営業日以内にご連絡いたします。
+                </>
+              )}
             </p>
             <button onClick={() => setInquiryOpen(false)} className="btn btn--outline" style={{ marginTop: 36 }}>
               <span>閉じる</span>
@@ -4062,7 +4248,14 @@ function InquiryModal() {
                 </FormGroup>
                 <FormGroup label="メールアドレス" en="Email">
                   <input type="email" value={data.email} onChange={(e) => update('email', e.target.value)}
-                    placeholder="taro@example.com" style={inputStyle} />
+                    placeholder="taro@example.com" style={inputStyle}
+                    aria-invalid={data.email !== '' && !isValidEmail(data.email)} />
+                  {data.email !== '' && !isValidEmail(data.email) && (
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 12, color: '#B4443A',
+                      marginTop: 8, letterSpacing: '0.03em',
+                    }}>メールアドレスの形式をご確認ください。</div>
+                  )}
                 </FormGroup>
                 <FormGroup label="電話番号" en="Phone" optional>
                   <input value={data.phone} onChange={(e) => update('phone', e.target.value)}
@@ -4113,10 +4306,19 @@ function InquiryModal() {
                   ※ 担当者より2営業日以内にご連絡いたします。<br />
                   ※ 現地調査・お見積りは無料です。
                 </p>
+                {error && (
+                  <div role="alert" style={{
+                    marginTop: 20, padding: '14px 16px', borderRadius: 4,
+                    background: '#FDF1F0', border: '1px solid #EBC6C2',
+                    fontFamily: 'var(--font-sans)', fontSize: 13, lineHeight: 1.9,
+                    color: '#8E332B', letterSpacing: '0.03em',
+                  }}>{error}</div>
+                )}
                 <ModalNav
                   onBack={() => setStep(2)}
-                  onNext={() => setSubmitted(true)}
-                  nextLabel="この内容で送信"
+                  onNext={submit}
+                  nextDisabled={sending}
+                  nextLabel={sending ? '送信中…' : (FORM_ENDPOINT ? 'この内容で送信' : 'メールソフトで送信')}
                 />
               </div>
             )}
@@ -4223,6 +4425,7 @@ function Shell() {
     case 'works':    page = <WorksPage />;    break;
     case 'news':     page = <NewsPage />;     break;
     case 'recruit':  page = <RecruitPage />;  break;
+    case 'privacy':  page = <PrivacyPage />;  break;
     default:         page = <HomePage />;
   }
   return (
