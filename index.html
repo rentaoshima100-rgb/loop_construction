@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="株式会社ループ｜大阪・東三国。大規模修繕・建物リニューアルから新築・公共工事まで。人とのつながりを大切にする、信頼と実績のループ。2006年設立、一級建築施工管理技士在籍、建設業許可18業種。" />
-<title>株式会社ループ｜大規模修繕・建物リニューアル</title>
+<meta name="description" content="株式会社ループ｜大阪・神奈川。新築工事・大規模修繕・公共工事・派遣事業・道路維持・保全事業まで。「創る技術」で未来を築き、「守る技術」で日常を支える総合建設会社です。2006年設立、建設業許可18業種。" />
+<title>株式会社ループ｜新築・大規模修繕・公共工事の総合建設会社</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -823,6 +823,8 @@ function RouterProvider({ children }) {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   // 施工実績ページで開くカテゴリ（トップの事業ボタンから指定される）
   const [worksCat, setWorksCat] = useState(null);
+  // 事業案内ページで開くセクション（トップの事業カードから指定される）
+  const [bizSec, setBizSec] = useState(null);
 
   useEffect(() => {
     const onHash = () => setRoute((location.hash || '#home').replace('#', '') || 'home');
@@ -833,6 +835,7 @@ function RouterProvider({ children }) {
   const go = useCallback((r, opt) => {
     if (r === 'inquiry') { setInquiryOpen(true); return; }
     setWorksCat(opt && opt.cat ? opt.cat : null);
+    setBizSec(opt && opt.sec ? opt.sec : null);
     if ((location.hash || '#home').replace('#', '') === r) {
       // 同じルート内での指定はハッシュが変わらないため、手動で再通知する
       setRoute(r);
@@ -842,8 +845,8 @@ function RouterProvider({ children }) {
   }, []);
 
   const value = useMemo(
-    () => ({ route, go, inquiryOpen, setInquiryOpen, worksCat, setWorksCat }),
-    [route, inquiryOpen, worksCat]
+    () => ({ route, go, inquiryOpen, setInquiryOpen, worksCat, setWorksCat, bizSec, setBizSec }),
+    [route, inquiryOpen, worksCat, bizSec]
   );
   return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>;
 }
@@ -1045,7 +1048,35 @@ function FigMeta({ no, label, year, side = 'left', color = 'var(--bg-cream)' }) 
   );
 }
 
+// ─── 写真準備中のプレースホルダ ─────────────────────────────────────────
+//     実写真をご支給いただき次第、img に差し替える箇所。
+function PhotoPending({ label = 'イメージ写真', note = '準備中' }) {
+  return (
+    <div style={{
+      width: '100%', height: '100%', minHeight: 160,
+      background: 'repeating-linear-gradient(135deg, var(--bg-cream) 0 14px, var(--bg-deep) 14px 28px)',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      gap: 8, color: 'var(--stone)', border: '1px dashed var(--rule-soft)',
+    }}>
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="1.5" />
+        <circle cx="8.5" cy="10" r="1.6" />
+        <path d="M21 16l-5-5-4.5 4.5L9 13l-6 6" />
+      </svg>
+      <div style={{
+        fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em',
+      }}>{label}</div>
+      <div style={{
+        fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
+        color: 'var(--stone-light)',
+      }}>{note}</div>
+    </div>
+  );
+}
+
 // expose
+window.PhotoPending = PhotoPending;
 window.RouterProvider = RouterProvider;
 window.RouterContext = RouterContext;
 window.useRouter = useRouter;
@@ -1090,7 +1121,6 @@ function Nav() {
   useEffect(() => { setMenuOpen(false); }, [route]);
 
   const items = [
-    { key: 'about', en: 'About', jp: '私たちについて' },
     { key: 'company', en: 'Company', jp: '企業情報' },
     { key: 'business', en: 'Business', jp: '事業案内' },
     { key: 'works', en: 'Works', jp: '施工事例' },
@@ -1107,21 +1137,24 @@ function Nav() {
           display: 'flex', alignItems: 'center', gap: 36,
           fontFamily: 'var(--font-sans)',
         }}>
-          <a onClick={() => go('home')} style={{
-            display: 'flex', alignItems: 'baseline', gap: 14, cursor: 'pointer',
+          <a onClick={() => go('home')} aria-label="株式会社ループ トップへ" style={{
+            display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 14, cursor: 'pointer',
           }}>
-            <div style={{
-              fontFamily: 'var(--font-serif)', fontSize: isMobile ? 22 : 26, fontWeight: 600,
-              color: 'var(--ink)', letterSpacing: '0.01em', lineHeight: 1,
-            }}>
-              Loop<span style={{ color: 'var(--orange)' }}>.</span>
-            </div>
-            {!isMobile && (
+            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{
+              width: isMobile ? 38 : 46, height: 'auto', flex: '0 0 auto',
+            }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <div style={{
-                fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--stone)',
-                letterSpacing: '0.22em',
-              }}>EST. 2006</div>
-            )}
+                fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 20, fontWeight: 600,
+                color: 'var(--ink)', letterSpacing: '0.02em', lineHeight: 1.1,
+              }}>株式会社ループ</div>
+              {!isMobile && (
+                <div style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--stone)',
+                  letterSpacing: '0.2em',
+                }}>LOOP CO., LTD. — EST. 2006</div>
+              )}
+            </div>
           </a>
 
           {!isMobile && (
@@ -1194,10 +1227,11 @@ function Nav() {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           marginBottom: 16, flex: '0 0 auto',
         }}>
-          <div style={{
-            fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 600, color: 'var(--ink)',
-          }}>
-            Loop<span style={{ color: 'var(--orange)' }}>.</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: 36, height: 'auto' }} />
+            <span style={{
+              fontFamily: 'var(--font-serif)', fontSize: 18, fontWeight: 600, color: 'var(--ink)',
+            }}>株式会社ループ</span>
           </div>
           <button onClick={() => setMenuOpen(false)} aria-label="Close menu" style={{
             width: 44, height: 44, border: 'none', background: 'transparent',
@@ -1277,8 +1311,12 @@ function Footer() {
         marginBottom: isMobile ? 48 : 72,
       }}>
         <div>
-          <div style={{ fontFamily: 'var(--font-serif)', fontSize: isMobile ? 36 : 44, fontWeight: 500, marginBottom: 16 }}>
-            Loop<span style={{ color: 'var(--orange)' }}>.</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: isMobile ? 52 : 62, height: 'auto' }} />
+            <div style={{
+              fontFamily: 'var(--font-serif)', fontSize: isMobile ? 24 : 28,
+              fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em',
+            }}>株式会社ループ</div>
           </div>
           <div style={{
             fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19, fontWeight: 600,
@@ -1287,9 +1325,16 @@ function Footer() {
             人とのつながりを大切にする、<br />信頼と実績のループ。
           </div>
           <div style={{ fontSize: 12.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
+            <div style={{ fontWeight: 700, color: 'var(--ink)' }}>本社</div>
             〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F<br />
-            TEL 06-6394-7778　FAX 06-6394-7779<br />
-            受付 9:00 – 18:00 / 平日（土日祝休）
+            TEL 06-6394-7778　FAX 06-6394-7779
+            <div style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>豊中事務所</div>
+            〒561-0817　大阪府豊中市浜1-1-5 ループ天神202<br />
+            TEL 06-6336-7773　FAX 06-6336-7774
+            <div style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>藤沢営業所</div>
+            〒252-0816　神奈川県藤沢市遠藤3099<br />
+            TEL 046-688-6389
+            <div style={{ marginTop: 14 }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
           </div>
           <button onClick={() => setInquiryOpen(true)} className="btn btn--solid"
             style={{ marginTop: 24, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
@@ -1298,8 +1343,8 @@ function Footer() {
           </button>
         </div>
         {[
-          ['企業情報', 'ABOUT', [['会社概要', 'company'], ['代表挨拶', 'company'], ['沿革', 'company'], ['私たちについて', 'about']]],
-          ['事業内容', 'BUSINESS', [['新築工事', 'business'], ['大規模修繕・建物リニューアル', 'business'], ['公共工事', 'business'], ['派遣事業', 'business'], ['その他', 'business']]],
+          ['企業情報', 'COMPANY', [['会社概要', 'company'], ['代表挨拶', 'company']]],
+          ['事業内容', 'BUSINESS', [['新築工事', 'business'], ['大規模修繕', 'business'], ['公共工事', 'business'], ['派遣事業', 'business'], ['道路維持・保全事業', 'business']]],
           ['インフォメーション', 'INFO', [['施工事例', 'works'], ['お知らせ', 'news'], ['採用情報', 'recruit'], ['お問い合わせ', 'inquiry']]],
         ].map(([h, en, items]) => (
           <div key={h}>
@@ -1353,33 +1398,26 @@ window.Footer = Footer;
 // 方針: 白基調 / 余白広め / 実績を最上部に前面配置 / 採用訴求を全体に効かせる
 
 // ─── 共通データ（会社の実データに基づく） ─────────────────────────────
-const LOOP_STATS = [
-  { num: '20', unit: '年', label: '2006年設立からの歩み', note: '大阪・東三国' },
-  { num: '18', unit: '業種', label: '建設業許可', note: '国土交通大臣許可' },
-  { num: '4', unit: '名', label: '一級建築施工管理技士', note: '有資格者が在籍' },
-  { num: '18', unit: '件', label: '主な施工実績', note: '公共・新築・修繕' },
-];
-
 const LOOP_STRENGTHS = [
   {
     no: '01',
     title: '2006年設立、\n積み上げた信頼と実績',
-    body: '大阪・東三国を拠点に、20年にわたって現場を重ねてきました。取引先様との関係を一件ごとに積み上げることを、何より大切にしています。',
+    body: '大阪・神奈川を拠点に、官公庁基準の品質をすべての建築へ。確かな安心をお届けします。',
   },
   {
     no: '02',
     title: '建設業許可18業種\nワンストップ対応',
-    body: '土木・建築・防水・塗装・内装仕上ほか18業種の許可を保有。専門業者の調整コストを抑え、現場判断を速くする体制です。',
+    body: '土木・建築・防水・塗装・内装仕上ほか18業種の許可を保有。現場の工程管理をスムーズにし、現場判断を速くする体制です。',
   },
   {
     no: '03',
-    title: '一級建築施工管理技士\n4名が在籍',
-    body: '有資格者が品質・工程・安全を統括。官公庁の検査基準や書類管理にも確実に対応し、任せられる現場をつくります。',
+    title: '一級建築施工管理技士\nが在籍',
+    body: '法令順守はもちろん、高度な現場統括力により、想定外のトラブル防止や厳格な品質管理、徹底した工期遵守を実現します。',
   },
   {
     no: '04',
     title: '新築・大規模修繕・\n公共工事までの総合力',
-    body: 'マンション新築から大規模修繕、学校・公共施設の改修まで。建物のあらゆる時間に、一社で向き合えます。',
+    body: 'ゼロから建物を創り上げる「新築工事」、建物の資産価値を維持・向上させる「大規模修繕工事」、そして厳格な品質・安全管理が求められる「公共工事」まで幅広く手がける総合建設会社です。',
   },
   {
     no: '05',
@@ -1388,139 +1426,155 @@ const LOOP_STRENGTHS = [
   },
 ];
 
-// ─── 事業カテゴリ（トップの実績ボタン ＝ 施工実績ページのセクション） ────
-const LOOP_CATEGORIES = [
-  { key: 'new',   jp: '新築工事',       en: 'NEW CONSTRUCTION', lead: 'マンション・ビル・施設の新築' },
-  { key: 'reno',  jp: '大規模修繕',     en: 'RENOVATION',       lead: '外壁・屋上防水・共用部の改修' },
-  { key: 'pub',   jp: '公共工事',       en: 'PUBLIC WORKS',     lead: '学校・公共施設の改修工事' },
-  { key: 'other', jp: '派遣事業・その他', en: 'STAFFING & OTHERS', lead: '施工管理の派遣・店舗新装ほか' },
+// ─── 5事業（トップの事業カード ＝ 事業案内ページのセクション） ──────────
+const LOOP_SERVICES = [
+  {
+    key: '01', jp: '新築工事', sub: 'マンション・ビル・クリニック', en: 'New Construction',
+    img: 'assets/works/new-abeno.jpg', worksCat: 'new',
+    lead: 'ゼロからの物語を、確かな技術とともに',
+    body: '当社では、高い技術力と確かな提案力で、資産価値が長く続く新築工事をご提供しております。確かな知識と豊富な経験を持つ「国家資格保有者」が現場を統括。独自の厳しい品質基準を設け、安全かつ高精度な施工を徹底いたします。',
+    tags: ['マンション', 'ビル', 'クリニック'],
+  },
+  {
+    key: '02', jp: '大規模修繕', sub: '外壁・屋上防水・共用部の改修', en: 'Renovation',
+    img: 'assets/works/reno-kakogawa.jpg', worksCat: 'reno',
+    lead: '大切な資産に、確かな価値と安心を重ねる',
+    body: '新築だけでなく、長期的なメンテナンスや資産価値維持のパートナーとしてお役に立ちます。修繕工事は、新築工事とは異なる特殊な配慮が必要です。当社の技術者は、居住者様へのマナー対応、騒音・振動対策、安全な足場計画、バルコニー等の工事調整など、修繕現場ならではの運営管理を熟知しています。',
+    tags: ['外壁改修', '屋上防水', '共用部'],
+  },
+  {
+    key: '03', jp: '公共工事', sub: '学校・公共住宅・公共施設', en: 'Public Works',
+    img: 'assets/works/pub-sumieoka.jpg', worksCat: 'pub',
+    lead: '地域の未来基盤を築く、確かな技術と安心の施工管理',
+    body: '当社は、地方自治体をはじめとする官公庁発注の公共工事を数多く手がけております。公共工事の実績は、厳しい審査や高い技術基準をクリアした企業にのみ与えられる「確かな信頼の証」です。私たちは地域社会のインフラを支える担い手として、社会的責任の重さを常に認識し、日々の施工に臨んでいます。',
+    tags: ['学校', '公共住宅', '公共施設'],
+  },
+  {
+    key: '04', jp: '派遣事業', sub: '労働者派遣事業許可番号：派00000000000', en: 'Staffing',
+    img: 'assets/staff/staff-meeting.jpg',
+    lead: '人と現場を結び、建設の未来を創造する',
+    body: '即戦力の現場監督を迅速に派遣。1級・2級建築施工管理技士をはじめとする、経験豊富な専門技術者が、貴社の現場を安全・確実にサポートします。現場特有のルールやスピード感を熟知しているため、配属初日からスムーズに業務に馴染みます。単なる人材派遣会社ではなく、当社自身が建築会社です。現場で困ったことがあれば、会社全体で技術的・組織的にサポートできる体制が整っています。',
+    tags: ['工程管理', '品質管理', '安全管理', '原価管理'],
+  },
+  {
+    key: '05', jp: '道路維持・保全事業', sub: '高速道路・自動車道', en: 'Road Maintenance',
+    img: null,
+    lead: '安心・安全な交通インフラを未来へつなぐ',
+    body: '地域の経済や暮らしを支える高速道路・自動車道の安全を守るため、IC（インターチェンジ）やJCT（ジャンクション）周辺の維持管理業務（樹木伐採・草刈り・雪氷対策作業等）を行っています。',
+    tags: ['樹木伐採', '草刈り', '雪氷対策'],
+  },
 ];
 
-// 施工実績。※写真はすべて仮画像。実際の施工写真に差し替えること。
-const IMG = (id) => `https://images.unsplash.com/photo-${id}?w=1600&q=82&auto=format&fit=crop`;
+// ─── 施工実績のカテゴリ（＝施工実績ページのセクション） ──────────────────
+const LOOP_CATEGORIES = [
+  { key: 'new',  jp: '新築工事',   en: 'NEW CONSTRUCTION', lead: 'マンション・ビル・クリニックの新築' },
+  { key: 'reno', jp: '大規模修繕', en: 'RENOVATION',       lead: '外壁・屋上防水・共用部の改修' },
+  { key: 'pub',  jp: '公共工事',   en: 'PUBLIC WORKS',     lead: '学校・公共住宅・公共施設の改修工事' },
+];
 
 const LOOP_WORKS = [
   // ── 新築工事 ──────────────────────────────────────────────
   {
-    id: 'loop-tenjin', cat: 'new', img: IMG('1486325212027-8081e485255e'),
-    name: 'ループ天神', area: '大阪府豊中市', type: 'マンション新築工事', year: '2021',
+    id: 'new-toyonaka-a', cat: 'new', img: 'assets/works/new-toyonaka-a.jpg',
+    name: '豊中市マンション', area: '大阪府豊中市', type: 'マンション新築工事', year: '2021',
     summary: '豊中市にて、マンションの新築工事を実施しました。着工から引き渡しまで、自社で一貫して施工管理を担当しています。',
     specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['着工', '2021年12月']],
   },
   {
-    id: 'loop-kitamachi', cat: 'new', img: IMG('1481253127861-534498168948'),
-    name: 'ループ北町', area: '大阪府豊中市', type: 'マンション新築工事', year: '2019',
+    id: 'new-toyonaka-b', cat: 'new', img: 'assets/works/new-toyonaka-b.jpg',
+    name: '豊中市マンション', area: '大阪府豊中市', type: 'マンション新築工事', year: '2019',
     summary: '豊中市にて、マンションの新築工事を実施しました。',
     specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['竣工', '2019年']],
   },
   {
-    id: 'bishoen', cat: 'new', img: IMG('1448630360428-65456885c650'),
-    name: '美章園2丁目 マンション', area: '大阪市阿倍野区', type: 'マンション新築工事', year: '2018',
-    summary: '大阪市阿倍野区美章園2丁目にて、マンションの新築工事に着工しました。',
+    id: 'new-abeno', cat: 'new', img: 'assets/works/new-abeno.jpg',
+    name: '大阪市阿倍野区マンション', area: '大阪市阿倍野区', type: 'マンション新築工事', year: '2018',
+    summary: '大阪市阿倍野区にて、マンションの新築工事に着工しました。',
     specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪市阿倍野区'], ['着工', '2018年6月']],
   },
   {
-    id: 'shinimazato', cat: 'new', img: IMG('1545324418-cc1a3fa10c00'),
-    name: '新今里 マンション', area: '大阪市生野区', type: 'マンション新築工事', year: '—',
-    summary: '大阪市生野区新今里にて、マンションの新築工事を実施しました。',
-    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪市生野区']],
-  },
-  {
-    id: 'wakayama-dorm', cat: 'new', img: IMG('1486406146926-c627a92ad1ab'),
-    name: '和歌山大学 野球部寮', area: '和歌山県和歌山市', type: '寮 新築工事', year: '—',
-    summary: '和歌山大学の野球部寮の新築工事を実施しました。',
-    specs: [['用途', '寮'], ['工種', '新築工事'], ['所在地', '和歌山県和歌山市']],
-  },
-  {
-    id: 'nisshin-gourmet', cat: 'new', img: IMG('1497366811353-6870744d04b2'),
-    name: 'ニッシングルメビル', area: '大阪市浪速区 難波元町', type: '店舗ビル新築工事', year: '—',
+    id: 'new-namba', cat: 'new', img: 'assets/works/new-namba.jpg',
+    name: '難波元町ビル', area: '大阪市浪速区', type: '店舗ビル新築工事', year: '—',
     summary: '大阪市浪速区難波元町にて、店舗ビルの新築工事を実施しました。',
     specs: [['用途', '店舗ビル'], ['工種', '新築工事'], ['所在地', '大阪市浪速区']],
+  },
+  {
+    id: 'new-clinic-a', cat: 'new', img: 'assets/works/new-clinic-a.jpg',
+    name: '歯科クリニック', area: '大阪府寝屋川市', type: 'クリニック新装工事', year: '2026',
+    summary: '寝屋川市にて、歯科クリニックの新装工事に着手しました。開業日から逆算した工程設計と、衛生・安全基準を満たす施工管理を行っています。',
+    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府寝屋川市'], ['着工', '2026年2月']],
+  },
+  {
+    id: 'new-clinic-b', cat: 'new', img: 'assets/works/new-clinic-b.jpg',
+    name: '歯科クリニック', area: '大阪府吹田市', type: 'クリニック新装工事', year: '2024',
+    summary: '吹田市にて、歯科クリニックの新装工事を実施しました。内装・電気・給排水・サインまで一貫して対応しています。',
+    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024年']],
   },
 
   // ── 大規模修繕 ────────────────────────────────────────────
   {
-    id: 'liberte-kakogawa', cat: 'reno', img: IMG('1545324418-cc1a3fa10c00'),
-    name: 'リベール加古川Ⅰ', area: '兵庫県加古川市', type: '大規模修繕工事', year: '2026',
+    id: 'reno-kakogawa', cat: 'reno', img: 'assets/works/reno-kakogawa.jpg',
+    name: '加古川市マンション', area: '兵庫県加古川市', type: '大規模修繕工事', year: '2026',
     summary: '築30年・66戸のマンションの大規模修繕工事。外壁塗装の劣化、タイルの浮き、屋上防水層の経年劣化に対し、住民様の生活を止めずに統合的に改修を進めています。',
     specs: [['戸数', '66戸'], ['築年数', '築30年'], ['工種', '外壁・タイル・屋上防水'], ['着工', '2026年4月']],
   },
   {
-    id: 'daikoku-2', cat: 'reno', img: IMG('1448630360428-65456885c650'),
-    name: '大国住宅2号館', area: '大阪市浪速区 大国', type: '屋上防水改修工事', year: '2024',
-    summary: '大阪市浪速区大国にて、屋上防水改修工事を実施しました。',
-    specs: [['用途', '住宅'], ['工種', '屋上防水改修'], ['所在地', '大阪市浪速区'], ['着工', '2024年11月']],
+    id: 'reno-osaka-bld', cat: 'reno', img: 'assets/works/reno-osaka-bld.jpg',
+    name: '大阪市商業ビル', area: '大阪市', type: '大規模修繕工事', year: '—',
+    summary: '大阪市内の商業ビルにて、外壁改修を中心とした大規模修繕工事を実施しました。テナント様の営業を止めずに進める工程管理を行っています。',
+    specs: [['用途', '商業ビル'], ['工種', '外壁改修・防水'], ['所在地', '大阪市']],
   },
   {
-    id: 'aikawa-2', cat: 'reno', img: IMG('1481253127861-534498168948'),
-    name: '相川住宅2号館', area: '大阪市東淀川区 相川', type: '屋上防水改修工事', year: '2024',
-    summary: '大阪市東淀川区相川にて、屋上防水改修工事を実施しました。',
-    specs: [['用途', '住宅'], ['工種', '屋上防水改修'], ['所在地', '大阪市東淀川区'], ['施工', '2024年12月']],
+    id: 'reno-suita-bld', cat: 'reno', img: 'assets/works/reno-suita-bld.jpg',
+    name: '吹田市商業ビル', area: '大阪府吹田市', type: '大規模修繕工事', year: '—',
+    summary: '吹田市の商業ビルにて、外壁・シーリング・鉄部塗装を含む大規模修繕工事を実施しました。',
+    specs: [['用途', '商業ビル'], ['工種', '外壁改修・塗装'], ['所在地', '大阪府吹田市']],
   },
   {
-    id: 'naniwanishi-3', cat: 'reno', img: IMG('1486406146926-c627a92ad1ab'),
-    name: '浪速西第3住宅', area: '大阪市浪速区', type: '外壁改修その他工事', year: '2017',
-    summary: '大阪市浪速区にて、外壁改修その他工事を実施しました。',
-    specs: [['用途', '住宅'], ['工種', '外壁改修'], ['所在地', '大阪市浪速区'], ['施工', '2017年']],
+    id: 'reno-kashihara', cat: 'reno', img: 'assets/works/reno-kashihara.jpg',
+    name: '奈良県橿原市マンション', area: '奈良県橿原市', type: '大規模修繕工事', year: '—',
+    summary: '橿原市のマンションにて、外壁・防水・共用部を含む大規模修繕工事を実施しました。',
+    specs: [['用途', '共同住宅'], ['工種', '外壁・防水・共用部'], ['所在地', '奈良県橿原市']],
   },
 
-  // ── 公共工事 ──────────────────────────────────────────────
+  // ── 公共工事（写真あり） ──────────────────────────────────
   {
-    id: 'oyodo-haisuijo', cat: 'pub', img: IMG('1487958449943-2429e8be8625'),
-    name: '大淀配水場 配水ポンプ場', area: '大阪市北区', type: '外壁補修その他工事', year: '2023',
-    summary: '大阪市発注の大淀配水場 配水ポンプ場において、外壁補修その他工事を実施しました。官公庁の仕様・検査基準に沿った施工と書類管理を行っています。',
-    specs: [['発注', '大阪市'], ['用途', '公共施設'], ['工種', '外壁補修'], ['着工', '2023年8月']],
+    id: 'pub-daikoku', cat: 'pub', img: 'assets/works/pub-daikoku.jpg',
+    name: '大国住宅2号館屋上防水改修工事', area: '大阪市浪速区', type: '屋上防水改修工事', year: '令和6年',
+    summary: '大阪市発注の大国住宅2号館において、屋上防水改修工事を実施しました。官公庁の仕様・検査基準に沿った施工と書類管理を行っています。',
+    specs: [['発注', '大阪市'], ['用途', '公共住宅'], ['工種', '屋上防水改修'], ['着工', '令和6年11月']],
   },
   {
-    id: 'nagai-stadium', cat: 'pub', img: IMG('1486406146926-c627a92ad1ab'),
-    name: '長居球技場', area: '大阪市東住吉区', type: '庇改修その他工事', year: '2021',
-    summary: '大阪市発注の長居球技場において、庇改修その他工事を実施しました。利用者への安全動線に配慮しながら施工しています。',
-    specs: [['発注', '大阪市'], ['用途', '公共施設'], ['工種', '庇改修'], ['着工', '2021年8月']],
+    id: 'pub-sugawara', cat: 'pub', img: 'assets/works/pub-sugawara.jpg',
+    name: '菅原小学校外壁改修その他工事', area: '大阪市東淀川区', type: '外壁改修その他工事', year: '平成28年',
+    summary: '大阪市発注の菅原小学校において、外壁改修その他工事を実施しました。児童の安全確保のため、動線・騒音・粉塵対策を徹底しています。',
+    specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['着工', '平成28年8月']],
   },
   {
-    id: 'kogei-hs', cat: 'pub', img: IMG('1486325212027-8081e485255e'),
-    name: '工芸高校・第二工芸高校', area: '大阪市阿倍野区', type: '外壁改修その他工事', year: '2018',
-    summary: '大阪市発注の工芸高校・第二工芸高校において、外壁改修その他工事を実施しました。',
-    specs: [['発注', '大阪市'], ['用途', '学校'], ['工種', '外壁改修'], ['施工', '2018年']],
-  },
-  {
-    id: 'namazue-es', cat: 'pub', img: IMG('1591588582259-e675bd2e6088'),
-    name: '鯰江東小学校', area: '大阪市城東区', type: '外壁改修その他工事', year: '2017',
-    summary: '大阪市発注の鯰江東小学校において、外壁改修その他工事を実施しました。児童の安全確保のため、動線・騒音・粉塵対策を徹底しています。',
-    specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['施工', '2017年']],
-  },
-  {
-    id: 'sugawara-es', cat: 'pub', img: IMG('1487958449943-2429e8be8625'),
-    name: '菅原小学校', area: '大阪市東淀川区', type: '外壁改修その他工事', year: '2016',
-    summary: '大阪市発注の菅原小学校において、外壁改修その他工事を実施しました。',
-    specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['施工', '2016年']],
-  },
-  {
-    id: 'sumieoka-jhs', cat: 'pub', img: IMG('1481253127861-534498168948'),
-    name: '墨江丘中学校', area: '大阪市住吉区', type: '外壁改修その他工事', year: '2015',
+    id: 'pub-sumieoka', cat: 'pub', img: 'assets/works/pub-sumieoka.jpg',
+    name: '墨江丘中学校外壁改修その他工事', area: '大阪市住吉区', type: '外壁改修その他工事', year: '平成27年',
     summary: '大阪市発注の墨江丘中学校において、外壁改修その他工事に着工しました。',
-    specs: [['発注', '大阪市'], ['用途', '中学校'], ['工種', '外壁改修'], ['着工', '2015年9月']],
+    specs: [['発注', '大阪市'], ['用途', '中学校'], ['工種', '外壁改修'], ['着工', '平成27年9月']],
   },
+];
 
-  // ── 派遣事業・その他 ──────────────────────────────────────
-  {
-    id: 'happiness-neyagawa', cat: 'other', img: IMG('1629909613654-28e377c37b09'),
-    name: 'はぴねす歯科 寝屋川駅クリニック', area: '大阪府寝屋川市 東大利町', type: 'クリニック新装工事', year: '2026',
-    summary: '寝屋川市東大利町にて、歯科クリニックの新装工事に着手しました。開業日から逆算した工程設計と、衛生・安全基準を満たす施工管理を行っています。',
-    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府寝屋川市'], ['着工', '2026年2月']],
-  },
-  {
-    id: 'happiness-minamisenri', cat: 'other', img: IMG('1497366216548-37526070297c'),
-    name: 'はぴねす歯科 南千里駅前クリニック', area: '大阪府吹田市', type: 'クリニック新装工事', year: '2024',
-    summary: '吹田市にて、歯科クリニックの新装工事を実施しました。内装・電気・給排水・サインまで一貫して対応しています。',
-    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024年']],
-  },
+// 公共工事のうち、写真のない案件。工事名・着工年月・区までの所在地のみ掲載する。
+const LOOP_PUBLIC_RECORDS = [
+  ['鯰江東小学校外壁改修その他工事', '平成29年9月', '大阪市城東区'],
+  ['浪速西第3住宅1・2号館外壁改修その他工事', '平成29年11月', '大阪市浪速区'],
+  ['工芸高等学校・第二工芸高等学校外壁改修その他工事', '平成30年7月', '大阪市阿倍野区'],
+  ['浅香中住宅1号館外壁改修その他工事', '令和3年7月', '大阪市住吉区'],
+  ['長居球技場庇改修その他工事', '令和3年8月', '大阪市東住吉区長居公園'],
+  ['大淀配水場配水ポンプ場外壁補修その他工事', '令和5年8月', '大阪市北区'],
+  ['相川住宅2号館屋上防水改修工事', '令和6年12月', '大阪市東淀川区'],
 ];
 
 const worksByCat = (key) => LOOP_WORKS.filter(w => w.cat === key);
 
+window.LOOP_SERVICES = LOOP_SERVICES;
 window.LOOP_CATEGORIES = LOOP_CATEGORIES;
 window.LOOP_WORKS = LOOP_WORKS;
+window.LOOP_PUBLIC_RECORDS = LOOP_PUBLIC_RECORDS;
 window.worksByCat = worksByCat;
 
 // ─── トップビュー ───────────────────────────────────────────────────
@@ -1530,22 +1584,22 @@ function HomeHero() {
 
   const shots = [
     {
-      img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=82&auto=format&fit=crop',
-      place: '加古川市 リベール加古川Ⅰ',
-      type: '大規模修繕・66戸',
+      img: 'assets/works/reno-kakogawa.jpg',
+      place: '加古川市マンション',
+      type: '大規模修繕工事・66戸',
       year: '2026',
     },
     {
-      img: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=82&auto=format&fit=crop',
-      place: '大阪市 大淀配水場',
-      type: '外壁補修その他工事',
-      year: '2023',
+      img: 'assets/works/pub-daikoku.jpg',
+      place: '大国住宅2号館',
+      type: '屋上防水改修工事',
+      year: '令和6年',
     },
     {
-      img: 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1000&q=82&auto=format&fit=crop',
-      place: '豊中市 ループ天神',
+      img: 'assets/works/new-abeno.jpg',
+      place: '大阪市阿倍野区マンション',
       type: 'マンション新築工事',
-      year: '2021',
+      year: '2018',
     },
   ];
 
@@ -1564,17 +1618,18 @@ function HomeHero() {
         <div>
           <Reveal>
             <div className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
-              SINCE 2006 — 大阪・東三国
+              SINCE 2006 — 大阪・神奈川
             </div>
             <h1 style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
-              fontSize: isMobile ? 'clamp(32px, 9.5vw, 44px)' : 'clamp(42px, 4.3vw, 68px)',
-              lineHeight: 1.3, margin: 0, color: 'var(--ink)',
+              fontSize: isMobile ? 'clamp(30px, 8.6vw, 42px)' : 'clamp(38px, 3.9vw, 62px)',
+              lineHeight: 1.35, margin: 0, color: 'var(--ink)',
               letterSpacing: '-0.01em',
             }}>
-              信頼は、<br />
-              <span style={{ color: 'var(--brand)' }}>一件ずつ</span>、<br />
-              積み上げる。
+              <span style={{ color: 'var(--brand)' }}>「創る技術」</span>で<br />
+              未来を築き、<br />
+              <span style={{ color: 'var(--brand)' }}>「守る技術」</span>で<br />
+              日常を支える。
             </h1>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
@@ -1582,8 +1637,8 @@ function HomeHero() {
               marginTop: isMobile ? 20 : 28, marginBottom: 0,
               maxWidth: 520, letterSpacing: '0.03em',
             }}>
-              新築から大規模修繕、公共工事まで。
-              2006年の設立以来、株式会社ループは大阪を中心に、
+              新築から大規模修繕、公共工事、道路維持・保全まで。
+              2006年の設立以来、株式会社ループは大阪・神奈川を拠点に、
               一つひとつの現場を誠実に積み重ねてきました。
             </p>
           </Reveal>
@@ -1650,84 +1705,92 @@ function HomeHero() {
         </Reveal>
       </div>
 
-      {/* ── 事業から実績を探す ──────────────────────────── */}
-      <div style={{
-        padding: isMobile ? '0 20px 32px' : '0 56px 56px',
-        maxWidth: 1560, margin: '0 auto',
-      }}>
-        <Reveal>
-          <div style={{
-            display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
-            marginBottom: isMobile ? 14 : 18,
-          }}>
-            <span className="eyebrow">WORKS BY BUSINESS</span>
-            <span style={{
-              fontFamily: 'var(--font-sans)', fontSize: 12.5,
-              color: 'var(--ink-soft)', letterSpacing: '0.03em',
-            }}>事業ごとの施工実績をご覧いただけます</span>
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-            gap: isMobile ? 8 : 12,
-          }}>
-            {LOOP_CATEGORIES.map((c) => (
-              <button
-                key={c.key}
-                className="cat-btn"
-                onClick={() => go('works', { cat: c.key })}
-                aria-label={`${c.jp}の施工実績を見る`}
-              >
-                <span className="cat-btn-en">{c.en}</span>
-                <span className="cat-btn-jp">{c.jp}</span>
-                <span className="cat-btn-lead">{c.lead}</span>
-                <span className="cat-btn-foot">
-                  実績を見る<span className="cat-btn-arrow">→</span>
-                </span>
-              </button>
-            ))}
-          </div>
-        </Reveal>
-      </div>
-
-      {/* ── 実績の数字 ─────────────────────────────────── */}
+      {/* ── 事業内容（クリックで各事業案内へ） ──────────────── */}
       <div style={{
         padding: isMobile ? '0 20px 40px' : '0 56px 72px',
         maxWidth: 1560, margin: '0 auto',
       }}>
         <Reveal>
-          <div className="stat-strip" style={{
-            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-            borderRadius: 4, overflow: 'hidden',
+          <div style={{
+            display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
+            marginBottom: isMobile ? 16 : 22,
           }}>
-            {LOOP_STATS.map((s) => (
-              <div key={s.label} style={{
-                padding: isMobile ? '20px 16px' : '32px 32px 30px',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                  <span style={{
-                    fontFamily: 'var(--font-serif)', fontWeight: 600,
-                    fontSize: isMobile ? 38 : 'clamp(40px, 3.6vw, 60px)',
-                    lineHeight: 1, color: 'var(--brand)', letterSpacing: '-0.02em',
-                  }}>{s.num}</span>
-                  <span style={{
-                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 15,
-                    fontWeight: 700, color: 'var(--brand)',
-                  }}>{s.unit}</span>
-                </div>
-                <div style={{
-                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 13.5,
-                  fontWeight: 700, color: 'var(--ink)', marginTop: isMobile ? 10 : 14,
-                  letterSpacing: '0.03em', lineHeight: 1.5,
-                }}>{s.label}</div>
-                <div style={{
-                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 10.5 : 11.5,
-                  color: 'var(--stone)', marginTop: 4, letterSpacing: '0.03em',
-                }}>{s.note}</div>
-              </div>
-            ))}
+            <span className="eyebrow">BUSINESS — 事業内容</span>
+            <span style={{
+              fontFamily: 'var(--font-sans)', fontSize: 12.5,
+              color: 'var(--ink-soft)', letterSpacing: '0.03em',
+            }}>クリックすると各事業のご案内をご覧いただけます</span>
           </div>
         </Reveal>
+        {/* 6分割グリッド。上段は3枚（各2列）、下段は2枚（各3列）でぴったり収める。 */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(6, 1fr)',
+          gap: isMobile ? 14 : 20,
+        }}>
+          {LOOP_SERVICES.map((s, i) => (
+            <Reveal key={s.key} delay={(i % 3) * 80}
+              style={isMobile ? {} : { gridColumn: i < 3 ? 'span 2' : 'span 3' }}>
+              <a
+                className="card-lift card-action"
+                role="link"
+                tabIndex={0}
+                aria-label={`${s.jp}のご案内を見る`}
+                onClick={() => go('business', { sec: s.key })}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go('business', { sec: s.key }); }
+                }}
+                style={{
+                  display: 'flex', flexDirection: 'column', height: '100%', cursor: 'pointer',
+                }}>
+                {/* 下段は幅が広いぶん縦を詰め、上段とカードの高さをそろえる */}
+                <div className="img-zoom" style={{
+                  aspectRatio: (isMobile || i < 3) ? '16/10' : '21/9',
+                  background: 'var(--bg-stone)',
+                }}>
+                  {s.img ? (
+                    <img src={s.img} alt={s.jp} loading="lazy" style={{
+                      width: '100%', height: '100%', objectFit: 'cover',
+                      filter: 'saturate(0.94) brightness(1.02)',
+                    }} />
+                  ) : (
+                    <PhotoPending label="イメージ写真" />
+                  )}
+                </div>
+                <div style={{
+                  padding: isMobile ? '20px 18px 20px' : '24px 24px 24px',
+                  display: 'flex', flexDirection: 'column', flex: '1 1 auto',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10 }}>
+                    <span className="strength-no">{s.key}</span>
+                    <span style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
+                      color: 'var(--stone)', fontWeight: 600,
+                    }}>{s.en.toUpperCase()}</span>
+                  </div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 22,
+                    fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.45,
+                  }}>{s.jp}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                    color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
+                    flex: '1 1 auto',
+                  }}>{s.sub}</p>
+                  <span style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    gap: 10, marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--rule)',
+                    fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
+                    letterSpacing: '0.06em', color: 'var(--brand)',
+                  }}>
+                    事業案内を見る
+                    <span className="card-action-arrow">→</span>
+                  </span>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
       </div>
 
       {/* ── 5つの強み ─────────────────────────────────── */}
@@ -1754,15 +1817,14 @@ function HomeHero() {
                   ループが選ばれている、<span style={{ color: 'var(--brand)' }}>5つの理由</span>。
                 </h2>
               </div>
-              {!isMobile && (
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
-                  color: 'var(--ink-soft)', margin: 0, maxWidth: 380, letterSpacing: '0.03em',
-                }}>
-                  派手さよりも、確実さを。長くお付き合いいただいている
-                  取引先様に、選び続けていただく理由がここにあります。
-                </p>
-              )}
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 13.5, lineHeight: 2,
+                color: 'var(--ink-soft)', margin: 0, maxWidth: isMobile ? '100%' : 380,
+                letterSpacing: '0.03em',
+              }}>
+                派手さよりも、確実さを。長くお付き合いいただいている
+                取引先様に、選び続けていただく理由がここにあります。
+              </p>
             </div>
           </Reveal>
 
@@ -1899,12 +1961,7 @@ function HomeIntro() {
           <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 24 : 32, flexWrap: 'wrap' }}>
             <button onClick={() => go('company')} className="btn btn--outline"
               style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-              <span>会社概要・沿革</span>
-              <span className="btn-arrow">→</span>
-            </button>
-            <button onClick={() => go('about')} className="btn btn--outline"
-              style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-              <span>私たちの考え方</span>
+              <span>会社概要</span>
               <span className="btn-arrow">→</span>
             </button>
           </div>
@@ -1916,7 +1973,6 @@ function HomeIntro() {
 
 window.HomeHero = HomeHero;
 window.HomeIntro = HomeIntro;
-window.LOOP_STATS = LOOP_STATS;
 window.LOOP_STRENGTHS = LOOP_STRENGTHS;
 
 
@@ -1929,8 +1985,8 @@ function HomeWorks() {
   const isMobile = useMobile();
 
   // 施工実績は LOOP_WORKS を唯一の情報源とする（実績ページと共通）
-  const pickup = ['liberte-kakogawa', 'happiness-neyagawa', 'daikoku-2',
-                  'oyodo-haisuijo', 'nagai-stadium', 'loop-tenjin'];
+  const pickup = ['reno-kakogawa', 'new-clinic-a', 'pub-daikoku',
+                  'new-namba', 'reno-suita-bld', 'pub-sumieoka'];
   const works = pickup
     .map(id => LOOP_WORKS.find(w => w.id === id))
     .filter(Boolean);
@@ -2030,152 +2086,7 @@ function HomeWorks() {
   );
 }
 
-// ─── 事業内容（5カテゴリ） ──────────────────────────────────────────
-function HomeBusiness() {
-  const { go } = useRouter();
-  const isMobile = useMobile();
-
-  const services = [
-    {
-      no: '01', jp: '新築工事', en: 'New Construction',
-      img: 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1200&q=82&auto=format&fit=crop',
-      lead: 'マンション・ビル・施設の新築工事。計画から引き渡しまで一貫して担当します。',
-      tags: ['マンション', 'ビル', '寮・施設'],
-    },
-    {
-      no: '02', jp: '大規模修繕・建物リニューアル', en: 'Renovation',
-      img: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1200&q=82&auto=format&fit=crop',
-      lead: '外壁・防水・タイル・鉄部・共用部まで。住民様の生活を止めずに建物を再生します。',
-      tags: ['外壁改修', '屋上防水', '共用部'],
-    },
-    {
-      no: '03', jp: '公共工事', en: 'Public Works',
-      img: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=82&auto=format&fit=crop',
-      lead: '学校・公共住宅・公共施設の改修工事。官公庁の品質・安全・書類基準に確実に対応します。',
-      tags: ['学校', '公共住宅', '公共施設'],
-    },
-    {
-      no: '04', jp: '派遣事業', en: 'Staffing',
-      img: 'https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1200&q=82&auto=format&fit=crop',
-      lead: '現場監督（施工管理）の派遣。一級建築施工管理技士をはじめ、有資格者が現場を支えます。',
-      tags: ['現場監督', '施工管理', '有資格者'],
-    },
-    {
-      no: '05', jp: 'その他', en: 'Others',
-      img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=82&auto=format&fit=crop',
-      lead: '店舗・クリニックの新装、内装・設備工事、バリアフリー化など。まずはご相談ください。',
-      tags: ['店舗・クリニック', '内装', 'バリアフリー'],
-    },
-  ];
-
-  return (
-    <section style={{
-      background: 'var(--bg)',
-      padding: isMobile ? '56px 20px' : '120px 56px',
-    }}>
-      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
-        <Reveal>
-          <div style={{
-            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-            gap: 20, flexWrap: 'wrap', marginBottom: isMobile ? 28 : 48,
-          }}>
-            <div>
-              <div className="eyebrow" style={{ marginBottom: 16 }}>BUSINESS — 事業内容</div>
-              <h2 style={{
-                fontFamily: 'var(--font-serif)', fontWeight: 600,
-                fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(32px, 3.4vw, 50px)',
-                margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
-              }}>
-                建物の、<span style={{ color: 'var(--brand)' }}>すべての時間</span>に。
-              </h2>
-              <p style={{
-                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
-                lineHeight: 2, color: 'var(--ink-soft)', margin: '18px 0 0',
-                maxWidth: 620, letterSpacing: '0.03em',
-              }}>
-                建設業許可18業種を保有し、新築から修繕、公共工事、
-                施工管理の派遣まで幅広く対応しています。
-              </p>
-            </div>
-            {!isMobile && (
-              <button onClick={() => go('business')} className="btn btn--outline">
-                <span>事業案内を見る</span>
-                <span className="btn-arrow">→</span>
-              </button>
-            )}
-          </div>
-        </Reveal>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: isMobile ? 14 : 20,
-        }}>
-          {services.map((s, i) => (
-            <Reveal key={s.no} delay={(i % 3) * 80}>
-              <a onClick={() => go('business')} className="card-lift" style={{
-                display: 'flex', flexDirection: 'column', height: '100%', cursor: 'pointer',
-              }}>
-                <div className="img-zoom" style={{ aspectRatio: '16/10', background: 'var(--bg-stone)' }}>
-                  <img src={s.img} alt={s.jp} loading="lazy" style={{
-                    width: '100%', height: '100%', objectFit: 'cover',
-                    filter: 'saturate(0.94) brightness(1.02)',
-                  }} />
-                </div>
-                <div style={{
-                  padding: isMobile ? '20px 18px 22px' : '26px 24px 28px',
-                  display: 'flex', flexDirection: 'column', flex: '1 1 auto',
-                }}>
-                  <div style={{
-                    display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10,
-                  }}>
-                    <span className="strength-no">{s.no}</span>
-                    <span style={{
-                      fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
-                      color: 'var(--stone)', fontWeight: 600,
-                    }}>{s.en.toUpperCase()}</span>
-                  </div>
-                  <h3 style={{
-                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 22,
-                    fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.45,
-                  }}>{s.jp}</h3>
-                  <p style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
-                    color: 'var(--ink-soft)', margin: '12px 0 0', letterSpacing: '0.03em',
-                    flex: '1 1 auto',
-                  }}>{s.lead}</p>
-                  <div style={{
-                    display: 'flex', gap: 6, flexWrap: 'wrap',
-                    marginTop: 18, paddingTop: 16, borderTop: '1px solid var(--rule)',
-                  }}>
-                    {s.tags.map(t => (
-                      <span key={t} style={{
-                        fontFamily: 'var(--font-sans)', fontSize: 10.5, color: 'var(--ink-soft)',
-                        border: '1px solid var(--rule-soft)', borderRadius: 2,
-                        padding: '4px 9px', letterSpacing: '0.04em',
-                      }}>{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-
-        {isMobile && (
-          <button onClick={() => go('business')} className="btn btn--outline"
-            style={{ marginTop: 20, width: '100%', justifyContent: 'space-between' }}>
-            <span>事業案内を見る</span>
-            <span className="btn-arrow">→</span>
-          </button>
-        )}
-      </div>
-    </section>
-  );
-}
-
 window.HomeWorks = HomeWorks;
-window.HomeBusiness = HomeBusiness;
 
 
 /* ─── src/home-end.jsx ─── */
@@ -2189,13 +2100,12 @@ function HomeRecruit() {
   const points = [
     ['資格取得を、会社が支援する', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられる環境です。'],
     ['幅広い現場を、経験できる', 'マンション修繕から新築、公共工事まで。18業種の許可を持つ会社だからこそ、多様な現場を経験できます。'],
-    ['頑張りが、正当に評価される', '賞与年2回・資格手当・職能手当・役職手当。社宅や保養所、社員旅行など、長く働ける環境を整えています。'],
+    ['頑張りが、正当に評価される', '賞与・資格手当・職能手当・役職手当。社宅や保養所、社員旅行など、長く働ける環境を整えています。'],
   ];
 
   const facts = [
     ['月給 35万円〜', '一級建築施工管理技士は40万円〜'],
-    ['賞与 年2回', '8月・12月（実績による）'],
-    ['月6〜9日休み', 'GW・夏季9日・年末年始9日'],
+    ['月6〜9日休み', 'GW・夏季・年末年始休暇あり'],
     ['残業 月20時間以内', '8:30〜17:30（実働8時間）'],
   ];
 
@@ -2220,15 +2130,15 @@ function HomeRecruit() {
               gap: isMobile ? 10 : 14,
             }}>
               {[
-                ['https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=82&auto=format&fit=crop', 'span 2'],
-                ['https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=82&auto=format&fit=crop', 'auto'],
-                ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=82&auto=format&fit=crop', 'auto'],
-              ].map(([img, rowSpan], i) => (
+                ['assets/staff/staff-meeting.jpg', '図面を確認する社員', 'span 2'],
+                ['assets/staff/staff-sealing.jpg', 'シーリング作業中の社員', 'auto'],
+                ['assets/works/reno-suita-bld.jpg', '大規模修繕を手がけた商業ビル', 'auto'],
+              ].map(([img, alt, rowSpan], i) => (
                 <div key={i} style={{
                   gridRow: rowSpan,
                   borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
                 }}>
-                  <img src={img} alt="" loading="lazy" style={{
+                  <img src={img} alt={alt} loading="lazy" style={{
                     width: '100%', height: '100%', objectFit: 'cover',
                     filter: 'saturate(0.94) brightness(1.03)',
                   }} />
@@ -2264,11 +2174,6 @@ function HomeRecruit() {
               <button onClick={() => go('recruit')} className="btn btn--solid"
                 style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
                 <span>募集要項を見る</span>
-                <span className="btn-arrow">→</span>
-              </button>
-              <button onClick={() => go('about')} className="btn btn--outline"
-                style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-                <span>私たちの考え方</span>
                 <span className="btn-arrow">→</span>
               </button>
             </div>
@@ -2332,9 +2237,9 @@ function HomeNews() {
   const isMobile = useMobile();
   const news = [
     ['2026.06', 'お知らせ', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。'],
-    ['2026.02', '施工実績', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
-    ['2024.12', '施工実績', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
-    ['2024.11', '施工実績', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
+    ['2026.04', '施工実績', '加古川市マンション 大規模修繕工事 着工', '兵庫県加古川市にて、66戸のマンションの大規模修繕工事に着手いたしました。'],
+    ['2026.02', '施工実績', '歯科クリニック 新装工事 着工', '大阪府寝屋川市にて、歯科クリニックの新装工事に着手いたしました。'],
+    ['2024.11', '施工実績', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区にて、屋上防水改修工事を実施いたしました。'],
   ];
 
   return (
@@ -2542,7 +2447,6 @@ function HomePage() {
       <HomeHero />
       <HomeIntro />
       <HomeWorks />
-      <HomeBusiness />
       <HomeRecruit />
       <HomeNews />
       <HomeCTA />
@@ -2557,343 +2461,387 @@ window.HomePage = HomePage;
 
 
 /* ─── src/business.jsx ─── */
-// Loop建築 — Business / Service detail page
+// 株式会社ループ — 事業案内（5事業）
 
-function BusinessHero() {
+// ─── 大規模修繕の工事項目アイコン ────────────────────────────────────
+//     線画アイコン。24×24 の viewBox で統一。
+const RENO_ICONS = {
+  // 共通仮設：現場事務所・資材置き場
+  temp: (
+    <><path d="M3 10.5 12 5l9 5.5" /><path d="M5 10.5V19h14v-8.5" />
+    <path d="M9 19v-5h6v5" /><path d="M9 14l6 5M15 14l-6 5" /></>
+  ),
+  // 直接仮設：足場
+  scaffold: (
+    <><path d="M4 5v14M9.33 5v14M14.66 5v14M20 5v14" />
+    <path d="M3 9h18M3 15h18" /></>
+  ),
+  // 躯体修繕：下地補修（コテ）
+  concrete: (
+    <><path d="M4 15.5c2.5-3.5 6-5.5 10.5-6.5l4-1-1 4c-1 4.5-3 8-6.5 10.5z" />
+    <path d="M9.5 13.5 3.5 20.5" /></>
+  ),
+  // シーリング：コーキングガン
+  sealing: (
+    <><path d="M3 13h11v4H3z" /><path d="M14 15h3l4-5" />
+    <path d="M5 13V9h5v4" /><path d="M6.5 17v3" /></>
+  ),
+  // 塗装：刷毛
+  paint: (
+    <><path d="M14.5 3.5 20.5 9.5l-7 7-6-6z" /><path d="M7.5 10.5 4 14l6 6 3.5-3.5" />
+    <path d="M4 14l-1.5 5.5L8 18" /></>
+  ),
+  // 防水：雫と傘（雨をはじく）
+  waterproof: (
+    <><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z" />
+    <path d="M9 13.5a3 3 0 0 0 3 3" /></>
+  ),
+  // 防滑塩ビシート：シート敷設
+  sheet: (
+    <><path d="M4 7h13l3 3v9H4z" /><path d="M17 7v3h3" />
+    <path d="M7 13h8M7 16h5" /></>
+  ),
+  // その他：スパナ
+  others: (
+    <><path d="M15.5 3.5a5 5 0 0 0-4.6 6.9L3.5 17.8l2.7 2.7 7.4-7.4a5 5 0 0 0 6.9-4.6c0-.7-.1-1.3-.4-1.9l-3 3-2.6-2.6 3-3c-.6-.3-1.3-.5-2-.5z" /></>
+  ),
+};
+
+const RENO_ITEMS = [
+  ['①', 'temp', '共通仮設工事',
+    '工事を安全・円滑に進めるための「現場全体の準備・環境づくり」です。現場事務所や作業員休憩所の設置、仮設トイレ、仮設電気・水道の引き込み、工事用看板や資材置き場の設置など。'],
+  ['②', 'scaffold', '直接仮設工事',
+    '各作業（塗装や防水など）を「その場所で直接行うために必要な準備」です。高所作業での職人の安全確保と、近隣住民・通行人への安全および公害防止のために必須となります。'],
+  ['③', 'concrete', '躯体修繕工事',
+    '建物の骨組み（コンクリート構造体）のひび割れや欠損、鉄筋のサビなどを直す「下地補修」です。建物の寿命（耐震性・耐久性）を伸ばす最重要の工事です。'],
+  ['④', 'sealing', 'シーリング工事',
+    '外壁のコンクリートの継ぎ目や、サッシ（窓枠）のまわりにある「ゴム状の目地」を新しく打ち替える工事です。隙間から雨水が侵入するのを防ぐ「防水」の役割と、地震などで揺れたときにコンクリート同士がぶつかって割れるのを防ぐ「クッション」の役割があります。'],
+  ['⑤', 'paint', '塗装工事',
+    '外壁や鉄部（手すりや扉など）に塗料を塗り直す工事です。見た目を美しく蘇らせる（美観向上）だけでなく、紫外線や雨風からコンクリートや鉄を保護し、劣化の進行を防ぐ「バリア」の役割を果たします。'],
+  ['⑥', 'waterproof', '防水工事',
+    '雨水が最も当たりやすく溜まりやすい「屋上」や「バルコニー・ベランダ」に防水層を作る工事です。建物最大の天敵である「雨漏り」を徹底的に防ぎます。上階からの雨漏りは建物の寿命を縮めるだけでなく、住人の生活を直接脅かすため、定期的な改修が不可欠です。'],
+  ['⑦', 'sheet', '防滑塩ビシート敷設工事',
+    'マンションの開放廊下（通路）や階段の床に、滑りにくく耐久性の高いビニール製のシートを貼り付ける工事です。雨の日に滑って転倒するのを防ぐほか、歩行音を和らげる防音性、コンクリート床を雨水から守る防水性、見た目を綺麗にする美観向上といった多くのメリットがあります。'],
+  ['⑧', 'others', 'その他工事',
+    '上記①〜⑦の主要工事に含まれない、付帯的な修繕や器具の交換工事全般を指します。具体例：ポスト（集合郵便受け）や宅配ボックスの交換、ゴミ置き場の改修、フェンス・門扉の交換、階段手すりの交換、LED照明への更新工事、避難ハッチの交換など。'],
+];
+
+// 派遣事業の対応可能業務
+const STAFFING_SCOPE = [
+  ['工程管理', 'スケジュール調整、進捗確認、職人の手配'],
+  ['品質管理', '設計図書に基づいた施工確認、各種検査の実施・記録'],
+  ['安全管理', '現場の安全巡回、新規入場者教育、災害防止対策'],
+  ['原価管理', '予算管理、資材発注サポート、各種書類作成'],
+];
+
+// ─── 事業セクション ─────────────────────────────────────────────────
+function ServiceSection({ svc, index, children }) {
   const isMobile = useMobile();
-  return (
-    <section style={{
-      position: 'relative', minHeight: isMobile ? '64vh' : '72vh', overflow: 'hidden',
-      background: 'var(--bg-deep)', color: 'var(--ink)',
-      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-    }}>
-      <div style={{ position: 'absolute', inset: 0 }}>
-        <ParallaxImage src="https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop" strength={50} style={{ width: '100%', height: '100%' }} />
-      </div>
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
-      }} />
+  const { go } = useRouter();
+  const bgAlt = index % 2 === 1;
 
-      <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
-        <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
-          letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
-        }}>
-          Home / 事業案内 — Business
-        </div>
+  return (
+    <section id={`service-${svc.key}`} style={{
+      scrollMarginTop: isMobile ? 84 : 104,
+      background: bgAlt ? 'var(--bg-cream)' : 'var(--bg)',
+      borderTop: '1px solid var(--rule)',
+      padding: isMobile ? '48px 20px 52px' : '88px 56px 96px',
+    }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
         <Reveal>
           <div style={{
-            marginBottom: 12, fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
-          }}>— Three services<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>事業案内</span></div>
-          <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
-            letterSpacing: '-0.035em',
+            display: 'flex', alignItems: 'baseline', gap: isMobile ? 14 : 22,
+            marginBottom: isMobile ? 24 : 36, flexWrap: 'wrap',
           }}>
-            <MaskReveal style={{ fontStyle: 'italic', color: '#9EC7ED' }}>建物の表情</MaskReveal>を、<br />
-            <MaskReveal delay={160}>ひとつひとつ。</MaskReveal>
-          </h1>
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: isMobile ? 22 : 30,
+              color: 'var(--brand)', fontWeight: 600, lineHeight: 1, letterSpacing: '0.02em',
+            }}>{svc.key}</span>
+            <div>
+              <div style={{
+                fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
+                letterSpacing: '0.16em', color: 'var(--stone)', marginBottom: 6,
+              }}>{svc.en.toUpperCase()}</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 600,
+                fontSize: isMobile ? 'clamp(22px, 6.6vw, 30px)' : 'clamp(28px, 3vw, 42px)',
+                margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
+              }}>
+                {svc.jp}
+                <span style={{
+                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 14,
+                  fontWeight: 600, color: 'var(--ink-soft)', letterSpacing: '0.03em',
+                  marginLeft: isMobile ? 0 : 16, display: isMobile ? 'block' : 'inline',
+                  marginTop: isMobile ? 8 : 0,
+                }}>（{svc.sub}）</span>
+              </h2>
+            </div>
+          </div>
         </Reveal>
-        <Reveal delay={200}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-            color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
-          }}>
-            塗装壁をタイル壁に変えるだけでも、建物の表情は大きく変わります。
-            エントランス工事から大規模修繕工事まで、お客様のご要望に応じて
-            建物のリニューアルを承ります。
-          </p>
-        </Reveal>
-      </div>
 
-      {/* index */}
-      <div style={{
-        position: 'relative', background: 'var(--bg)', borderTop: '1px solid var(--rule-soft)',
-      }}>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-          {[
-            ['01', 'マンション修繕', 'Apartment'],
-            ['02', '店舗・クリニック新装', 'Interior'],
-            ['03', '公共工事・防水改修', 'Public'],
-          ].map(([num, jp, en], i) => (
-            <a key={num} href={`#service-${num}`} style={{
-              padding: '40px 36px',
-              borderLeft: i === 0 ? 'none' : '1px solid var(--rule-soft)',
-              display: 'flex', alignItems: 'center', gap: 24,
-              cursor: 'pointer', transition: 'background-color .3s', color: 'var(--ink)',
-            }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-deep)'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
-            >
-              <span style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 64,
-                color: 'var(--orange)', fontWeight: 300, lineHeight: 1,
-              }}>{num}</span>
-              <div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                  letterSpacing: '0.22em', marginBottom: 4,
-                }}>{en.toUpperCase()}</div>
-                <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 26, color: 'var(--ink)', fontWeight: 500,
-                }}>{jp}</div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
+          gap: isMobile ? 24 : 56, alignItems: 'center',
+        }}>
+          <Reveal>
+            <figure style={{ margin: 0 }}>
+              <div className="img-zoom" style={{
+                aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden',
+                background: 'var(--bg-stone)',
+              }}>
+                {svc.img ? (
+                  <img src={svc.img} alt={`${svc.jp}のイメージ`} loading="lazy" style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.94) brightness(1.02)',
+                  }} />
+                ) : (
+                  <PhotoPending label="イメージ写真" />
+                )}
               </div>
-              <span style={{ marginLeft: 'auto', color: 'var(--orange)', fontSize: 22 }}>↓</span>
-            </a>
-          ))}
+              <figcaption style={{
+                marginTop: 10, fontFamily: 'var(--font-sans)', fontSize: 11,
+                color: 'var(--stone)', letterSpacing: '0.08em',
+              }}>イメージ写真</figcaption>
+            </figure>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <h3 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 18 : 22, lineHeight: 1.6,
+              margin: 0, color: 'var(--brand)', letterSpacing: '0.005em',
+            }}>{svc.lead}</h3>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+              lineHeight: 2.1, color: 'var(--ink-soft)',
+              margin: isMobile ? '16px 0 0' : '20px 0 0', letterSpacing: '0.03em',
+            }}>{svc.body}</p>
+
+            <div style={{
+              display: 'flex', gap: 6, flexWrap: 'wrap',
+              marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--rule)',
+            }}>
+              {svc.tags.map(t => (
+                <span key={t} style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 11, color: 'var(--ink-soft)',
+                  border: '1px solid var(--rule-soft)', borderRadius: 2,
+                  padding: '5px 10px', letterSpacing: '0.04em',
+                }}>{t}</span>
+              ))}
+            </div>
+
+            {svc.worksCat && (
+              <button
+                onClick={() => go('works', { cat: svc.worksCat })}
+                className="btn btn--solid"
+                style={{ marginTop: 22, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
+                <span>施工事例へ</span>
+                <span className="btn-arrow">→</span>
+              </button>
+            )}
+          </Reveal>
         </div>
+
+        {children}
       </div>
     </section>
   );
 }
 
-function ServiceSection({ no, jp, en, lead, body, before, after, scope, features, projects, bgAlt }) {
+// ─── 大規模修繕：工事項目 ────────────────────────────────────────────
+function RenovationScope() {
   const isMobile = useMobile();
   return (
-    <section id={`service-${no}`} style={{
-      padding: isMobile ? '56px 20px' : '160px 56px', background: bgAlt ? 'var(--bg-deep)' : 'var(--bg)',
-      borderBottom: '1px solid var(--rule-soft)',
-    }}>
+    <div style={{ marginTop: isMobile ? 40 : 64 }}>
       <Reveal>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 24, marginBottom: 56 }}>
-          <span style={{
-            fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 96,
-            color: 'var(--orange)', fontWeight: 300, lineHeight: 1,
-          }}>{no}</span>
-          <div>
-            <div style={{
-              fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 18,
-              color: 'var(--orange)', letterSpacing: '0.04em', marginBottom: 4,
-            }}>— {en}</div>
-            <h2 style={{
-              fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 88px)',
-              fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-              letterSpacing: '-0.025em',
-            }}>{jp}</h2>
-          </div>
+        <div style={{
+          paddingBottom: isMobile ? 16 : 20, borderBottom: '1px solid var(--rule)',
+          marginBottom: isMobile ? 20 : 28,
+        }}>
+          <h3 style={{
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 20 : 26, margin: 0, color: 'var(--ink)', lineHeight: 1.4,
+          }}>大規模修繕 工事項目</h3>
+          <p style={{
+            fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 13.5,
+            lineHeight: 1.95, color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
+          }}>
+            長年信頼を積み重ねてきた各業種のエキスパートとともに対応いたします。
+          </p>
         </div>
       </Reveal>
-
       <div style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr',
-        gap: isMobile ? 28 : 56, marginBottom: isMobile ? 40 : 64,
+        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+        gap: 1, background: 'var(--rule)',
+        border: '1px solid var(--rule)', borderRadius: 4, overflow: 'hidden',
       }}>
-        <Reveal>
-          <BeforeAfter before={before} after={after} height={isMobile ? 300 : 500} />
-          <div style={{
-            marginTop: 12, display: 'flex', justifyContent: 'space-between',
-            fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-            letterSpacing: '0.22em',
-          }}>
-            <span>FIG. — DRAG ⇄ TO COMPARE</span>
-            <span>BEFORE · AFTER</span>
-          </div>
-        </Reveal>
-        <Reveal delay={120}>
-          <p style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(20px, 1.7vw, 26px)',
-            lineHeight: 1.7, color: 'var(--ink)', margin: 0, letterSpacing: '0.005em',
-          }}>{lead}</p>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 2.1,
-            color: 'var(--ink-soft)', marginTop: 24, letterSpacing: '0.04em',
-          }}>{body}</p>
-          <div style={{
-            marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--rule)',
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20,
-          }}>
-            {scope.map(([k, v]) => (
-              <div key={k}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                  letterSpacing: '0.22em', marginBottom: 6,
-                }}>{k}</div>
-                <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 17, color: 'var(--ink)',
-                }}>{v}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </div>
-
-      {/* Features */}
-      <Reveal>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : `repeat(${features.length}, 1fr)`,
-          gap: 0, marginBottom: isMobile ? 40 : 64,
-          borderTop: '1px solid var(--rule)', borderLeft: '1px solid var(--rule)',
-        }}>
-          {features.map(([h, body], i) => (
-            <div key={i} style={{
-              padding: '32px 28px',
-              borderRight: '1px solid var(--rule)', borderBottom: '1px solid var(--rule)',
-              background: 'var(--bg-cream)',
+        {RENO_ITEMS.map(([no, icon, title, body], i) => (
+          <Reveal key={no} delay={(i % 4) * 60}>
+            <div style={{
+              background: '#FFFFFF', height: '100%',
+              padding: isMobile ? '20px 14px 22px' : '28px 24px 30px',
+              display: 'flex', flexDirection: 'column',
             }}>
+              <svg width={isMobile ? 34 : 40} height={isMobile ? 34 : 40} viewBox="0 0 24 24"
+                fill="none" stroke="var(--brand)" strokeWidth="1.2"
+                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {RENO_ICONS[icon]}
+              </svg>
               <div style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 32,
-                color: 'var(--orange)', fontWeight: 400, lineHeight: 1,
-                marginBottom: 16,
-              }}>{String(i + 1).padStart(2, '0')}.</div>
-              <div style={{
-                fontFamily: 'var(--font-serif)', fontSize: 19, fontWeight: 500,
-                color: 'var(--ink)', marginBottom: 12, letterSpacing: '0.005em',
-              }}>{h}</div>
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 14.5,
+                fontWeight: 700, color: 'var(--ink)', marginTop: isMobile ? 14 : 18,
+                lineHeight: 1.5, letterSpacing: '0.02em',
+              }}>{no}{title}</div>
               <p style={{
-                fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.9,
-                color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.04em',
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 11.5 : 12,
+                lineHeight: 1.9, color: 'var(--ink-soft)', margin: '10px 0 0',
+                letterSpacing: '0.02em',
               }}>{body}</p>
             </div>
-          ))}
-        </div>
-      </Reveal>
-
-      {/* Project gallery */}
-      <div style={{ marginTop: 56 }}>
-        <Reveal>
-          <div style={{
-            display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
-            marginBottom: 28,
-          }}>
-            <h3 style={{
-              fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500, color: 'var(--ink)', margin: 0,
-            }}>
-              施工事例
-              <span style={{
-                fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 20,
-                color: 'var(--orange)', marginLeft: 16, fontWeight: 400,
-              }}>— Project archive</span>
-            </h3>
-            <span style={{
-              fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--stone)',
-              letterSpacing: '0.22em',
-            }}>{projects.length} CASES</span>
-          </div>
-        </Reveal>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: isMobile ? 20 : 28,
-        }}>
-          {projects.map(([img, place, type, year], i) => (
-            <Reveal key={i} delay={i * 60}>
-              <a className="img-zoom" style={{ display: 'block', cursor: 'pointer' }}>
-                <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
-                  <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-              </a>
-              <div style={{
-                marginTop: 16, display: 'flex', justifyContent: 'space-between',
-                fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                letterSpacing: '0.18em',
-              }}>
-                <span>CASE {String(i + 1).padStart(3, '0')}</span>
-                <span>{year}</span>
-              </div>
-              <div style={{
-                fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)', marginTop: 8,
-                fontWeight: 500,
-              }}>{place}</div>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--stone)',
-                marginTop: 4, letterSpacing: '0.04em',
-              }}>{type}</div>
-            </Reveal>
-          ))}
-        </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </div>
+  );
+}
+
+// ─── 派遣事業：対応可能な業務 ───────────────────────────────────────
+function StaffingScope() {
+  const isMobile = useMobile();
+  return (
+    <div style={{ marginTop: isMobile ? 32 : 48 }}>
+      <Reveal>
+        <h3 style={{
+          fontFamily: 'var(--font-serif)', fontWeight: 600,
+          fontSize: isMobile ? 18 : 22, margin: 0, color: 'var(--ink)', lineHeight: 1.4,
+        }}>【対応可能な業務】</h3>
+        <p style={{
+          fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 13.5,
+          lineHeight: 1.95, color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
+        }}>
+          建設業法および労働者派遣法を遵守し、以下の現場管理・監督業務に対応いたします。
+        </p>
+      </Reveal>
+      <div className="stat-strip" style={{
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+        marginTop: isMobile ? 18 : 24, borderRadius: 4, overflow: 'hidden',
+        border: '1px solid var(--rule)',
+      }}>
+        {STAFFING_SCOPE.map(([t, b]) => (
+          <div key={t} style={{ padding: isMobile ? '18px 16px' : '24px 22px' }}>
+            <div style={{
+              fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+              fontWeight: 600, color: 'var(--brand)', marginBottom: 10,
+            }}>{t}</div>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.9,
+              color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+            }}>{b}</p>
+          </div>
+        ))}
+      </div>
+      <Reveal>
+        <p style={{
+          fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 12.5,
+          lineHeight: 1.95, color: 'var(--ink)', fontWeight: 700,
+          margin: isMobile ? '18px 0 0' : '22px 0 0', letterSpacing: '0.02em',
+          padding: isMobile ? '16px 16px' : '18px 22px',
+          background: 'var(--brand-pale)', borderRadius: 4, border: '1px solid var(--rule)',
+        }}>
+          ※建設業における労働者派遣法に基づき、実際の現場作業（荷揚げ、清掃、施工補助などの現業作業）を伴う派遣は行っておりません。
+        </p>
+      </Reveal>
+    </div>
   );
 }
 
 function BusinessPage() {
+  const isMobile = useMobile();
+  const { bizSec, setBizSec } = useRouter();
+
+  // トップの事業カードから来た場合、該当セクションへスクロール
+  useEffect(() => {
+    if (!bizSec) return;
+    const t = setTimeout(() => {
+      const el = document.getElementById(`service-${bizSec}`);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - (isMobile ? 72 : 96);
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      setBizSec(null);
+    }, 120);
+    return () => clearTimeout(t);
+  }, [bizSec]);
+
+  const jumpTo = (key) => {
+    const el = document.getElementById(`service-${key}`);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - (isMobile ? 72 : 96);
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   return (
     <div className="page-enter" data-screen-label="03 Business">
-      <BusinessHero />
-      <ServiceSection
-        no="01"
-        jp="マンション修繕"
-        en="Apartment Renovation"
-        lead="築年数を重ねた集合住宅を、長期的な視野で再生。住み心地と資産価値を、両方高める修繕を。"
-        body="外壁・屋上・共用部・防水まで、住民様の生活を止めずに統合的に進めます。関西一円の管理組合様とともに、合意形成から長期修繕計画との整合まで丁寧にサポート。築20年〜30年の節目に、もう一度建物を機能させる仕事です。"
-        before="https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop"
-        after="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
-        scope={[
-          ['TYPE', '分譲・賃貸マンション / 公共住宅'],
-          ['SCALE', '〜100戸 / 単棟〜複合棟'],
-          ['SCOPE', '外壁・防水・タイル・鉄部・共用部'],
-          ['PERIOD', '4〜12 months'],
-        ]}
-        features={[
-          ['合意形成サポート', '管理組合様の説明会用資料整備、住民様向け広報、業者比較資料まで一貫対応。'],
-          ['居住中施工', '足場・養生計画から騒音時間帯まで、住民様の生活への影響を最小化。'],
-          ['長期計画との整合', '次の修繕までを見据えた工法選定。20年・30年の長期修繕計画と整合させます。'],
-          ['仕上がり保証', '材料メーカー保証＋自社保証。竣工後も定期点検でフォロー。'],
-        ]}
-        projects={[
-          ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '加古川市 リベール加古川Ⅰ', '大規模修繕・66戸', '2026'],
-          ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop', '大阪市 大国住宅2号館', '屋上防水改修工事', '2024'],
-          ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop', '大阪市 相川住宅2号館', '屋上防水改修工事', '2024'],
-          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '大阪市 浪速西第3住宅', '外壁改修その他工事', '2017'],
-        ]}
+      <PageHeader
+        en="Business"
+        jp="事業案内"
+        title="「創る」「守る」「支える」"
+        italic="建築のすべてに、応える技術を。"
+        bg="assets/works/new-abeno.jpg"
+        bgAlt="当社が手がけたマンション新築工事"
+        sub="建設業許可18業種を保有し、新築から大規模修繕、公共工事、施工管理の派遣、道路維持・保全事業まで幅広く対応しています。"
       />
-      <ServiceSection
-        bgAlt
-        no="02"
-        jp="店舗・クリニック新装"
-        en="Interior Renovation"
-        lead="クリニックや店舗の新装・改装を、計画から施工まで。事業の門出にふさわしい空間を。"
-        body="歯科クリニックをはじめ、店舗・テナントの新装工事を数多く手がけています。内装・設備・サインまで用途に合わせて一貫対応。開業スケジュールに合わせた工程管理と、衛生・安全基準を満たす確かな施工で、利用者にも働く人にも心地よい空間をつくります。"
-        before="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop"
-        after="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop"
-        scope={[
-          ['TYPE', '歯科・クリニック・店舗'],
-          ['SCALE', 'テナント〜ビル一棟'],
-          ['SCOPE', '内装・設備・サイン'],
-          ['PERIOD', '2〜6 months'],
-        ]}
-        features={[
-          ['開業スケジュール対応', '開業日から逆算した工程設計。確実な引き渡しを最優先に。'],
-          ['衛生・安全基準', 'クリニックに求められる衛生・安全基準を満たす施工管理。'],
-          ['内装〜設備一貫', '内装・電気・給排水・サインまで、まとめて一括対応。'],
-          ['居抜き・改装', '既存設備を活かした改装・居抜きのご相談にも対応。'],
-        ]}
-        projects={[
-          ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop', '吹田市 はぴねす歯科 南千里駅前', 'クリニック新装工事', '2024'],
-          ['https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop', '寝屋川市 はぴねす歯科 寝屋川駅', 'クリニック新装工事', '2026'],
-          ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=82&auto=format&fit=crop', '大阪市 ニッシングルメビル', '店舗ビル新築工事', '—'],
-        ]}
-      />
-      <ServiceSection
-        no="03"
-        jp="公共工事・防水改修"
-        en="Public Works"
-        lead="学校・公共住宅の外壁改修から屋上防水改修まで。官公庁の確かな基準に応える施工を。"
-        body="大阪市発注の学校・公共住宅・公共施設の外壁改修その他工事、屋上防水改修工事を数多く手がけてきました。官公庁に求められる品質・安全・書類管理の基準を満たし、近隣や利用者への配慮を徹底。新築工事にも対応し、地域の暮らしを支えるインフラづくりに携わっています。"
-        before="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop"
-        after="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop"
-        scope={[
-          ['TYPE', '学校・公共住宅・公共施設'],
-          ['SCOPE', '外壁改修・屋上防水・補修'],
-          ['CLIENT', '官公庁・自治体（大阪市 ほか）'],
-          ['PERIOD', '工事内容による'],
-        ]}
-        features={[
-          ['公共基準の品質', '官公庁の仕様・検査基準に沿った確実な施工と書類管理。'],
-          ['近隣配慮', '学校・住宅での施工。安全動線・騒音・粉塵対策を徹底。'],
-          ['外壁〜防水一貫', '外壁改修から屋上・庇の防水改修まで自社で一貫対応。'],
-          ['新築にも対応', 'マンション・施設の新築工事まで、幅広く対応します。'],
-        ]}
-        projects={[
-          ['https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop', '大阪市 墨江丘中学校', '外壁改修その他工事', '2015'],
-          ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop', '大阪市 長居球技場', '庇改修その他工事', '2021'],
-          ['https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop', '大阪市 大淀配水場', '外壁補修その他工事', '2023'],
-        ]}
-      />
+
+      {/* 事業へのジャンプナビ */}
+      <div style={{
+        position: 'sticky', top: isMobile ? 56 : 64, zIndex: 60,
+        background: 'rgba(255,255,255,0.94)',
+        backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--rule)',
+        padding: isMobile ? '12px 20px' : '16px 56px',
+      }}>
+        <div style={{
+          maxWidth: 1560, margin: '0 auto',
+          display: 'flex', gap: isMobile ? 6 : 10, flexWrap: 'wrap', alignItems: 'center',
+        }}>
+          {LOOP_SERVICES.map((s) => (
+            <button key={s.key} onClick={() => jumpTo(s.key)} style={{
+              padding: isMobile ? '10px 12px' : '13px 22px',
+              minHeight: isMobile ? 42 : 50,
+              border: '1px solid var(--rule-soft)', borderRadius: 3,
+              background: '#FFFFFF', color: 'var(--ink)', cursor: 'pointer',
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 14,
+              fontWeight: 700, letterSpacing: '0.03em',
+              display: 'flex', alignItems: 'center', gap: 8,
+              transition: 'border-color .3s, background-color .3s, color .3s',
+            }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--brand)';
+                e.currentTarget.style.background = 'var(--brand-pale)';
+                e.currentTarget.style.color = 'var(--brand)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--rule-soft)';
+                e.currentTarget.style.background = '#FFFFFF';
+                e.currentTarget.style.color = 'var(--ink)';
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--brand)', fontSize: isMobile ? 11 : 12 }}>{s.key}</span>
+              {s.jp}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {LOOP_SERVICES.map((s, i) => (
+        <ServiceSection key={s.key} svc={s} index={i}>
+          {s.key === '02' && <RenovationScope />}
+          {s.key === '04' && <StaffingScope />}
+        </ServiceSection>
+      ))}
+
       <HomeCTA />
     </div>
   );
@@ -2902,337 +2850,265 @@ function BusinessPage() {
 window.BusinessPage = BusinessPage;
 
 
+
 /* ─── src/company.jsx ─── */
-// Loop建築 — Company page
+// 株式会社ループ — 企業情報
 
-function CompanyHero() {
-  const isMobile = useMobile();
-  return (
-    <section style={{
-      position: 'relative', minHeight: isMobile ? '64vh' : '72vh', overflow: 'hidden',
-      background: 'var(--bg-deep)', color: 'var(--ink)',
-      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-    }}>
-      <div style={{ position: 'absolute', inset: 0 }}>
-        <ParallaxImage src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=82&auto=format&fit=crop" strength={50} style={{ width: '100%', height: '100%' }} />
-      </div>
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
-      }} />
-      <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
-        <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
-          letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
-        }}>Home / 企業情報 — Company</div>
-        <Reveal>
-          <div style={{
-            marginBottom: 12, fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
-          }}>— Company information<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>企業情報</span></div>
-          <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 168px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
-            letterSpacing: '-0.035em',
-          }}>
-            <MaskReveal>2006年から、</MaskReveal><br />
-            <MaskReveal delay={160} style={{ fontStyle: 'italic', color: '#9EC7ED' }}>確かな仕事を。</MaskReveal>
-          </h1>
-        </Reveal>
-        <Reveal delay={200}>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-            color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
-          }}>
-            2006年の設立以来、大規模修繕から新築・公共工事まで。
-            移り変わる時代の中で、変えてはいけないものと、変えていくべきものを、
-            両方持ち続けてきました。
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
+// ─── 代表挨拶 ───────────────────────────────────────────────────────
 function CompanyGreeting() {
   const isMobile = useMobile();
   return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)', borderBottom: '1px solid var(--rule-soft)' }}>
-      <Reveal>
-        <SectionLabel en="CEO message" jp="01 — 代表挨拶" />
-      </Reveal>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '0.7fr 1.3fr',
-        gap: isMobile ? 32 : 80, alignItems: 'start', marginTop: isMobile ? 32 : 56,
-      }}>
+    <section style={{
+      padding: isMobile ? '52px 20px' : '96px 56px',
+      background: 'var(--bg-cream)', borderBottom: '1px solid var(--rule)',
+    }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
         <Reveal>
-          <div className="reveal-image is-visible" style={{ aspectRatio: '4/5' }}>
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=82&auto=format&fit=crop" alt="" style={{
-              width: '100%', height: '100%', objectFit: 'cover',
-              filter: 'contrast(1.05) saturate(0.85)',
-            }} />
-          </div>
-          <div style={{
-            marginTop: 20, fontFamily: 'var(--font-mono)', fontSize: 10.5,
-            color: 'var(--stone)', letterSpacing: '0.22em',
-          }}>FIG. 003 — CEO PORTRAIT</div>
-          <div style={{ marginTop: 18 }}>
-            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 28, color: 'var(--ink)', fontWeight: 500 }}>
-              貝塚 昭
-            </div>
-            <div style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--stone)', marginTop: 6, letterSpacing: '0.04em' }}>
-              代表取締役 / Akira Kaizuka · since 2006
-            </div>
+          <div className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
+            CEO MESSAGE — 代表挨拶
           </div>
         </Reveal>
-        <Reveal delay={120}>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 4.5vw, 60px)',
-            fontWeight: 500, margin: 0, lineHeight: 1.25, color: 'var(--ink)',
-            letterSpacing: '-0.01em',
-          }}>
-            従業員の力が、<br />
-            <span style={{ color: 'var(--orange)', fontStyle: 'italic' }}>お客様の満足</span>になる。
-          </h2>
-          <div style={{
-            marginTop: 48, fontFamily: 'var(--font-serif)', fontSize: 17,
-            lineHeight: 2.25, color: 'var(--ink-soft)', letterSpacing: '0.03em',
-          }}>
-            <p style={{ margin: 0 }}>
-              当社は2006年の設立以来、「人を第一に考えた会社づくり」に邁進してまいりました。
-              ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、
-              お客様に対して最大限のパフォーマンスをお届けできると考えています。
-            </p>
-            <p style={{ marginTop: 28 }}>
-              大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、
-              日々、技術と対応力を培ってまいります。<br />
-              これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
-            </p>
-          </div>
-          <div style={{
-            marginTop: isMobile ? 32 : 56, paddingTop: isMobile ? 24 : 36, borderTop: '1px solid var(--rule)',
-            display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 24 : 36,
-          }}>
-            {[
-              ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。それが私たちのモットーです。'],
-              ['Policy', '方針', '安全性・信頼性・柔軟性。資格者がそろう体制で、幅広い工事に確かに応えます。'],
-              ['Spirit', '想い', 'ハードなものを、ソフトなマインドで。ESなくしてCSはなし。'],
-            ].map(([en, jp, body]) => (
-              <div key={en}>
-                <div style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 22,
-                  color: 'var(--orange)', marginBottom: 8, letterSpacing: '0.02em',
-                }}>— {en}</div>
-                <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 18, color: 'var(--ink)',
-                  fontWeight: 500, marginBottom: 12,
-                }}>{jp}</div>
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
-                  color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.04em',
-                }}>{body}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '0.62fr 1.38fr',
+          gap: isMobile ? 28 : 64, alignItems: 'start',
+        }}>
+          <Reveal>
+            <div style={{
+              aspectRatio: '4/5', borderRadius: 4, overflow: 'hidden',
+              background: 'var(--bg-stone)',
+            }}>
+              <PhotoPending label="社長写真" note="準備中" />
+            </div>
+            <div style={{
+              marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--rule)',
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontSize: isMobile ? 24 : 28,
+                color: 'var(--ink)', fontWeight: 600,
+              }}>貝塚 昭</div>
+              <div style={{
+                fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--stone)',
+                marginTop: 6, letterSpacing: '0.04em',
+              }}>代表取締役 / Akira Kaizuka — since 2006</div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3.2vw, 46px)',
+              margin: 0, lineHeight: 1.4, color: 'var(--ink)', letterSpacing: '-0.01em',
+            }}>
+              従業員の力が、<br />
+              <span style={{ color: 'var(--brand)' }}>お客様の満足</span>になる。
+            </h2>
+            <div style={{
+              marginTop: isMobile ? 24 : 34,
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
+              lineHeight: 2.15, color: 'var(--ink-soft)', letterSpacing: '0.03em',
+            }}>
+              <p style={{ margin: 0 }}>
+                当社は2006年の設立以来、「人を第一に考えた会社づくり」に邁進してまいりました。
+                ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、
+                お客様に対して最大限のパフォーマンスをお届けできると考えています。
+              </p>
+              <p style={{ margin: '22px 0 0' }}>
+                大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、
+                日々、技術と対応力を培ってまいります。
+                これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
+              </p>
+            </div>
+
+            {/* ビジョン・方針・想い */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: isMobile ? 12 : 20,
+              marginTop: isMobile ? 32 : 44,
+            }}>
+              {[
+                ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。それが私たちのモットーです。'],
+                ['Policy', '方針', '安全性・信頼性・柔軟性。資格者がそろう体制で、幅広い工事に確かに応えます。'],
+                ['Spirit', '想い', 'ハードなものを、ソフトなマインドで。ESなくしてCSはなし。'],
+              ].map(([en, jp, body], i) => (
+                <Reveal key={en} delay={i * 80}>
+                  <div style={{
+                    height: '100%', background: '#FFFFFF',
+                    border: '1px solid var(--rule)', borderTop: '3px solid var(--brand)',
+                    borderRadius: '2px 2px 4px 4px',
+                    padding: isMobile ? '22px 20px 24px' : '28px 26px 30px',
+                    boxShadow: 'var(--shadow-soft)',
+                  }}>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
+                      letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 10,
+                    }}>{en.toUpperCase()}</div>
+                    <div style={{
+                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 21 : 24,
+                      color: 'var(--ink)', fontWeight: 600, marginBottom: 12, lineHeight: 1.4,
+                    }}>{jp}</div>
+                    <p style={{
+                      fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 13.5,
+                      lineHeight: 2, color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                    }}>{body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
+// ─── 会社概要 ───────────────────────────────────────────────────────
 function CompanyOverview() {
   const isMobile = useMobile();
   const rows = [
     ['会社名', 'Company', '株式会社ループ（LOOP CO., LTD.）'],
-    ['所在地', 'Address', '〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F'],
-    ['TEL / FAX', 'Phone', '06-6394-7778 / 06-6394-7779'],
     ['代表者', 'CEO', '代表取締役　貝塚 昭'],
     ['設立', 'Established', '2006年（平成18年）8月10日'],
     ['資本金', 'Capital', '4,000万円'],
     ['建設業許可', 'Permits', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
     ['取引銀行', 'Banks', 'りそな銀行 / 北おおさか信用金庫'],
     ['有資格者', 'Qualified', '一級建築施工管理技士 4名'],
-    ['事業内容', 'Business', '大規模修繕 / 新築工事 / 店舗・クリニック新装 / 公共工事・防水改修'],
-    ['アクセス', 'Access', '大阪メトロ御堂筋線「東三国」駅より徒歩4分'],
+    ['事業内容', 'Business', '新築工事 / 大規模修繕 / 公共工事 / 派遣事業 / 道路維持・保全事業'],
   ];
-  return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)', borderBottom: '1px solid var(--rule-soft)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.5fr 1.5fr', gap: isMobile ? 32 : 64 }}>
-        <Reveal>
-          <SectionLabel en="Overview" jp="02 — 会社概要" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
-          }}>会社概要</h2>
-        </Reveal>
-        <div style={{ borderTop: '1px solid var(--rule)' }}>
-          {rows.map(([k, en, v], i) => (
-            <Reveal key={i} delay={i * 40}>
-              <div style={{
-                padding: isMobile ? '20px 0' : '28px 0', borderBottom: '1px solid var(--rule)',
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : '200px 1fr',
-                gap: isMobile ? 8 : 40, alignItems: 'baseline',
-              }}>
-                <div>
-                  <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                    letterSpacing: '0.22em', marginBottom: 4,
-                  }}>{en.toUpperCase()}</div>
-                  <div style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink)',
-                    fontWeight: 600, letterSpacing: '0.05em',
-                  }}>{k}</div>
-                </div>
-                <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 17, color: 'var(--ink)', lineHeight: 1.85,
-                }}>{v}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+  const offices = [
+    {
+      name: '本社', zip: '〒532-0002',
+      addr: '大阪府大阪市淀川区東三国2-32-17 ループ大阪6F',
+      tel: 'TEL 06-6394-7778 / FAX 06-6394-7779',
+      access: '大阪メトロ御堂筋線「東三国」駅より徒歩4分',
+      map: 'https://maps.google.com/maps?q=' + encodeURIComponent('大阪府大阪市淀川区東三国2-32-17') + '&hl=ja&z=16&output=embed',
+    },
+    {
+      name: '豊中事務所', zip: '〒561-0817',
+      addr: '大阪府豊中市浜1-1-5 ループ天神202',
+      tel: 'TEL 06-6336-7773 / FAX 06-6336-7774',
+      access: '阪急宝塚線「服部天神」駅より徒歩10分',
+      map: 'https://maps.google.com/maps?q=' + encodeURIComponent('大阪府豊中市浜1-1-5') + '&hl=ja&z=16&output=embed',
+    },
+    {
+      name: '藤沢営業所', zip: '〒252-0816',
+      addr: '神奈川県藤沢市遠藤3099',
+      tel: 'TEL 046-688-6389',
+      access: '',
+      map: null,
+    },
+  ];
 
-function CompanyHistory() {
-  const isMobile = useMobile();
-  const rows = [
-    ['2006.08', 'FOUNDED', '大阪市淀川区東三国にて「株式会社ループ」を設立（資本金4,000万円）'],
-    ['2015.09', 'PUBLIC', '墨江丘中学校 外壁改修その他工事（大阪市）に着工'],
-    ['2018.06', 'BUILD', '阿倍野区美章園2丁目マンション新築工事に着工'],
-    ['2021.08', 'PUBLIC', '長居球技場 庇改修その他工事（大阪市）に着工'],
-    ['2021.12', 'BUILD', '「ループ天神」（豊中市）新築工事に着工'],
-    ['2023.08', 'PUBLIC', '大淀配水場 配水ポンプ場 外壁補修その他工事（大阪市）に着工'],
-    ['2024.11', 'RENEW', '大国住宅2号館 屋上防水改修工事（大阪市）に着工'],
-    ['2026.02', 'BUILD', 'はぴねす歯科 寝屋川駅クリニック 新装工事に着工'],
-    ['2026.04', 'RENEW', 'リベール加古川Ⅰ 修繕工事（66戸）に着工'],
-  ];
   return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-deep)', color: 'var(--ink)', position: 'relative', overflow: 'hidden' }}>
-      <div style={{
-        position: 'absolute', left: -60, bottom: -180,
-        fontFamily: 'var(--font-serif)', fontSize: 460, lineHeight: 1, fontWeight: 400,
-        color: 'rgba(23,34,46,0.045)', pointerEvents: 'none', letterSpacing: '-0.04em',
-      }}>沿革</div>
-      <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '0.5fr 1.5fr', gap: isMobile ? 32 : 64 }}>
-        <Reveal>
-          <SectionLabel en="History" jp="03 — 沿革" color="var(--orange-soft)" />
-          <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 400, margin: 0, lineHeight: 1, letterSpacing: '-0.025em',
-          }}>沿革</h2>
-          <p style={{
-            fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
-            color: 'var(--ink-soft)', marginTop: 32, letterSpacing: '0.04em',
-          }}>
-            2006年の設立より、修繕から新築・公共工事まで。
-            一つひとつの現場で、確かな実績を積み重ねてきました。
-          </p>
-        </Reveal>
-        <div style={{ position: 'relative', paddingLeft: 32 }}>
-          <div style={{
-            position: 'absolute', left: 8, top: 12, bottom: 12,
-            width: 1, background: 'var(--rule-soft)',
-          }} />
-          {rows.map(([date, tag, body], i) => {
-            const isLatest = i === rows.length - 1;
-            return (
-              <Reveal key={i} delay={i * 50}>
+    <section style={{
+      padding: isMobile ? '52px 20px' : '96px 56px',
+      background: 'var(--bg)', borderBottom: '1px solid var(--rule)',
+    }}>
+      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '0.42fr 1.58fr',
+          gap: isMobile ? 24 : 56,
+        }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>OVERVIEW — 会社概要</div>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(30px, 3.2vw, 46px)',
+              margin: 0, lineHeight: 1.3, color: 'var(--ink)', letterSpacing: '-0.01em',
+            }}>会社概要</h2>
+          </Reveal>
+
+          <div style={{ borderTop: '1px solid var(--rule)' }}>
+            {rows.map(([k, en, v], i) => (
+              <Reveal key={i} delay={i * 40}>
                 <div style={{
-                  padding: isMobile ? '18px 0' : '22px 0',
+                  padding: isMobile ? '18px 0' : '24px 0', borderBottom: '1px solid var(--rule)',
                   display: 'grid',
-                  gridTemplateColumns: isMobile ? '1fr' : '140px 110px 1fr',
-                  gap: isMobile ? 8 : 28,
-                  alignItems: 'baseline', position: 'relative',
+                  gridTemplateColumns: isMobile ? '1fr' : '210px 1fr',
+                  gap: isMobile ? 8 : 40, alignItems: 'baseline',
                 }}>
+                  <div>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
+                      color: 'var(--stone)', letterSpacing: '0.18em', marginBottom: 5,
+                    }}>{en.toUpperCase()}</div>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16,
+                      color: 'var(--ink)', fontWeight: 700, letterSpacing: '0.05em',
+                    }}>{k}</div>
+                  </div>
                   <div style={{
-                    position: 'absolute', left: -28, top: 30, width: 11, height: 11,
-                    borderRadius: '50%',
-                    background: isLatest ? 'var(--orange)' : 'var(--bg-stone)',
-                    border: `2px solid ${isLatest ? 'var(--orange)' : 'var(--ink)'}`,
-                  }} />
-                  <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--orange-soft)',
-                    letterSpacing: '0.05em', fontWeight: 500,
-                  }}>{date}</div>
-                  <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.22em',
-                    border: '1px solid var(--rule-soft)', padding: '4px 10px',
-                    background: isLatest ? 'var(--orange)' : 'transparent',
-                    color: isLatest ? 'var(--ink)' : 'var(--ink-soft)',
-                    justifySelf: 'start', textAlign: 'center',
-                  }}>{tag}</div>
-                  <div style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--ink)', lineHeight: 1.85,
-                  }}>{body}</div>
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16.5,
+                    color: 'var(--ink)', lineHeight: 1.95, letterSpacing: '0.02em',
+                  }}>{v}</div>
                 </div>
               </Reveal>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function CompanyWhy() {
-  const isMobile = useMobile();
-  return (
-    <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
-      <Reveal>
-        <SectionLabel en="Why Loop" jp="04 — 選ばれる理由" />
-        <h2 style={{
-          fontFamily: 'var(--font-serif)', fontSize: 'clamp(56px, 7vw, 100px)',
-          fontWeight: 500, margin: 0, lineHeight: 0.98, color: 'var(--ink)',
-          letterSpacing: '-0.025em',
-        }}>
-          選ばれる、<br />
-          <span style={{ fontStyle: 'italic', color: 'var(--orange)' }}>3つの理由。</span>
-        </h2>
-      </Reveal>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-        gap: isMobile ? 20 : 32, marginTop: isMobile ? 40 : 72,
-      }}>
-        {[
-          ['01', '安全性', 'Safety', '安全確認を徹底し、積極的なコミュニケーションによって、現場の安全確保に努めます。', 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=82&auto=format&fit=crop'],
-          ['02', '信頼性', 'Reliability', '最後までやり遂げることはもちろん、責任を持って工期にあわせます。', 'https://images.unsplash.com/photo-1481253127861-534498168948?w=1600&q=82&auto=format&fit=crop'],
-          ['03', '柔軟性', 'Flexibility', '資格保有者を多く有し、様々な建設工事に幅広く対応。特殊な工事もお任せください。', 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=1600&q=82&auto=format&fit=crop'],
-        ].map(([num, jp, en, body, img], i) => (
-          <Reveal key={num} delay={i * 100}>
-            <div style={{
-              background: 'var(--bg-cream)', border: '1px solid var(--rule)',
-              overflow: 'hidden', height: '100%',
-            }}>
-              <div className="img-zoom" style={{ aspectRatio: '4/3' }}>
-                <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
-              <div style={{ padding: 36 }}>
-                <div style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 56,
-                  color: 'var(--orange)', fontWeight: 300, lineHeight: 1,
-                }}>{num}</div>
-                <div style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 16,
-                  color: 'var(--orange)', marginTop: 16, marginBottom: 6, letterSpacing: '0.02em',
-                }}>— {en}</div>
-                <h3 style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 26, fontWeight: 500,
-                  margin: 0, color: 'var(--ink)', lineHeight: 1.3,
-                }}>{jp}</h3>
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 13, lineHeight: 1.95,
-                  color: 'var(--ink-soft)', marginTop: 20, letterSpacing: '0.04em',
-                }}>{body}</p>
-              </div>
-            </div>
+        {/* 拠点・アクセス */}
+        <div style={{ marginTop: isMobile ? 44 : 72 }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>OFFICES — 拠点</div>
+            <h3 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(22px, 6.6vw, 28px)' : 'clamp(26px, 2.6vw, 36px)',
+              margin: '0 0 8px', lineHeight: 1.35, color: 'var(--ink)',
+            }}>拠点・アクセス</h3>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
+              lineHeight: 2, color: 'var(--ink-soft)', margin: '0 0 24px', letterSpacing: '0.03em',
+            }}>大阪・神奈川の3拠点で、関西一円および首都圏の現場に対応しています。</p>
           </Reveal>
-        ))}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: isMobile ? 16 : 24,
+          }}>
+            {offices.map((o, i) => (
+              <Reveal key={o.name} delay={i * 80}>
+                <div className="card-lift" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ aspectRatio: '16/10', background: 'var(--bg-stone)' }}>
+                    {o.map ? (
+                      <iframe
+                        src={o.map}
+                        title={`${o.name}の地図`}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+                      />
+                    ) : (
+                      <PhotoPending label="地図" note="準備中" />
+                    )}
+                  </div>
+                  <div style={{
+                    padding: isMobile ? '20px 18px 22px' : '24px 24px 26px',
+                    flex: '1 1 auto',
+                  }}>
+                    <div style={{
+                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 21,
+                      fontWeight: 600, color: 'var(--ink)', marginBottom: 12,
+                    }}>{o.name}</div>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14,
+                      lineHeight: 1.95, color: 'var(--ink-soft)', letterSpacing: '0.02em',
+                    }}>
+                      {o.zip}<br />
+                      {o.addr}
+                      <div style={{ marginTop: 10, color: 'var(--ink)', fontWeight: 600 }}>{o.tel}</div>
+                      {o.access && (
+                        <div style={{ marginTop: 8, fontSize: 12.5, color: 'var(--stone)' }}>{o.access}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -3241,11 +3117,17 @@ function CompanyWhy() {
 function CompanyPage() {
   return (
     <div className="page-enter" data-screen-label="02 Company">
-      <CompanyHero />
+      <PageHeader
+        en="Company"
+        jp="企業情報"
+        title="人とのつながりを大切にする"
+        italic="信頼と実績のループ。"
+        bg="assets/works/reno-suita-bld.jpg"
+        bgAlt="当社が手がけた商業ビルの大規模修繕工事"
+        sub="公共工事から民間の商業建築、集合住宅の建設、施工管理技士派遣、道路維持管理業務まで幅広く手がける総合建設会社です。"
+      />
       <CompanyGreeting />
       <CompanyOverview />
-      <CompanyHistory />
-      <CompanyWhy />
       <HomeCTA />
     </div>
   );
@@ -3254,121 +3136,77 @@ function CompanyPage() {
 window.CompanyPage = CompanyPage;
 
 
+
 /* ─── src/secondary.jsx ─── */
 // Loop建築 — Secondary pages: About, Works, News, Recruit
 
-function PageHeader({ en, jp, title, italic, bg, sub }) {
+// 下層ページ共通ヘッダー。
+// トップページと同じ白基調・横組みで、縦を短くクリアに見せる。
+function PageHeader({ en, jp, title, italic, bg, bgAlt = '', sub }) {
   const isMobile = useMobile();
+  const { go } = useRouter();
   return (
     <section style={{
-      position: 'relative', minHeight: isMobile ? '64vh' : '72vh', overflow: 'hidden',
-      background: 'var(--bg-deep)', color: 'var(--ink)',
-      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      background: 'var(--bg)', borderBottom: '1px solid var(--rule)',
+      padding: isMobile ? '20px 20px 32px' : '40px 56px 56px',
     }}>
-      {bg && (
-        <>
-          <div style={{ position: 'absolute', inset: 0 }}>
-            <ParallaxImage src={bg} strength={50} style={{ width: '100%', height: '100%' }} />
-          </div>
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(180deg, rgba(12,25,40,0.58) 0%, rgba(12,25,40,0.48) 45%, rgba(12,25,40,0.80) 100%)',
-          }} />
-        </>
-      )}
-      <div style={{ position: 'relative', padding: isMobile ? '0 20px 40px' : '0 56px 80px' }}>
-        <div style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'rgba(255,255,255,0.88)',
-          letterSpacing: '0.22em', marginBottom: 48, textTransform: 'uppercase',
-        }}>Home / {jp} — {en}</div>
-        <Reveal>
-          <div style={{ marginBottom: 12,
-            fontFamily: 'var(--font-latin)', fontStyle: 'italic',
-            fontSize: 22, color: '#9EC7ED', letterSpacing: '0.02em',
-          }}>— {en}<span style={{ color: 'rgba(255,255,255,0.72)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span></div>
-          <h1 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 11vw, 160px)',
-            fontWeight: 400, margin: 0, lineHeight: 0.92, color: '#FFFFFF',
-            letterSpacing: '-0.035em',
+      <div style={{
+        maxWidth: 1560, margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: (isMobile || !bg) ? '1fr' : '1.22fr 1fr',
+        gap: isMobile ? 24 : 56,
+        alignItems: 'center',
+      }}>
+        <div>
+          <nav aria-label="パンくず" style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            fontFamily: 'var(--font-sans)', fontSize: 11, letterSpacing: '0.1em',
+            color: 'var(--stone)', marginBottom: isMobile ? 16 : 22,
           }}>
-            <MaskReveal>{title}</MaskReveal>
-            {italic && <><br /><MaskReveal delay={160} style={{ fontStyle: 'italic', color: '#9EC7ED' }}>{italic}</MaskReveal></>}
-          </h1>
-        </Reveal>
-        {sub && (
-          <Reveal delay={200}>
-            <p style={{
-              fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 2.1,
-              color: 'rgba(255,255,255,0.93)', marginTop: 40, maxWidth: 640, letterSpacing: '0.04em',
-            }}>{sub}</p>
+            <a onClick={() => go('home')} className="link-underline" style={{ cursor: 'pointer' }}>HOME</a>
+            <span aria-hidden="true">/</span>
+            <span style={{ color: 'var(--ink-soft)' }}>{jp}</span>
+          </nav>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: isMobile ? 14 : 18 }}>
+              {en.toUpperCase()} — {jp}
+            </div>
+            <h1 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(25px, 7.2vw, 34px)' : 'clamp(30px, 3.1vw, 46px)',
+              margin: 0, color: 'var(--ink)', lineHeight: 1.4, letterSpacing: '-0.01em',
+            }}>
+              {title}
+              {italic && <><br /><span style={{ color: 'var(--brand)' }}>{italic}</span></>}
+            </h1>
+          </Reveal>
+          {sub && (
+            <Reveal delay={120}>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 15,
+                lineHeight: 2.05, color: 'var(--ink-soft)',
+                margin: isMobile ? '18px 0 0' : '24px 0 0',
+                maxWidth: 640, letterSpacing: '0.03em',
+              }}>{sub}</p>
+            </Reveal>
+          )}
+        </div>
+
+        {bg && (
+          <Reveal delay={160}>
+            <div className="img-zoom" style={{
+              aspectRatio: isMobile ? '16/9' : '4/3',
+              borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
+            }}>
+              <img src={bg} alt={bgAlt} style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                filter: 'saturate(0.94) brightness(1.02)',
+              }} />
+            </div>
           </Reveal>
         )}
       </div>
     </section>
-  );
-}
-
-// ─── About ───────────────────────────────────────────────────────────────
-function AboutPage() {
-  const isMobile = useMobile();
-  return (
-    <div className="page-enter" data-screen-label="00 About">
-      <PageHeader
-        en="About us"
-        jp="私たちについて"
-        title="建物を、"
-        italic="つくる人たち。"
-        bg="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=82&auto=format&fit=crop"
-        sub="未来をつくり、暮らしをつくり、笑顔をつくる。多様化するニーズに応えるべく日々技術を研鑽し、最良のソリューションを提供する——それが、私たちループの考え方です。"
-      />
-      <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
-        <Reveal>
-          <SectionLabel en="Vision · Policy · Statement" jp="01 — 私たちの考え方" />
-        </Reveal>
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr', gap: isMobile ? 40 : 56, marginTop: isMobile ? 32 : 56,
-        }}>
-          {[
-            ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。街や建物に求められる「より豊かで快適な暮らし」を実現します。', 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop'],
-            ['Policy', '方針', '安全性・信頼性・柔軟性。資格保有者を多く有し、特殊な工事まで幅広く、確かに対応します。', 'https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1600&q=82&auto=format&fit=crop'],
-            ['Spirit', '想い', '人を第一に。ESなくしてCSはなし。ハードなものを、ソフトなマインドでつくり続けます。', 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=82&auto=format&fit=crop'],
-          ].map(([en, jp, body, img], i) => (
-            <Reveal key={en} delay={i * 80}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : (i % 2 === 0 ? '0.7fr 1.3fr' : '1.3fr 0.7fr'),
-                gap: isMobile ? 24 : 64, alignItems: 'center',
-                borderTop: '1px solid var(--rule)', paddingTop: isMobile ? 32 : 64,
-              }}>
-                <div style={{ order: isMobile ? 1 : (i % 2 === 0 ? 1 : 2) }}>
-                  <div className="img-zoom" style={{ aspectRatio: '4/3' }}>
-                    <img src={img} alt="" style={{
-                      width: '100%', height: '100%', objectFit: 'cover',
-                      filter: 'contrast(1.02) saturate(0.9)',
-                    }} />
-                  </div>
-                </div>
-                <div style={{ order: isMobile ? 2 : (i % 2 === 0 ? 2 : 1) }}>
-                  <div style={{
-                    fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 28,
-                    color: 'var(--orange)', marginBottom: 8, letterSpacing: '0.02em',
-                  }}>— {en}</div>
-                  <h2 style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 'clamp(40px, 5vw, 64px)',
-                    fontWeight: 500, margin: 0, color: 'var(--ink)', letterSpacing: '-0.015em',
-                  }}>{jp}</h2>
-                  <p style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 22, lineHeight: 1.85,
-                    color: 'var(--ink-soft)', marginTop: 28, letterSpacing: '0.01em',
-                  }}>{body}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-      <HomeCTA />
-    </div>
   );
 }
 
@@ -3508,8 +3346,9 @@ function WorksPage() {
         jp="施工事例"
         title="これまでの、"
         italic="現場の記録。"
-        bg="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=82&auto=format&fit=crop"
-        sub="大阪を中心に積み重ねてきた、新築・大規模修繕・公共工事の施工事例。事業ごとにご覧いただけます。"
+        bg="assets/works/reno-kakogawa.jpg"
+        bgAlt="加古川市マンションの大規模修繕工事"
+        sub="手掛けた数だけ、確かな答えがあります。大阪を中心に積み重ねてきた、新築・大規模修繕・公共工事の施工事例を、事業ごとにご覧いただけます。"
       />
 
       {/* カテゴリへのジャンプナビ */}
@@ -3669,32 +3508,91 @@ function WorksPage() {
                 </div>
               )}
 
-              {c.key === 'other' && (
-                <Reveal>
-                  <div style={{
-                    marginTop: isMobile ? 20 : 28,
-                    padding: isMobile ? '20px 18px' : '26px 28px',
-                    background: 'var(--brand-pale)', borderRadius: 4,
-                    border: '1px solid var(--rule)',
-                  }}>
+              {/* 公共工事：写真のない案件は、工事名・着工年・区までの所在地のみ掲載 */}
+              {c.key === 'pub' && (
+                <div style={{ marginTop: isMobile ? 28 : 44 }}>
+                  <Reveal>
                     <div style={{
-                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 18,
-                      fontWeight: 600, color: 'var(--ink)', marginBottom: 8,
-                    }}>派遣事業について</div>
-                    <p style={{
-                      fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
-                      color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                      display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
+                      paddingBottom: isMobile ? 14 : 18, borderBottom: '1px solid var(--rule)',
+                      marginBottom: isMobile ? 4 : 8,
                     }}>
-                      現場監督（施工管理）の派遣は、一級建築施工管理技士をはじめとする有資格者が対応しています。
-                      派遣先ごとの個別対応となるため、実績の詳細はお問い合わせください。
-                    </p>
+                      <span className="eyebrow">OTHER RECORDS</span>
+                      <span style={{
+                        fontFamily: 'var(--font-sans)', fontSize: 12.5,
+                        color: 'var(--ink-soft)', letterSpacing: '0.03em',
+                      }}>その他の公共工事実績</span>
+                    </div>
+                  </Reveal>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                    gap: '0 40px',
+                  }}>
+                    {LOOP_PUBLIC_RECORDS.map(([name, started, place], i) => (
+                      <Reveal key={name} delay={(i % 2) * 60}>
+                        <div style={{
+                          padding: isMobile ? '16px 0' : '20px 0',
+                          borderBottom: '1px solid var(--rule)',
+                        }}>
+                          <div style={{
+                            fontFamily: 'var(--font-serif)', fontSize: isMobile ? 15.5 : 17,
+                            fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6,
+                          }}>{name}</div>
+                          <div style={{
+                            display: 'flex', gap: 20, flexWrap: 'wrap', marginTop: 8,
+                            fontFamily: 'var(--font-sans)', fontSize: 12.5,
+                            color: 'var(--ink-soft)', letterSpacing: '0.03em',
+                          }}>
+                            <span>着工：{started}</span>
+                            <span>所在地：{place}</span>
+                          </div>
+                        </div>
+                      </Reveal>
+                    ))}
                   </div>
-                </Reveal>
+                </div>
               )}
             </div>
           </section>
         );
       })}
+
+      {/* 派遣事業・道路維持・保全事業について */}
+      <section style={{
+        background: 'var(--bg)', borderTop: '1px solid var(--rule)',
+        padding: isMobile ? '40px 20px 48px' : '72px 56px 88px',
+      }}>
+        <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+          <Reveal>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? 14 : 24,
+            }}>
+              {[
+                ['派遣事業', '現場監督（施工管理）の派遣は、一級建築施工管理技士をはじめとする有資格者が対応しています。派遣先ごとの個別対応となるため、実績の詳細はお問い合わせください。'],
+                ['道路維持・保全事業', 'IC（インターチェンジ）やJCT（ジャンクション）周辺の維持管理業務（樹木伐採・草刈り・雪氷対策作業等）を行っています。実績の詳細はお問い合わせください。'],
+              ].map(([t, b]) => (
+                <div key={t} style={{
+                  padding: isMobile ? '20px 18px' : '26px 28px',
+                  background: 'var(--brand-pale)', borderRadius: 4,
+                  border: '1px solid var(--rule)',
+                }}>
+                  <div style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
+                    fontWeight: 600, color: 'var(--ink)', marginBottom: 10,
+                  }}>{t}について</div>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
+                    color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
+                  }}>{b}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <WorkModal work={active} onClose={() => setActive(null)} />
       <HomeCTA />
@@ -3707,11 +3605,11 @@ function NewsPage() {
   const isMobile = useMobile();
   const items = [
     ['2026.06', 'NOTICE', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。今後ともよろしくお願いいたします。'],
-    ['2026.04', 'WORKS', 'リベール加古川Ⅰ 修繕工事 着工', '加古川市にて、66戸のマンション「リベール加古川Ⅰ」の大規模修繕工事に着手いたしました。'],
-    ['2026.02', 'WORKS', 'はぴねす歯科 寝屋川駅クリニック 着工', '寝屋川市東大利町にて、歯科クリニックの新装工事に着手いたしました。'],
-    ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区相川にて、屋上防水改修工事を実施いたしました。'],
-    ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区大国にて、屋上防水改修工事を実施いたしました。'],
-    ['2023.08', 'WORKS', '大淀配水場 外壁補修その他工事', '大阪市北区にて、大淀配水場 配水ポンプ場の外壁補修その他工事を実施いたしました。'],
+    ['2026.04', 'WORKS', '加古川市マンション 大規模修繕工事 着工', '兵庫県加古川市にて、66戸のマンションの大規模修繕工事に着手いたしました。'],
+    ['2026.02', 'WORKS', '歯科クリニック 新装工事 着工', '大阪府寝屋川市にて、歯科クリニックの新装工事に着手いたしました。'],
+    ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区にて、屋上防水改修工事を実施いたしました。'],
+    ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区にて、屋上防水改修工事を実施いたしました。'],
+    ['2023.08', 'WORKS', '大淀配水場配水ポンプ場 外壁補修その他工事', '大阪市北区にて、大淀配水場 配水ポンプ場の外壁補修その他工事を実施いたしました。'],
   ];
   return (
     <div className="page-enter" data-screen-label="05 News">
@@ -3773,60 +3671,89 @@ function RecruitPage() {
       <PageHeader
         en="Become a professional"
         jp="採用情報"
-        title="自ら、"
-        italic="考える人へ。"
-        bg="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=82&auto=format&fit=crop"
+        title="現場を動かす、"
+        italic="主役になろう。"
+        bg="assets/staff/staff-meeting.jpg"
+        bgAlt="図面を確認する当社の施工管理担当"
         sub="確かな技術と、人を大切にする社風。施工管理職を中心に、一緒に建物の未来をつくる仲間を募集しています。"
       />
-      <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)' }}>
-        <Reveal>
-          <SectionLabel en="Why us" jp="01 — 私たちで働くということ" />
-        </Reveal>
-        <div style={{
-          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 20 : 32, marginTop: isMobile ? 32 : 56,
-        }}>
-          {[
-            ['01', '資格取得を支援', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられます。'],
-            ['02', '幅広い現場', 'マンション修繕から新築・公共工事まで。18業種の許可を持つ会社で、多様な経験を積めます。'],
-            ['03', '人を大切にする', 'ESなくしてCSはなし。賞与年2回・社宅・保養所・社員旅行など、長く働ける環境を整えています。'],
-          ].map(([num, jp, body], i) => (
-            <Reveal key={num} delay={i * 80}>
-              <div style={{
-                padding: 36, background: 'var(--bg)', border: '1px solid var(--rule)',
-                height: '100%',
+      <section style={{
+        padding: isMobile ? '52px 20px' : '96px 56px',
+        background: 'var(--bg-cream)', borderBottom: '1px solid var(--rule)',
+      }}>
+        <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+          <Reveal>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>WHY US</div>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 600,
+              fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
+              margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
+            }}>私たちと働くということ</h2>
+          </Reveal>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: isMobile ? 14 : 24, marginTop: isMobile ? 26 : 40,
+          }}>
+            {[
+              ['01', '資格取得を支援', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられます。'],
+              ['02', '幅広い現場', 'マンション修繕から新築・公共工事まで。18業種の許可を持つ会社で、多様な経験を積めます。'],
+              ['03', '人を大切にする', 'ESなくしてCSはなし。賞与・社宅・保養所・社員旅行など、長く働ける環境を整えています。'],
+            ].map(([num, jp, body], i) => (
+              <Reveal key={num} delay={i * 80}>
+                <div className="card-lift" style={{
+                  height: '100%', padding: isMobile ? '24px 20px 26px' : '32px 28px 34px',
+                }}>
+                  <div className="strength-no">{num}</div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 20 : 24,
+                    fontWeight: 600, margin: '14px 0 0', color: 'var(--ink)', lineHeight: 1.4,
+                  }}>{jp}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 13.5,
+                    lineHeight: 2, color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
+                  }}>{body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* 現場で働く社員 */}
+          <Reveal delay={80}>
+            <figure style={{ margin: isMobile ? '20px 0 0' : '32px 0 0' }}>
+              <div className="img-zoom" style={{
+                aspectRatio: isMobile ? '16/9' : '16/6',
+                borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
               }}>
-                <div style={{
-                  fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 56,
-                  color: 'var(--orange)', fontWeight: 300, lineHeight: 1,
-                }}>{num}</div>
-                <h3 style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 26, fontWeight: 500,
-                  margin: '20px 0 16px', color: 'var(--ink)', lineHeight: 1.3,
-                }}>{jp}</h3>
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 13, lineHeight: 1.95,
-                  color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.04em',
-                }}>{body}</p>
+                <img src="assets/staff/staff-sealing.jpg"
+                  alt="マンション共用廊下でシーリング作業を行う社員" loading="lazy" style={{
+                    width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%',
+                    filter: 'saturate(0.94) brightness(1.02)',
+                  }} />
               </div>
-            </Reveal>
-          ))}
+              <figcaption style={{
+                marginTop: 10, fontFamily: 'var(--font-sans)', fontSize: 12.5,
+                color: 'var(--ink-soft)', letterSpacing: '0.03em', lineHeight: 1.8,
+              }}>一つひとつの手仕事が、建物の寿命を伸ばします。</figcaption>
+            </figure>
+          </Reveal>
         </div>
       </section>
 
-      <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg)' }}>
+      <section style={{ padding: isMobile ? '52px 20px' : '96px 56px', background: 'var(--bg)' }}>
         <Reveal>
-          <SectionLabel en="Open positions" jp="02 — 募集職種" />
+          <div className="eyebrow" style={{ marginBottom: 14 }}>OPEN POSITIONS</div>
           <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
+            margin: 0, lineHeight: 1.35, color: 'var(--ink)', letterSpacing: '-0.01em',
           }}>募集職種</h2>
         </Reveal>
         <div style={{
-          marginTop: 56, borderTop: '1px solid var(--rule)',
+          marginTop: isMobile ? 26 : 40, borderTop: '1px solid var(--rule)',
         }}>
           {[
-            ['建築施工管理 / 工事監理', 'Construction Manager', '正社員', 'マンション修繕の施工管理。現場全体の管理と、品質・工程・安全の統括をお任せします。', '月給35万円〜'],
+            ['建築施工管理 / 工事監理', 'Construction Manager', '正社員', '新築・大規模修繕・公共工事の施工管理。現場全体の管理と、品質・工程・安全の統括をお任せします。', '月給35万円〜'],
           ].map(([jp, en, type, body, salary], i) => (
             <Reveal key={i} delay={i * 60}>
               <div style={{
@@ -3869,45 +3796,50 @@ function RecruitPage() {
         </div>
       </section>
 
-      <section style={{ padding: isMobile ? '56px 20px' : '160px 56px', background: 'var(--bg-cream)' }}>
+      <section style={{
+        padding: isMobile ? '52px 20px' : '96px 56px',
+        background: 'var(--bg-cream)', borderTop: '1px solid var(--rule)',
+      }}>
         <Reveal>
-          <SectionLabel en="Requirements" jp="03 — 募集要項" />
+          <div className="eyebrow" style={{ marginBottom: 14 }}>REQUIREMENTS</div>
           <h2 style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--ink)',
-            letterSpacing: '-0.025em',
+            fontFamily: 'var(--font-serif)', fontWeight: 600,
+            fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
+            margin: 0, lineHeight: 1.35, color: 'var(--ink)', letterSpacing: '-0.01em',
           }}>募集要項</h2>
         </Reveal>
-        <div style={{ marginTop: 56, borderTop: '1px solid var(--rule)' }}>
+        <div style={{ marginTop: isMobile ? 26 : 40, borderTop: '1px solid var(--rule)' }}>
           {[
             ['給与', 'Salary', '月給350,000円〜（固定残業代 月30時間分／5万円以上を含む）。一級建築施工管理技士の有資格者は月給40万円〜。試用期間6ヶ月（条件変更なし）。'],
-            ['勤務地', 'Location', '〒532-0002 大阪府大阪市淀川区東三国2-32-17 ループ大阪6F（大阪メトロ御堂筋線「東三国」駅より徒歩4分）'],
+            ['勤務地', 'Location', '〒532-0002 大阪府大阪市淀川区東三国2-32-17 ループ大阪6F（大阪メトロ御堂筋線「東三国」駅より徒歩4分）\n〒561-0817 大阪府豊中市浜1-1-5 ループ天神202（阪急宝塚線「服部天神」駅より徒歩10分）'],
             ['勤務時間', 'Hours', '8:30〜17:30（実働8時間）。残業は月20時間以内（経験・スキルにより変動）。'],
-            ['休日休暇', 'Holidays', '月6〜9日休み（月1〜3回 土曜出勤あり）／祝日／有給休暇／慶弔休暇／GW休暇（4日）／夏季休暇（9日）／年末年始休暇（9日）／産前産後・育児・介護休業。'],
-            ['待遇・福利厚生', 'Benefits', '社会保険完備／賞与 年2回（8月・12月／実績による）／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行（ハワイ など）／マイカー通勤可／オフィス内分煙。'],
+            ['休日休暇', 'Holidays', '月6〜9日休み（月1〜3回 土曜出勤あり）／祝日／有給休暇／慶弔休暇／GW休暇／夏季休暇／年末年始休暇／産前産後・育児・介護休業。'],
+            ['待遇・福利厚生', 'Benefits', '社会保険完備／賞与／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行／マイカー通勤可／オフィス内分煙。'],
             ['求める人物像', 'Profile', '普通自動車運転免許（AT限定可）をお持ちの方／人とコミュニケーションを取るのが好きな方／物事にコツコツ取り組める方／専門スキルを身につけ市場価値を高めたい方／頑張りが正当に評価される環境で働きたい方。施工管理の実務経験、マンション修繕工事の経験がある方は歓迎します。'],
             ['選考フロー', 'Process', '書類選考 → 面接 → 内定'],
             ['応募方法', 'Apply', 'お電話またはメールにてご連絡ください。TEL 06-6394-7778 ／ loop_kanri@kabuloop.sakura.ne.jp'],
           ].map(([k, en, v], i) => (
             <Reveal key={i} delay={i * 40}>
               <div style={{
-                padding: isMobile ? '20px 0' : '28px 0', borderBottom: '1px solid var(--rule)',
+                padding: isMobile ? '18px 0' : '24px 0', borderBottom: '1px solid var(--rule)',
                 display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : '200px 1fr',
+                gridTemplateColumns: isMobile ? '1fr' : '210px 1fr',
                 gap: isMobile ? 8 : 40, alignItems: 'baseline',
               }}>
                 <div>
                   <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
-                    letterSpacing: '0.22em', marginBottom: 4,
+                    fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
+                    color: 'var(--stone)', letterSpacing: '0.18em', marginBottom: 5,
                   }}>{en.toUpperCase()}</div>
                   <div style={{
-                    fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink)',
-                    fontWeight: 600, letterSpacing: '0.05em',
+                    fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16, color: 'var(--ink)',
+                    fontWeight: 700, letterSpacing: '0.05em',
                   }}>{k}</div>
                 </div>
                 <div style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--ink)', lineHeight: 1.95,
+                  fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16.5,
+                  color: 'var(--ink)', lineHeight: 1.95, letterSpacing: '0.02em',
+                  whiteSpace: 'pre-line',
                 }}>{v}</div>
               </div>
             </Reveal>
@@ -3919,7 +3851,6 @@ function RecruitPage() {
   );
 }
 
-window.AboutPage = AboutPage;
 window.WorksPage = WorksPage;
 window.NewsPage = NewsPage;
 window.RecruitPage = RecruitPage;
@@ -4031,7 +3962,7 @@ function InquiryModal() {
               <div style={{ padding: '24px 48px 48px' }}>
                 <FormGroup label="ご相談の種類" en="Type">
                   <Radios value={data.type} onChange={(v) => update('type', v)} options={[
-                    '新築工事', '大規模修繕・建物リニューアル', '公共工事', '派遣事業（施工管理）', '店舗・クリニック新装', 'その他',
+                    '新築工事', '大規模修繕', '公共工事', '派遣事業（施工管理）', '道路維持・保全事業', 'その他',
                   ]} />
                 </FormGroup>
                 <FormGroup label="建物の種類" en="Building type">
@@ -4221,7 +4152,6 @@ function Shell() {
   let page = null;
   switch (route) {
     case 'home':     page = <HomePage />;     break;
-    case 'about':    page = <AboutPage />;    break;
     case 'company':  page = <CompanyPage />;  break;
     case 'business': page = <BusinessPage />; break;
     case 'works':    page = <WorksPage />;    break;
