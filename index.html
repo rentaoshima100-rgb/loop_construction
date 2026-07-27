@@ -1378,7 +1378,7 @@ function Footer() {
       }}>
         <span>© 2026 LOOP CO., LTD. — All rights reserved.</span>
         <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
-          RESTORE · RENEW · LOOP
+          BUILD · PROTECT · SUSTAIN
         </span>
         <span style={{ display: 'flex', gap: 16 }}>
           <a className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
@@ -1450,7 +1450,7 @@ const LOOP_SERVICES = [
     tags: ['学校', '公共住宅', '公共施設'],
   },
   {
-    key: '04', jp: '派遣事業', sub: '労働者派遣事業許可番号：派00000000000', en: 'Staffing',
+    key: '04', jp: '派遣事業', sub: '労働者派遣事業許可番号：派00000000000', en: 'Worker Dispatching',
     img: 'assets/staff/staff-meeting.jpg',
     lead: '人と現場を結び、建設の未来を創造する',
     body: '即戦力の現場監督を迅速に派遣。1級・2級建築施工管理技士をはじめとする、経験豊富な専門技術者が、貴社の現場を安全・確実にサポートします。現場特有のルールやスピード感を熟知しているため、配属初日からスムーズに業務に馴染みます。単なる人材派遣会社ではなく、当社自身が建築会社です。現場で困ったことがあれば、会社全体で技術的・組織的にサポートできる体制が整っています。',
@@ -2930,7 +2930,7 @@ function CompanyGreeting() {
               {[
                 ['Vision', 'ビジョン', '未来をつくり、暮らしをつくり、笑顔をつくる。それが私たちのモットーです。'],
                 ['Policy', '方針', '安全性・信頼性・柔軟性。資格者がそろう体制で、幅広い工事に確かに応えます。'],
-                ['Spirit', '想い', 'ハードなものを、ソフトなマインドで。ESなくしてCSはなし。'],
+                ['Values', '想い', 'ハードなものを、ソフトなマインドで。ESなくしてCSはなし。'],
               ].map(([en, jp, body], i) => (
                 <Reveal key={en} delay={i * 80}>
                   <div style={{
@@ -2967,14 +2967,14 @@ function CompanyGreeting() {
 function CompanyOverview() {
   const isMobile = useMobile();
   const rows = [
-    ['会社名', 'Company', '株式会社ループ（LOOP CO., LTD.）'],
+    ['会社名', 'Company Name', '株式会社ループ（LOOP CO., LTD.）'],
     ['代表者', 'CEO', '代表取締役　貝塚 昭'],
     ['設立', 'Established', '2006年（平成18年）8月10日'],
     ['資本金', 'Capital', '4,000万円'],
-    ['建設業許可', 'Permits', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
-    ['取引銀行', 'Banks', 'りそな銀行 / 北おおさか信用金庫'],
-    ['有資格者', 'Qualified', '一級建築施工管理技士 4名'],
-    ['事業内容', 'Business', '新築工事 / 大規模修繕 / 公共工事 / 派遣事業 / 道路維持・保全事業'],
+    ['建設業許可', 'License', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
+    ['取引銀行', 'Main Banks', 'りそな銀行 / 北おおさか信用金庫'],
+    ['有資格者', 'Qualified Personnel', '一級建築施工管理技士 4名'],
+    ['事業内容', 'Scope of Business', '新築工事 / 大規模修繕 / 公共工事 / 派遣事業 / 道路維持・保全事業'],
   ];
   const offices = [
     {
@@ -3517,7 +3517,7 @@ function WorksPage() {
                       paddingBottom: isMobile ? 14 : 18, borderBottom: '1px solid var(--rule)',
                       marginBottom: isMobile ? 4 : 8,
                     }}>
-                      <span className="eyebrow">OTHER RECORDS</span>
+                      <span className="eyebrow">OTHER PROJECTS</span>
                       <span style={{
                         fontFamily: 'var(--font-sans)', fontSize: 12.5,
                         color: 'var(--ink-soft)', letterSpacing: '0.03em',
@@ -3669,7 +3669,7 @@ function RecruitPage() {
   return (
     <div className="page-enter" data-screen-label="06 Recruit">
       <PageHeader
-        en="Become a professional"
+        en="Careers"
         jp="採用情報"
         title="現場を動かす、"
         italic="主役になろう。"
@@ -3815,9 +3815,9 @@ function RecruitPage() {
             ['勤務時間', 'Hours', '8:30〜17:30（実働8時間）。残業は月20時間以内（経験・スキルにより変動）。'],
             ['休日休暇', 'Holidays', '月6〜9日休み（月1〜3回 土曜出勤あり）／祝日／有給休暇／慶弔休暇／GW休暇／夏季休暇／年末年始休暇／産前産後・育児・介護休業。'],
             ['待遇・福利厚生', 'Benefits', '社会保険完備／賞与／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行／マイカー通勤可／オフィス内分煙。'],
-            ['求める人物像', 'Profile', '普通自動車運転免許（AT限定可）をお持ちの方／人とコミュニケーションを取るのが好きな方／物事にコツコツ取り組める方／専門スキルを身につけ市場価値を高めたい方／頑張りが正当に評価される環境で働きたい方。施工管理の実務経験、マンション修繕工事の経験がある方は歓迎します。'],
-            ['選考フロー', 'Process', '書類選考 → 面接 → 内定'],
-            ['応募方法', 'Apply', 'お電話またはメールにてご連絡ください。TEL 06-6394-7778 ／ loop_kanri@kabuloop.sakura.ne.jp'],
+            ['求める人物像', 'Ideal Candidate', '普通自動車運転免許（AT限定可）をお持ちの方／人とコミュニケーションを取るのが好きな方／物事にコツコツ取り組める方／専門スキルを身につけ市場価値を高めたい方／頑張りが正当に評価される環境で働きたい方。施工管理の実務経験、マンション修繕工事の経験がある方は歓迎します。'],
+            ['選考フロー', 'Selection Process', '書類選考 → 面接 → 内定'],
+            ['応募方法', 'How to Apply', 'お電話またはメールにてご連絡ください。TEL 06-6394-7778 ／ loop_kanri@kabuloop.sakura.ne.jp'],
           ].map(([k, en, v], i) => (
             <Reveal key={i} delay={i * 40}>
               <div style={{
