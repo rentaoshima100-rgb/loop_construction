@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rentaoshima100-rgb.github.io/loop_construction/sitemap.xml
