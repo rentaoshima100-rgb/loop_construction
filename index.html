@@ -317,24 +317,6 @@ button { font: inherit; color: inherit; }
   transform: scale(1.05);
 }
 
-/* ─── Subtle marquee ──────────────────────────── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee {
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-}
-.marquee-inner {
-  display: inline-flex;
-  animation: marquee 40s linear infinite;
-  gap: 56px;
-  padding-right: 56px;
-}
-
 /* ─── Page transition ──────────────────────────── */
 /* fill-mode は backwards。both だと終了後も transform が残り、
    子孫の position: fixed / sticky の基準がこの要素になってしまう。 */
@@ -878,7 +860,7 @@ h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
   .card-lift:hover, .cat-btn:hover { transform: none !important; }
 
   /* 流れ続ける・自動で動く要素は止める */
-  .marquee-inner, .hero-slide img { animation: none !important; transform: none !important; }
+  .hero-slide img { animation: none !important; transform: none !important; }
 
   html { scroll-behavior: auto; }
 }
@@ -1561,14 +1543,6 @@ const LOOP_SERVICES = [
   },
 ];
 
-// ─── 建設業許可18業種（マーキーで流す） ──────────────────────────────
-const LOOP_TRADES = [
-  '土木工事', '建築工事', '大工工事', 'とび・土工工事', '石工事', '屋根工事',
-  'タイル・れんが・ブロック工事', '鋼構造物工事', '鉄筋工事', '板金工事',
-  '塗装工事', '防水工事', '内装仕上工事', '熱絶縁工事', '建具工事',
-  '舗装工事', '水道施設工事', 'ガラス工事',
-];
-
 // ─── 施工実績のカテゴリ（＝施工実績ページのセクション） ──────────────────
 const LOOP_CATEGORIES = [
   { key: 'new',  jp: '新築工事',   en: 'NEW CONSTRUCTION', lead: 'マンション・ビル・クリニックの新築' },
@@ -1681,41 +1655,6 @@ window.LOOP_WORKS = LOOP_WORKS;
 window.LOOP_PUBLIC_RECORDS = LOOP_PUBLIC_RECORDS;
 window.worksByCat = worksByCat;
 
-// ─── 建設業許可18業種を流す帯 ───────────────────────────────────────
-//     .marquee-inner は translateX(-50%) までを1周とするため、配列は必ず2周分並べる。
-function TradesMarquee() {
-  const isMobile = useMobile();
-  const loop = [...LOOP_TRADES, ...LOOP_TRADES];
-  return (
-    <div style={{
-      background: 'var(--bg)', borderTop: '1px solid var(--rule)',
-      padding: isMobile ? '18px 0 20px' : '24px 0 26px', overflow: 'hidden',
-    }}>
-      <div className="wrap" style={{ marginBottom: isMobile ? 12 : 14 }}>
-        <span className="eyebrow">建設業許可 18業種 — ワンストップ対応</span>
-      </div>
-      <div className="marquee">
-        <div className="marquee-inner" aria-hidden="true">
-          {loop.map((t, i) => (
-            <span key={i} style={{
-              display: 'inline-flex', alignItems: 'center', gap: 12,
-              fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 22,
-              fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em',
-              whiteSpace: 'nowrap',
-            }}>
-              {t}
-              <span style={{ color: 'var(--brand-soft)', fontSize: isMobile ? 12 : 14 }}>／</span>
-            </span>
-          ))}
-        </div>
-      </div>
-      {/* 読み上げ・検索エンジン向けにはテキストで1回だけ持たせる */}
-      <p className="sr-only">
-        建設業許可18業種：{LOOP_TRADES.join('、')}
-      </p>
-    </div>
-  );
-}
 
 // ─── トップビュー ───────────────────────────────────────────────────
 function HomeHero() {
@@ -1932,9 +1871,6 @@ function HomeHero() {
           ))}
         </div>
       </div>
-
-      {/* ── 建設業許可18業種 ────────────────────────────── */}
-      <TradesMarquee />
 
       {/* ── 5つの強み ─────────────────────────────────── */}
       <div style={{
