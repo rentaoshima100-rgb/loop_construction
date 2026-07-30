@@ -1706,10 +1706,10 @@ function HomeHero() {
               lineHeight: 1.35, margin: 0, color: 'var(--ink)',
               letterSpacing: '-0.01em',
             }}>
-              <span style={{ color: 'var(--brand)' }}>「創る技術」</span>で<br />
-              未来を築き、<br />
-              <span style={{ color: 'var(--brand)' }}>「守る技術」</span>で<br />
-              日常を支える。
+              <MaskReveal><span style={{ color: 'var(--brand)' }}>「創る技術」</span>で</MaskReveal><br />
+              <MaskReveal delay={140}>未来を築き、</MaskReveal><br />
+              <MaskReveal delay={280}><span style={{ color: 'var(--brand)' }}>「守る技術」</span>で</MaskReveal><br />
+              <MaskReveal delay={420}>日常を支える。</MaskReveal>
             </h1>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
@@ -1894,7 +1894,7 @@ function HomeHero() {
                   fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3vw, 44px)',
                   margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.005em',
                 }}>
-                  ループが選ばれている、<span style={{ color: 'var(--brand)' }}>5つの理由</span>。
+                  <MaskReveal>ループが選ばれている、<span style={{ color: 'var(--brand)' }}>5つの理由</span>。</MaskReveal>
                 </h2>
               </div>
             </div>
@@ -1976,9 +1976,9 @@ function HomeIntro() {
             fontSize: isMobile ? 'clamp(24px, 7.5vw, 34px)' : 'clamp(30px, 3.2vw, 46px)',
             margin: 0, color: 'var(--ink)', lineHeight: 1.45, letterSpacing: '-0.005em',
           }}>
-            人を第一に考えた<br />
-            会社づくりを、<br />
-            <span style={{ color: 'var(--brand)' }}>ずっと。</span>
+            <MaskReveal>人を第一に考えた</MaskReveal><br />
+            <MaskReveal delay={140}>会社づくりを、</MaskReveal><br />
+            <MaskReveal delay={280}><span style={{ color: 'var(--brand)' }}>ずっと。</span></MaskReveal>
           </h2>
         </Reveal>
 
@@ -2082,7 +2082,7 @@ function HomeWorks() {
                 fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(32px, 3.4vw, 50px)',
                 margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
               }}>
-                現場が、いちばんの<span style={{ color: 'var(--brand)' }}>説明</span>です。
+                <MaskReveal>現場が、いちばんの<span style={{ color: 'var(--brand)' }}>説明</span>です。</MaskReveal>
               </h2>
               <p style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
@@ -2226,8 +2226,8 @@ function HomeRecruit() {
               fontSize: isMobile ? 'clamp(26px, 8vw, 36px)' : 'clamp(32px, 3.4vw, 52px)',
               margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
             }}>
-              会社のことを、<br />
-              <span style={{ color: 'var(--brand)' }}>自分ごと</span>で考える人へ。
+              <MaskReveal>会社のことを、</MaskReveal><br />
+              <MaskReveal delay={140}><span style={{ color: 'var(--brand)' }}>自分ごと</span>で考える人へ。</MaskReveal>
             </h2>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
@@ -2973,8 +2973,8 @@ function CompanyGreeting() {
               fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3.2vw, 46px)',
               margin: 0, lineHeight: 1.4, color: 'var(--ink)', letterSpacing: '-0.01em',
             }}>
-              従業員の力が、<br />
-              <span style={{ color: 'var(--brand)' }}>お客様の満足</span>になる。
+              <MaskReveal>従業員の力が、</MaskReveal><br />
+              <MaskReveal delay={140}><span style={{ color: 'var(--brand)' }}>お客様の満足</span>になる。</MaskReveal>
             </h2>
             <div style={{
               marginTop: isMobile ? 24 : 34,
@@ -3249,8 +3249,8 @@ function PageHeader({ en, jp, title, italic, bg, bgAlt = '', sub }) {
               fontSize: isMobile ? 'clamp(25px, 7.2vw, 34px)' : 'clamp(30px, 3.1vw, 46px)',
               margin: 0, color: 'var(--ink)', lineHeight: 1.4, letterSpacing: '-0.01em',
             }}>
-              {title}
-              {italic && <><br /><span style={{ color: 'var(--brand)' }}>{italic}</span></>}
+              <MaskReveal>{title}</MaskReveal>
+              {italic && <><br /><MaskReveal delay={160}><span style={{ color: 'var(--brand)' }}>{italic}</span></MaskReveal></>}
             </h1>
           </Reveal>
           {sub && (
