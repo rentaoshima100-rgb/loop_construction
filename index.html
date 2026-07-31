@@ -971,9 +971,9 @@ function Reveal({ children, delay = 0, as: As = 'div', className = '', style = {
 // ─── Buttons ─────────────────────────────────────────────────────────────
 function Btn({ children, variant = 'solid', onClick, ...rest }) {
   return (
-    <button className={`btn btn--${variant}`} onClick={onClick} {...rest}>
-      <span>{children}</span>
-      <span className="btn-arrow">→</span>
+    <button data-nq-id="sk3i4ofv" className={`btn btn--${variant}`} onClick={onClick} {...rest}>
+      <span data-nq-id="xwhuoj6w">{children}</span>
+      <span data-nq-id="1c5gquyt" className="btn-arrow">→</span>
     </button>
   );
 }
@@ -981,11 +981,11 @@ function Btn({ children, variant = 'solid', onClick, ...rest }) {
 // ─── Section label (en — jp) — simple inline label, no visible bar
 function SectionLabel({ en, jp, color = 'var(--orange)' }) {
   return (
-    <div style={{
+    <div data-nq-id="9e4o9b49" style={{
       fontFamily: 'var(--font-latin)', fontStyle: 'italic',
       fontSize: 22, color, letterSpacing: '0.02em',
       marginBottom: 12,
-    }}>— {en}{jp ? <span style={{ color: 'var(--stone)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span> : null}</div>
+    }}>— {en}{jp ? <span data-nq-id="zoxgrao5" style={{ color: 'var(--stone)', fontFamily: 'var(--font-sans)', fontStyle: 'normal', fontSize: 12, marginLeft: 16, letterSpacing: '0.16em' }}>{jp}</span> : null}</div>
   );
 }
 
@@ -998,7 +998,7 @@ function Passing({ children, variant = 'dark', as: As = 'span', className = '', 
     <As ref={ref} className={`passing ${variantCls} ${visible ? 'is-active' : ''} ${className}`} style={style}>
       <span className="passing-box">
         <span className="passing-bar">
-          <span className="passing-txt">{children}</span>
+          <span data-nq-id="i7kzh94f" className="passing-txt">{children}</span>
         </span>
       </span>
     </As>
@@ -1010,7 +1010,7 @@ function MaskReveal({ children, as: As = 'span', className = '', style = {}, del
   const [ref, visible] = useReveal({ threshold: 0.25 });
   return (
     <As ref={ref} className={`mask-reveal ${visible ? 'is-active' : ''} ${className}`} style={style}>
-      <span className="mask-reveal-inner" style={{ '--mask-delay': delay + 'ms' }}>
+      <span data-nq-id="lhigi7g0" className="mask-reveal-inner" style={{ '--mask-delay': delay + 'ms' }}>
         {children}
       </span>
     </As>
@@ -1059,12 +1059,12 @@ function BeforeAfter({ before, after, label = 'Before · After', height = 540 })
         setPos(((e.touches[0].clientX - r.left) / r.width) * 100);
       }}
     >
-      <img src={before} alt="Before" />
+      <img data-nq-id="xetb2pej" src={before} alt="Before" />
       <div className="ba-after-clip" style={{ width: pos + '%' }}>
-        <img src={after} alt="After" style={{ width: ref.current?.offsetWidth || '100%', height: '100%' }} />
+        <img data-nq-id="il7wp4go" src={after} alt="After" style={{ width: ref.current?.offsetWidth || '100%', height: '100%' }} />
       </div>
-      <div className="ba-label" style={{ left: 24 }}>BEFORE</div>
-      <div className="ba-label" style={{ right: 24 }}>AFTER</div>
+      <div data-nq-id="aoldneu1" className="ba-label" style={{ left: 24 }}>BEFORE</div>
+      <div data-nq-id="e482ny8m" className="ba-label" style={{ right: 24 }}>AFTER</div>
       <div className="ba-handle" style={{ left: pos + '%' }} />
     </div>
   );
@@ -1099,7 +1099,7 @@ function ParallaxImage({ src, alt = '', strength = 30, style, imgStyle, loading 
   }, [strength]);
   return (
     <div ref={ref} style={{ overflow: 'hidden', ...style }}>
-      <img
+      <img data-nq-id="p5l0b6fv"
         src={src} alt={alt} loading={loading}
         style={{
           width: '100%', height: '100%', objectFit: 'cover',
@@ -1120,8 +1120,8 @@ function FigMeta({ no, label, year, side = 'left', color = 'var(--bg-cream)' }) 
       fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.22em',
       display: 'flex', flexDirection: 'column', gap: 4,
     }}>
-      <div>FIG. {String(no).padStart(3, '0')}</div>
-      <div style={{ opacity: 0.75 }}>{label}{year ? ' / ' + year : ''}</div>
+      <div data-nq-id="kndgodn2">FIG. {String(no).padStart(3, '0')}</div>
+      <div data-nq-id="vxpq2ycz" style={{ opacity: 0.75 }}>{label}{year ? ' / ' + year : ''}</div>
     </div>
   );
 }
@@ -1142,10 +1142,10 @@ function PhotoPending({ label = 'イメージ写真', note = '準備中' }) {
         <circle cx="8.5" cy="10" r="1.6" />
         <path d="M21 16l-5-5-4.5 4.5L9 13l-6 6" />
       </svg>
-      <div style={{
+      <div data-nq-id="d6k5co50" style={{
         fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em',
       }}>{label}</div>
-      <div style={{
+      <div data-nq-id="pthnphoa" style={{
         fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
         color: 'var(--stone-light)',
       }}>{note}</div>
@@ -1215,20 +1215,20 @@ function Nav() {
           display: 'flex', alignItems: 'center', gap: 36,
           fontFamily: 'var(--font-sans)',
         }}>
-          <a onClick={() => go('home')} aria-label="株式会社ループ トップへ" style={{
+          <a data-nq-id="omfeqszr" onClick={() => go('home')} aria-label="株式会社ループ トップへ" style={{
             display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 14, cursor: 'pointer',
           }}>
-            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{
+            <img data-nq-id="2id1qlks" src="assets/logo-loop.png" alt="株式会社ループ" style={{
               width: isMobile ? 48 : 60, height: 'auto', flex: '0 0 auto',
             }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <div style={{
+              <div data-nq-id="w66pgg4h" style={{
                 fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 20, fontWeight: 600,
                 color: 'var(--ink)', letterSpacing: '0.02em', lineHeight: 1.1,
                 whiteSpace: 'nowrap',
               }}>株式会社ループ</div>
               {!isMobile && (
-                <div style={{
+                <div data-nq-id="kx1mh6qr" style={{
                   fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--stone)',
                   letterSpacing: '0.2em',
                 }}>LOOP CO., LTD. — EST. 2006</div>
@@ -1241,7 +1241,7 @@ function Nav() {
               {items.map(it => {
                 const isCurrent = route === it.key;
                 return (
-                  <a key={it.key}
+                  <a data-nq-id="0hroblkk" key={it.key}
                     onClick={() => go(it.key)}
                     style={{
                       display: 'flex', flexDirection: 'column', gap: 2,
@@ -1249,7 +1249,7 @@ function Nav() {
                       borderBottom: isCurrent ? `1.5px solid var(--orange)` : '1.5px solid transparent',
                       paddingBottom: 4, transition: 'border-color .3s, color .3s',
                     }}>
-                    <span style={{
+                    <span data-nq-id="uxyavenl" style={{
                       fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
                       color: isCurrent ? 'var(--brand)' : 'var(--ink)',
                       letterSpacing: '0.04em',
@@ -1263,19 +1263,19 @@ function Nav() {
                   </a>
                 );
               })}
-              <button
+              <button data-nq-id="7qjwacdb"
                 onClick={() => setInquiryOpen(true)}
                 className="btn btn--solid"
                 style={{ marginLeft: 12, padding: '14px 24px', fontSize: 13.5, minHeight: 48 }}
               >
-                <span>お問い合わせ</span>
-                <span className="btn-arrow">→</span>
+                <span data-nq-id="odmzenld">お問い合わせ</span>
+                <span data-nq-id="jpbefr6m" className="btn-arrow">→</span>
               </button>
             </nav>
           )}
 
           {isMobile && (
-            <button
+            <button data-nq-id="orfndwwi"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
               style={{
@@ -1307,12 +1307,12 @@ function Nav() {
           marginBottom: 16, flex: '0 0 auto',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: 36, height: 'auto' }} />
-            <span style={{
+            <img data-nq-id="qwe7iw4j" src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: 36, height: 'auto' }} />
+            <span data-nq-id="1jbh9c0l" style={{
               fontFamily: 'var(--font-serif)', fontSize: 18, fontWeight: 600, color: 'var(--ink)',
             }}>株式会社ループ</span>
           </div>
-          <button onClick={() => setMenuOpen(false)} aria-label="Close menu" style={{
+          <button data-nq-id="ildiphmz" onClick={() => setMenuOpen(false)} aria-label="Close menu" style={{
             width: 44, height: 44, border: 'none', background: 'transparent',
             cursor: 'pointer', fontSize: 24, color: 'var(--ink)',
           }}>×</button>
@@ -1321,12 +1321,12 @@ function Nav() {
           {items.map(it => {
             const isCurrent = route === it.key;
             return (
-              <a key={it.key} onClick={() => go(it.key)} style={{
+              <a data-nq-id="x8341iyq" key={it.key} onClick={() => go(it.key)} style={{
                 padding: '10px 0', borderBottom: '1px solid var(--rule)',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 cursor: 'pointer', gap: 12,
               }}>
-                <span style={{
+                <span data-nq-id="dpkwdytl" style={{
                   fontFamily: 'var(--font-serif)', fontSize: 18, color: 'var(--ink)',
                   fontWeight: 500, flex: '1 1 auto', whiteSpace: 'nowrap',
                 }}>{it.jp}</span>
@@ -1335,23 +1335,23 @@ function Nav() {
                   color: isCurrent ? 'var(--brand)' : 'var(--stone)',
                   letterSpacing: '0.14em', flex: '0 0 auto',
                 }}>{it.en.toUpperCase()}</span>
-                <span style={{ color: 'var(--brand)', fontSize: 16, flex: '0 0 auto' }}>→</span>
+                <span data-nq-id="qgkakrco" style={{ color: 'var(--brand)', fontSize: 16, flex: '0 0 auto' }}>→</span>
               </a>
             );
           })}
         </nav>
         <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--rule)', flex: '0 0 auto' }}>
-          <button onClick={() => { setMenuOpen(false); setInquiryOpen(true); }}
+          <button data-nq-id="f4w3xbro" onClick={() => { setMenuOpen(false); setInquiryOpen(true); }}
             className="btn btn--solid" style={{ width: '100%', justifyContent: 'space-between' }}>
-            <span>無料現地調査・お見積り</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="4bn5w70y">無料現地調査・お見積り</span>
+            <span data-nq-id="uvgkhah6" className="btn-arrow">→</span>
           </button>
-          <button onClick={() => { setMenuOpen(false); go('recruit'); }}
+          <button data-nq-id="t03mfsai" onClick={() => { setMenuOpen(false); go('recruit'); }}
             className="btn btn--outline" style={{ width: '100%', justifyContent: 'space-between', marginTop: 10 }}>
-            <span>採用情報を見る</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="p6nbe5h6">採用情報を見る</span>
+            <span data-nq-id="nino54r2" className="btn-arrow">→</span>
           </button>
-          <div style={{
+          <div data-nq-id="ysuae7v7" style={{
             fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
             letterSpacing: '0.18em', marginTop: 16, textAlign: 'center',
           }}>
@@ -1375,7 +1375,7 @@ function Footer() {
       position: 'relative', overflow: 'hidden',
       borderTop: '1px solid var(--rule)',
     }}>
-      <div style={{
+      <div data-nq-id="fwvfpxwq" style={{
         position: 'absolute', left: -40, bottom: -200,
         fontFamily: 'var(--font-serif)', fontSize: isMobile ? 260 : 480, lineHeight: 1, fontWeight: 400,
         color: 'rgba(23,34,46,0.045)', pointerEvents: 'none',
@@ -1391,34 +1391,34 @@ function Footer() {
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
-            <img src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: isMobile ? 52 : 62, height: 'auto' }} />
-            <div style={{
+            <img data-nq-id="gc7884c3" src="assets/logo-loop.png" alt="株式会社ループ" style={{ width: isMobile ? 52 : 62, height: 'auto' }} />
+            <div data-nq-id="adkvmpzx" style={{
               fontFamily: 'var(--font-serif)', fontSize: isMobile ? 24 : 28,
               fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em',
             }}>株式会社ループ</div>
           </div>
-          <div style={{
+          <div data-nq-id="426f74xz" style={{
             fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19, fontWeight: 600,
             color: 'var(--brand)', marginBottom: 24, lineHeight: 1.75,
           }}>
             人とのつながりを大切にする、<br />信頼と実績のループ。
           </div>
-          <div style={{ fontSize: 12.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
-            <div style={{ fontWeight: 700, color: 'var(--ink)' }}>本社</div>
+          <div data-nq-id="gbzcyxbr" style={{ fontSize: 12.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
+            <div data-nq-id="0m76dvsa" style={{ fontWeight: 700, color: 'var(--ink)' }}>本社</div>
             〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F<br />
             TEL 06-6394-7778　FAX 06-6394-7779
-            <div style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>豊中事務所</div>
+            <div data-nq-id="3nis2y9z" style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>豊中事務所</div>
             〒561-0817　大阪府豊中市浜1-1-5 ループ天神202<br />
             TEL 06-6336-7773　FAX 06-6336-7774
-            <div style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>藤沢営業所</div>
+            <div data-nq-id="r20ilzgb" style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>藤沢営業所</div>
             〒252-0816　神奈川県藤沢市遠藤3099<br />
             TEL 046-688-6389
-            <div style={{ marginTop: 14 }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
+            <div data-nq-id="r4cjkcsh" style={{ marginTop: 14 }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
           </div>
-          <button onClick={() => setInquiryOpen(true)} className="btn btn--solid"
+          <button data-nq-id="sjgcnyzf" onClick={() => setInquiryOpen(true)} className="btn btn--solid"
             style={{ marginTop: 24, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
-            <span>無料現地調査・お見積り</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="jsbit7op">無料現地調査・お見積り</span>
+            <span data-nq-id="t26qu8b9" className="btn-arrow">→</span>
           </button>
         </div>
         {[
@@ -1428,18 +1428,18 @@ function Footer() {
         ].map(([h, en, items]) => (
           <div key={h}>
             <div style={{ marginBottom: 16 }}>
-              <div style={{
+              <div data-nq-id="d4h0ngmu" style={{
                 fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
                 fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em',
               }}>{h}</div>
-              <div style={{
+              <div data-nq-id="qffhlrxe" style={{
                 fontFamily: 'var(--font-sans)', fontSize: 9.5, fontWeight: 600,
                 color: 'var(--stone)', letterSpacing: '0.16em', marginTop: 3,
               }}>{en}</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13 }}>
               {items.map(([label, target]) => (
-                <a key={label} onClick={() => go(target)} className="link-underline" style={{ color: 'var(--ink)', alignSelf: 'flex-start' }}>
+                <a data-nq-id="hzrgfnip" key={label} onClick={() => go(target)} className="link-underline" style={{ color: 'var(--ink)', alignSelf: 'flex-start' }}>
                   {label}
                 </a>
               ))}
@@ -1455,13 +1455,13 @@ function Footer() {
         gap: isMobile ? 12 : 0,
         fontSize: 11, color: 'var(--stone)', letterSpacing: '0.08em',
       }}>
-        <span>© 2026 LOOP CO., LTD. — All rights reserved.</span>
-        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
+        <span data-nq-id="9byelmkv">© 2026 LOOP CO., LTD. — All rights reserved.</span>
+        <span data-nq-id="ck3v60hj" style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
           BUILD · PROTECT · SUSTAIN
         </span>
         <span style={{ display: 'flex', gap: 16 }}>
-          <a className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
-          <a className="link-underline" onClick={() => go('privacy')} style={{ cursor: 'pointer' }}>プライバシーポリシー</a>
+          <a data-nq-id="js3n1lda" className="link-underline" onClick={() => setInquiryOpen(true)} style={{ cursor: 'pointer' }}>お問い合わせ</a>
+          <a data-nq-id="gtp2eom5" className="link-underline" onClick={() => go('privacy')} style={{ cursor: 'pointer' }}>プライバシーポリシー</a>
         </span>
       </div>
     </footer>
@@ -1697,21 +1697,21 @@ function HomeHero() {
         {/* 左：コピー */}
         <div>
           <Reveal>
-            <div className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
+            <div data-nq-id="aa2x24tc" className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
               SINCE 2006 — 大阪・神奈川
             </div>
-            <h1 style={{
+            <h1 data-nq-id="h9rjxfkw" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(30px, 8.6vw, 42px)' : 'clamp(38px, 3.9vw, 62px)',
               lineHeight: 1.35, margin: 0, color: 'var(--ink)',
               letterSpacing: '-0.01em',
             }}>
-              <MaskReveal><span style={{ color: 'var(--brand)' }}>「創る技術」</span>で</MaskReveal><br />
+              <MaskReveal><span data-nq-id="5wn38ojs" style={{ color: 'var(--brand)' }}>「創る技術」</span>で</MaskReveal><br />
               <MaskReveal delay={140}>未来を築き、</MaskReveal><br />
-              <MaskReveal delay={280}><span style={{ color: 'var(--brand)' }}>「守る技術」</span>で</MaskReveal><br />
+              <MaskReveal delay={280}><span data-nq-id="acorepmz" style={{ color: 'var(--brand)' }}>「守る技術」</span>で</MaskReveal><br />
               <MaskReveal delay={420}>日常を支える。</MaskReveal>
             </h1>
-            <p style={{
+            <p data-nq-id="5yfeyklz" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
               lineHeight: 2.05, color: 'var(--ink-soft)',
               marginTop: isMobile ? 20 : 28, marginBottom: 0,
@@ -1727,15 +1727,15 @@ function HomeHero() {
             <div style={{
               display: 'flex', gap: 12, marginTop: isMobile ? 28 : 40, flexWrap: 'wrap',
             }}>
-              <button onClick={() => go('works')} className="btn btn--solid"
+              <button data-nq-id="jk14fj0u" onClick={() => go('works')} className="btn btn--solid"
                 style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-                <span>施工実績を見る</span>
-                <span className="btn-arrow">→</span>
+                <span data-nq-id="nhfn4ihv">施工実績を見る</span>
+                <span data-nq-id="x22nbbwn" className="btn-arrow">→</span>
               </button>
-              <button onClick={() => go('recruit')} className="btn btn--outline"
+              <button data-nq-id="kinjjzn6" onClick={() => go('recruit')} className="btn btn--outline"
                 style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-                <span>採用情報</span>
-                <span className="btn-arrow">→</span>
+                <span data-nq-id="dlkoviro">採用情報</span>
+                <span data-nq-id="eql38px5" className="btn-arrow">→</span>
               </button>
             </div>
           </Reveal>
@@ -1755,26 +1755,26 @@ function HomeHero() {
                 gridRow: i === 0 ? 'span 2' : 'auto',
                 background: 'var(--bg-stone)',
               }}>
-                <img src={s.img} alt={`${s.place} ${s.type}`} loading={i === 0 ? 'eager' : 'lazy'}
+                <img data-nq-id="vzl3u1w4" src={s.img} alt={`${s.place} ${s.type}`} loading={i === 0 ? 'eager' : 'lazy'}
                   style={{
                     width: '100%', height: '100%', objectFit: 'cover',
                     filter: 'saturate(0.94) brightness(1.02)',
                   }} />
-                <figcaption style={{
+                <figcaption data-nq-id="0tbtw6o2" style={{
                   position: 'absolute', left: 0, right: 0, bottom: 0,
                   padding: isMobile ? '22px 12px 10px' : '36px 16px 14px',
                   background: 'linear-gradient(180deg, rgba(12,25,40,0) 0%, rgba(12,25,40,0.72) 100%)',
                   color: '#FFFFFF',
                 }}>
-                  <div style={{
+                  <div data-nq-id="b389fx2p" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 9.5,
                     letterSpacing: '0.18em', opacity: 0.88, marginBottom: 4,
                   }}>{s.year}</div>
-                  <div style={{
+                  <div data-nq-id="essplr4e" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 11.5 : 13,
                     fontWeight: 700, lineHeight: 1.45,
                   }}>{s.place}</div>
-                  <div style={{
+                  <div data-nq-id="67ewb8we" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 10 : 11.5,
                     opacity: 0.9, marginTop: 2, lineHeight: 1.4,
                   }}>{s.type}</div>
@@ -1795,8 +1795,8 @@ function HomeHero() {
             display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
             marginBottom: isMobile ? 16 : 22,
           }}>
-            <span className="eyebrow">BUSINESS — 事業内容</span>
-            <span style={{
+            <span data-nq-id="oud5th88" className="eyebrow">BUSINESS — 事業内容</span>
+            <span data-nq-id="h2510yoq" style={{
               fontFamily: 'var(--font-sans)', fontSize: 12.5,
               color: 'var(--ink-soft)', letterSpacing: '0.03em',
             }}>クリックすると各事業のご案内をご覧いただけます</span>
@@ -1811,7 +1811,7 @@ function HomeHero() {
           {LOOP_SERVICES.map((s, i) => (
             <Reveal key={s.key} delay={(i % 3) * 80}
               style={isMobile ? {} : { gridColumn: i < 3 ? 'span 2' : 'span 3' }}>
-              <a
+              <a data-nq-id="pjopiqjl"
                 className="card-lift card-action"
                 role="link"
                 tabIndex={0}
@@ -1829,7 +1829,7 @@ function HomeHero() {
                   background: 'var(--bg-stone)',
                 }}>
                   {s.img ? (
-                    <img src={s.img} alt={s.jp} loading="lazy" style={{
+                    <img data-nq-id="wcxpbq2d" src={s.img} alt={s.jp} loading="lazy" style={{
                       width: '100%', height: '100%', objectFit: 'cover',
                       filter: 'saturate(0.94) brightness(1.02)',
                     }} />
@@ -1842,29 +1842,29 @@ function HomeHero() {
                   display: 'flex', flexDirection: 'column', flex: '1 1 auto',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10 }}>
-                    <span className="strength-no">{s.key}</span>
+                    <span data-nq-id="tghzja2m" className="strength-no">{s.key}</span>
                     <span style={{
                       fontFamily: 'var(--font-sans)', fontSize: 10.5, letterSpacing: '0.14em',
                       color: 'var(--stone)', fontWeight: 600,
                     }}>{s.en.toUpperCase()}</span>
                   </div>
-                  <h3 style={{
+                  <h3 data-nq-id="k69ncwpb" style={{
                     fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 22,
                     fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.45,
                   }}>{s.jp}</h3>
-                  <p style={{
+                  <p data-nq-id="17aqp6yr" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
                     color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
                     flex: '1 1 auto',
                   }}>{s.sub}</p>
-                  <span style={{
+                  <span data-nq-id="bqt23aus" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     gap: 10, marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--rule)',
                     fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
                     letterSpacing: '0.06em', color: 'var(--brand)',
                   }}>
                     事業案内を見る
-                    <span className="card-action-arrow">→</span>
+                    <span data-nq-id="p2kym64i" className="card-action-arrow">→</span>
                   </span>
                 </div>
               </a>
@@ -1888,13 +1888,13 @@ function HomeHero() {
               marginBottom: isMobile ? 24 : 40,
             }}>
               <div>
-                <div className="eyebrow" style={{ marginBottom: 14 }}>OUR STRENGTHS</div>
-                <h2 style={{
+                <div data-nq-id="tcqty6zf" className="eyebrow" style={{ marginBottom: 14 }}>OUR STRENGTHS</div>
+                <h2 data-nq-id="tebfu3ml" style={{
                   fontFamily: 'var(--font-serif)', fontWeight: 600,
                   fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3vw, 44px)',
                   margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.005em',
                 }}>
-                  <MaskReveal>ループが選ばれている、<span style={{ color: 'var(--brand)' }}>5つの理由</span>。</MaskReveal>
+                  <MaskReveal>ループが選ばれている、<span data-nq-id="88b8qme7" style={{ color: 'var(--brand)' }}>5つの理由</span>。</MaskReveal>
                 </h2>
               </div>
             </div>
@@ -1907,7 +1907,7 @@ function HomeHero() {
           }}>
             {LOOP_STRENGTHS.map((s, i) => (
               <Reveal key={s.no} delay={i * 70}>
-                <a
+                <a data-nq-id="wjd392op"
                   className="card-lift card-action"
                   role="link"
                   tabIndex={0}
@@ -1921,19 +1921,19 @@ function HomeHero() {
                     padding: isMobile ? '20px 18px' : '28px 24px 24px',
                     display: 'flex', flexDirection: 'column',
                   }}>
-                  <div className="strength-no">{s.no}</div>
-                  <h3 style={{
+                  <div data-nq-id="s4h7ojb9" className="strength-no">{s.no}</div>
+                  <h3 data-nq-id="p0861ik2" style={{
                     fontFamily: 'var(--font-serif)', fontWeight: 600,
                     fontSize: isMobile ? 17 : 19, lineHeight: 1.55,
                     margin: '12px 0 0', color: 'var(--ink)',
                     whiteSpace: 'pre-line', letterSpacing: '0.005em',
                   }}>{s.title}</h3>
-                  <p style={{
+                  <p data-nq-id="k4q2v4ju" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
                     color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
                     flex: '1 1 auto',
                   }}>{s.body}</p>
-                  <span style={{
+                  <span data-nq-id="ahew2q4m" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     gap: 10, marginTop: 18, paddingTop: 14,
                     borderTop: '1px solid var(--rule)',
@@ -1941,7 +1941,7 @@ function HomeHero() {
                     letterSpacing: '0.06em', color: 'var(--brand)',
                   }}>
                     施工実績を見る
-                    <span className="card-action-arrow">→</span>
+                    <span data-nq-id="r9hdjoii" className="card-action-arrow">→</span>
                   </span>
                 </a>
               </Reveal>
@@ -1970,15 +1970,15 @@ function HomeIntro() {
         alignItems: 'start',
       }}>
         <Reveal style={isMobile ? {} : { position: 'sticky', top: 110 }}>
-          <div className="eyebrow" style={{ marginBottom: 18 }}>ABOUT US</div>
-          <h2 style={{
+          <div data-nq-id="tcpc87mq" className="eyebrow" style={{ marginBottom: 18 }}>ABOUT US</div>
+          <h2 data-nq-id="s447teft" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7.5vw, 34px)' : 'clamp(30px, 3.2vw, 46px)',
             margin: 0, color: 'var(--ink)', lineHeight: 1.45, letterSpacing: '-0.005em',
           }}>
             <MaskReveal>人を第一に考えた</MaskReveal><br />
             <MaskReveal delay={140}>会社づくりを、</MaskReveal><br />
-            <MaskReveal delay={280}><span style={{ color: 'var(--brand)' }}>ずっと。</span></MaskReveal>
+            <MaskReveal delay={280}><span data-nq-id="lsuolr1s" style={{ color: 'var(--brand)' }}>ずっと。</span></MaskReveal>
           </h2>
         </Reveal>
 
@@ -1987,18 +1987,18 @@ function HomeIntro() {
             fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
             lineHeight: 2.15, color: 'var(--ink-soft)', letterSpacing: '0.03em',
           }}>
-            <p style={{ margin: 0 }}>
+            <p data-nq-id="glhti6le" style={{ margin: 0 }}>
               株式会社ループは、2006年に大阪市淀川区東三国で設立した総合建設会社です。
               マンションの大規模修繕、店舗・クリニックの新装、学校や公共施設の改修工事、
               そしてマンションの新築工事まで、建物にまつわる幅広い工事を手がけてきました。
             </p>
-            <p style={{ margin: '24px 0 0' }}>
+            <p data-nq-id="iayaadr9" style={{ margin: '24px 0 0' }}>
               私たちが設立以来ずっと大切にしてきたのは、
-              <span style={{ color: 'var(--ink)', fontWeight: 700 }}>「人を第一に考えた会社づくり」</span>
+              <span data-nq-id="otm6png2" style={{ color: 'var(--ink)', fontWeight: 700 }}>「人を第一に考えた会社づくり」</span>
               です。ESなくしてCSはない——社員がいきいきと働ける環境を整えることが、
               そのままお客様への対応品質になると考えています。
             </p>
-            <p style={{ margin: '24px 0 0' }}>
+            <p data-nq-id="w9pk0scz" style={{ margin: '24px 0 0' }}>
               だからこそ、目先の受注よりも、一つひとつの現場を誠実にやり切ることを優先します。
               長くお付き合いいただいている取引先様、協力会社の皆様に支えられて、
               いまのループがあります。ハードなものを、ソフトなマインドで。
@@ -2018,11 +2018,11 @@ function HomeIntro() {
               ['柔軟性', '資格保有者を多く有し、特殊な工事まで幅広く対応します。'],
             ].map(([t, b]) => (
               <div key={t} style={{ padding: isMobile ? '18px 16px' : '24px 22px' }}>
-                <div style={{
+                <div data-nq-id="mh9gvj1u" style={{
                   fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
                   fontWeight: 600, color: 'var(--brand)', marginBottom: 10,
                 }}>{t}</div>
-                <p style={{
+                <p data-nq-id="cxfnrwff" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.9,
                   color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
                 }}>{b}</p>
@@ -2031,10 +2031,10 @@ function HomeIntro() {
           </div>
 
           <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 24 : 32, flexWrap: 'wrap' }}>
-            <button onClick={() => go('company')} className="btn btn--outline"
+            <button data-nq-id="318ugygf" onClick={() => go('company')} className="btn btn--outline"
               style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-              <span>会社概要</span>
-              <span className="btn-arrow">→</span>
+              <span data-nq-id="qhp6guui">会社概要</span>
+              <span data-nq-id="pmcecckz" className="btn-arrow">→</span>
             </button>
           </div>
         </Reveal>
@@ -2076,15 +2076,15 @@ function HomeWorks() {
             gap: 20, flexWrap: 'wrap', marginBottom: isMobile ? 28 : 48,
           }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: 16 }}>WORKS — 施工実績</div>
-              <h2 style={{
+              <div data-nq-id="63uvmy8z" className="eyebrow" style={{ marginBottom: 16 }}>WORKS — 施工実績</div>
+              <h2 data-nq-id="4xiara5s" style={{
                 fontFamily: 'var(--font-serif)', fontWeight: 600,
                 fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(32px, 3.4vw, 50px)',
                 margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
               }}>
-                <MaskReveal>現場が、いちばんの<span style={{ color: 'var(--brand)' }}>説明</span>です。</MaskReveal>
+                <MaskReveal>現場が、いちばんの<span data-nq-id="5sshy73l" style={{ color: 'var(--brand)' }}>説明</span>です。</MaskReveal>
               </h2>
-              <p style={{
+              <p data-nq-id="ugp2kfow" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
                 lineHeight: 2, color: 'var(--ink-soft)', margin: '18px 0 0',
                 maxWidth: 620, letterSpacing: '0.03em',
@@ -2094,9 +2094,9 @@ function HomeWorks() {
               </p>
             </div>
             {!isMobile && (
-              <button onClick={() => go('works')} className="btn btn--solid">
-                <span>施工実績をすべて見る</span>
-                <span className="btn-arrow">→</span>
+              <button data-nq-id="otc3coj1" onClick={() => go('works')} className="btn btn--solid">
+                <span data-nq-id="c23h1zvk">施工実績をすべて見る</span>
+                <span data-nq-id="95vt2hpu" className="btn-arrow">→</span>
               </button>
             )}
           </div>
@@ -2109,11 +2109,11 @@ function HomeWorks() {
         }}>
           {works.map((w, i) => (
             <Reveal key={w.id} delay={(i % 3) * 80}>
-              <a onClick={() => go('works', { cat: w.cat })} className="card-lift" style={{
+              <a data-nq-id="am17kjk5" onClick={() => go('works', { cat: w.cat })} className="card-lift" style={{
                 display: 'block', height: '100%', cursor: 'pointer',
               }}>
                 <div className="img-zoom" style={{ aspectRatio: '4/3', background: 'var(--bg-stone)' }}>
-                  <img src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                  <img data-nq-id="u549ik3x" src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
                     width: '100%', height: '100%', objectFit: 'cover',
                     filter: 'saturate(0.94) brightness(1.02)',
                   }} />
@@ -2122,21 +2122,21 @@ function HomeWorks() {
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
                   }}>
-                    <span style={{
+                    <span data-nq-id="1d6qplpf" style={{
                       fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
                       letterSpacing: '0.1em', color: 'var(--brand)',
                       background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
                     }}>{(LOOP_CATEGORIES.find(c => c.key === w.cat) || {}).jp}</span>
-                    <span style={{
+                    <span data-nq-id="uhu7yhii" style={{
                       fontFamily: 'var(--font-mono)', fontSize: 10.5,
                       letterSpacing: '0.14em', color: 'var(--stone)',
                     }}>{w.year}</span>
                   </div>
-                  <h3 style={{
+                  <h3 data-nq-id="38h3o3hp" style={{
                     fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
                     fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.5,
                   }}>{w.name}</h3>
-                  <p style={{
+                  <p data-nq-id="lg66g4ey" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
                     margin: '8px 0 0', letterSpacing: '0.03em', lineHeight: 1.7,
                   }}>{w.area}　/　{w.type}</p>
@@ -2147,10 +2147,10 @@ function HomeWorks() {
         </div>
 
         {isMobile && (
-          <button onClick={() => go('works')} className="btn btn--solid"
+          <button data-nq-id="wr2ymp7m" onClick={() => go('works')} className="btn btn--solid"
             style={{ marginTop: 24, width: '100%', justifyContent: 'space-between' }}>
-            <span>施工実績をすべて見る</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="m2oma1yu">施工実績をすべて見る</span>
+            <span data-nq-id="xhqewp2q" className="btn-arrow">→</span>
           </button>
         )}
       </div>
@@ -2210,7 +2210,7 @@ function HomeRecruit() {
                   gridRow: rowSpan,
                   borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
                 }}>
-                  <img src={img} alt={alt} loading="lazy" style={{
+                  <img data-nq-id="f1c14p07" src={img} alt={alt} loading="lazy" style={{
                     width: '100%', height: '100%', objectFit: 'cover',
                     filter: 'saturate(0.94) brightness(1.03)',
                   }} />
@@ -2220,16 +2220,16 @@ function HomeRecruit() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="eyebrow" style={{ marginBottom: 16 }}>RECRUIT — 採用情報</div>
-            <h2 style={{
+            <div data-nq-id="3cipmxxz" className="eyebrow" style={{ marginBottom: 16 }}>RECRUIT — 採用情報</div>
+            <h2 data-nq-id="nm7hb8xs" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(26px, 8vw, 36px)' : 'clamp(32px, 3.4vw, 52px)',
               margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
             }}>
               <MaskReveal>会社のことを、</MaskReveal><br />
-              <MaskReveal delay={140}><span style={{ color: 'var(--brand)' }}>自分ごと</span>で考える人へ。</MaskReveal>
+              <MaskReveal delay={140}><span data-nq-id="1o2nznev" style={{ color: 'var(--brand)' }}>自分ごと</span>で考える人へ。</MaskReveal>
             </h2>
-            <p style={{
+            <p data-nq-id="f5ndlsux" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
               lineHeight: 2.15, color: 'var(--ink-soft)', margin: '22px 0 0',
               letterSpacing: '0.03em', maxWidth: 520,
@@ -2243,10 +2243,10 @@ function HomeRecruit() {
             </p>
 
             <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 26 : 36, flexWrap: 'wrap' }}>
-              <button onClick={() => go('recruit')} className="btn btn--solid"
+              <button data-nq-id="6zqwq7ps" onClick={() => go('recruit')} className="btn btn--solid"
                 style={isMobile ? { flex: '1 1 100%', justifyContent: 'space-between' } : {}}>
-                <span>募集要項を見る</span>
-                <span className="btn-arrow">→</span>
+                <span data-nq-id="pawpxp2t">募集要項を見る</span>
+                <span data-nq-id="fgr1hj0x" className="btn-arrow">→</span>
               </button>
             </div>
           </Reveal>
@@ -2265,11 +2265,11 @@ function HomeRecruit() {
                 height: '100%', padding: isMobile ? '22px 20px' : '30px 28px 32px',
               }}>
                 <div className="strength-no">{String(i + 1).padStart(2, '0')}</div>
-                <h3 style={{
+                <h3 data-nq-id="ri3pqtks" style={{
                   fontFamily: 'var(--font-serif)', fontSize: isMobile ? 18 : 20,
                   fontWeight: 600, margin: '12px 0 0', color: 'var(--ink)', lineHeight: 1.5,
                 }}>{t}</h3>
-                <p style={{
+                <p data-nq-id="o3x2bi1y" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
                   color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
                 }}>{b}</p>
@@ -2286,11 +2286,11 @@ function HomeRecruit() {
           }}>
             {facts.map(([t, b]) => (
               <div key={t} style={{ padding: isMobile ? '18px 14px' : '26px 24px' }}>
-                <div style={{
+                <div data-nq-id="xtvi8uha" style={{
                   fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 19,
                   fontWeight: 600, color: 'var(--ink)', lineHeight: 1.4,
                 }}>{t}</div>
-                <div style={{
+                <div data-nq-id="7zspjxmn" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 11.5, color: 'var(--stone)',
                   marginTop: 8, letterSpacing: '0.03em', lineHeight: 1.6,
                 }}>{b}</div>
@@ -2326,16 +2326,16 @@ function HomeNews() {
         gap: isMobile ? 24 : 64,
       }}>
         <Reveal>
-          <div className="eyebrow" style={{ marginBottom: 16 }}>NEWS</div>
-          <h2 style={{
+          <div data-nq-id="tqosq049" className="eyebrow" style={{ marginBottom: 16 }}>NEWS</div>
+          <h2 data-nq-id="97so8wxb" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7vw, 30px)' : 'clamp(28px, 2.8vw, 40px)',
             margin: 0, color: 'var(--ink)', lineHeight: 1.35,
           }}>お知らせ</h2>
           {!isMobile && (
-            <button onClick={() => go('news')} className="btn btn--outline" style={{ marginTop: 28 }}>
-              <span>すべて見る</span>
-              <span className="btn-arrow">→</span>
+            <button data-nq-id="8tclvh0e" onClick={() => go('news')} className="btn btn--outline" style={{ marginTop: 28 }}>
+              <span data-nq-id="3wzl78xn">すべて見る</span>
+              <span data-nq-id="pu13v2u9" className="btn-arrow">→</span>
             </button>
           )}
         </Reveal>
@@ -2343,7 +2343,7 @@ function HomeNews() {
         <div className="rule-list" style={{ borderTop: '1px solid var(--rule)' }}>
           {news.map(([date, tag, title, desc], i) => (
             <Reveal key={i} delay={i * 60}>
-              <a onClick={() => go('news')} style={{
+              <a data-nq-id="uflzz9fw" onClick={() => go('news')} style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? '1fr' : '110px 92px 1fr',
                 gap: isMobile ? 8 : 24,
@@ -2355,22 +2355,22 @@ function HomeNews() {
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-cream)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
               >
-                <span style={{
+                <span data-nq-id="qhe049sa" style={{
                   fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--stone)',
                   letterSpacing: '0.06em',
                 }}>{date}</span>
-                <span style={{
+                <span data-nq-id="684zmbbb" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
                   letterSpacing: '0.1em', color: 'var(--brand)',
                   background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
                   justifySelf: 'start',
                 }}>{tag}</span>
                 <div>
-                  <div style={{
+                  <div data-nq-id="5fuq18is" style={{
                     fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 18,
                     color: 'var(--ink)', fontWeight: 600, lineHeight: 1.55,
                   }}>{title}</div>
-                  <div style={{
+                  <div data-nq-id="l9qgfy38" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
                     lineHeight: 1.85, letterSpacing: '0.03em', marginTop: 6,
                   }}>{desc}</div>
@@ -2381,10 +2381,10 @@ function HomeNews() {
         </div>
 
         {isMobile && (
-          <button onClick={() => go('news')} className="btn btn--outline"
+          <button data-nq-id="uvkp1wyb" onClick={() => go('news')} className="btn btn--outline"
             style={{ width: '100%', justifyContent: 'space-between' }}>
-            <span>すべて見る</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="pug7ijve">すべて見る</span>
+            <span data-nq-id="0ht6vidy" className="btn-arrow">→</span>
           </button>
         )}
       </div>
@@ -2402,7 +2402,7 @@ function HomeCTA() {
       padding: isMobile ? '48px 20px' : '96px 56px',
       position: 'relative', overflow: 'hidden',
     }}>
-      <div style={{
+      <div data-nq-id="yijjyaq8" style={{
         position: 'absolute', right: -60, top: -70,
         fontFamily: 'var(--font-serif)', fontSize: isMobile ? 240 : 440,
         lineHeight: 1, fontWeight: 600, color: 'rgba(255,255,255,0.07)',
@@ -2417,18 +2417,18 @@ function HomeCTA() {
       }}>
         {/* 取引先向け */}
         <div>
-          <div style={{
+          <div data-nq-id="2i0xlkp4" style={{
             fontFamily: 'var(--font-sans)', fontSize: 11.5, fontWeight: 700,
             letterSpacing: '0.16em', opacity: 0.86, marginBottom: 14,
           }}>CONTACT — お取引・ご相談</div>
-          <h2 style={{
+          <h2 data-nq-id="r0xt9a30" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 2.9vw, 42px)',
             margin: 0, lineHeight: 1.4, letterSpacing: '-0.005em',
           }}>
             まずは、建物を<br />見せてください。
           </h2>
-          <p style={{
+          <p data-nq-id="sbob52ld" style={{
             fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
             lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
             letterSpacing: '0.03em', maxWidth: 460,
@@ -2437,27 +2437,27 @@ function HomeCTA() {
             協力会社の皆様、お気軽にご連絡ください。
           </p>
           <div style={{ marginTop: isMobile ? 22 : 28 }}>
-            <div style={{
+            <div data-nq-id="0ot22xzp" style={{
               fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
               letterSpacing: '0.16em', opacity: 0.8, marginBottom: 6,
             }}>TEL</div>
-            <a href="tel:0663947778" style={{
+            <a data-nq-id="a0dgyr1u" href="tel:0663947778" style={{
               fontFamily: 'var(--font-serif)', fontSize: isMobile ? 30 : 38,
               fontWeight: 600, letterSpacing: '-0.005em', color: '#FFFFFF',
               display: 'inline-block',
             }}>06-6394-7778</a>
-            <div style={{
+            <div data-nq-id="rg849l8r" style={{
               fontFamily: 'var(--font-sans)', fontSize: 12, opacity: 0.85,
               marginTop: 6, letterSpacing: '0.03em',
             }}>受付 9:00 – 18:00 / 平日（土日祝休）</div>
           </div>
-          <button onClick={() => setInquiryOpen(true)} className="btn"
+          <button data-nq-id="qgy0o38i" onClick={() => setInquiryOpen(true)} className="btn"
             style={{
               marginTop: 24, background: '#FFFFFF', color: 'var(--brand)',
               ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}),
             }}>
-            <span>無料現地調査・お見積り</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="7zszlpli">無料現地調査・お見積り</span>
+            <span data-nq-id="5sxvg1d2" className="btn-arrow">→</span>
           </button>
         </div>
 
@@ -2468,18 +2468,18 @@ function HomeCTA() {
           paddingLeft: isMobile ? 0 : 56,
           paddingTop: isMobile ? 32 : 0,
         }}>
-          <div style={{
+          <div data-nq-id="2jqm1j3k" style={{
             fontFamily: 'var(--font-sans)', fontSize: 11.5, fontWeight: 700,
             letterSpacing: '0.16em', opacity: 0.86, marginBottom: 14,
           }}>RECRUIT — 採用について</div>
-          <h2 style={{
+          <h2 data-nq-id="39kgg632" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 2.9vw, 42px)',
             margin: 0, lineHeight: 1.4, letterSpacing: '-0.005em',
           }}>
             この会社で、<br />腕を上げませんか。
           </h2>
-          <p style={{
+          <p data-nq-id="ijcnrbcv" style={{
             fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
             lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
             letterSpacing: '0.03em', maxWidth: 460,
@@ -2489,23 +2489,23 @@ function HomeCTA() {
             まずは一度お話をさせてください。
           </p>
           <div style={{ marginTop: isMobile ? 22 : 28 }}>
-            <div style={{
+            <div data-nq-id="q82j8akx" style={{
               fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
               letterSpacing: '0.16em', opacity: 0.8, marginBottom: 6,
             }}>E-MAIL</div>
-            <a href="mailto:loop_kanri@kabuloop.sakura.ne.jp" style={{
+            <a data-nq-id="9r5cm54m" href="mailto:loop_kanri@kabuloop.sakura.ne.jp" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 16,
               fontWeight: 600, color: '#FFFFFF', wordBreak: 'break-all',
               display: 'inline-block', lineHeight: 1.6,
             }}>loop_kanri@kabuloop.sakura.ne.jp</a>
           </div>
-          <button onClick={() => go('recruit')} className="btn btn--ghost"
+          <button data-nq-id="858msy4r" onClick={() => go('recruit')} className="btn btn--ghost"
             style={{
               marginTop: 24,
               ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}),
             }}>
-            <span>採用情報を見る</span>
-            <span className="btn-arrow">→</span>
+            <span data-nq-id="hhz47kox">採用情報を見る</span>
+            <span data-nq-id="axlw3h3h" className="btn-arrow">→</span>
           </button>
         </div>
       </div>
@@ -2619,13 +2619,13 @@ function ServiceSection({ svc, index, children }) {
       borderTop: '1px solid var(--rule)',
       padding: isMobile ? '48px 20px 52px' : '88px 56px 96px',
     }}>
-      <div style={{ maxWidth: 1560, margin: '0 auto' }}>
+      <div data-nq-id="enlhll2t" style={{ maxWidth: 1560, margin: '0 auto' }}>
         <Reveal>
           <div style={{
             display: 'flex', alignItems: 'baseline', gap: isMobile ? 14 : 22,
             marginBottom: isMobile ? 24 : 36, flexWrap: 'wrap',
           }}>
-            <span style={{
+            <span data-nq-id="z9j2uwcw" style={{
               fontFamily: 'var(--font-mono)', fontSize: isMobile ? 22 : 30,
               color: 'var(--brand)', fontWeight: 600, lineHeight: 1, letterSpacing: '0.02em',
             }}>{svc.key}</span>
@@ -2634,13 +2634,13 @@ function ServiceSection({ svc, index, children }) {
                 fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
                 letterSpacing: '0.16em', color: 'var(--stone)', marginBottom: 6,
               }}>{svc.en.toUpperCase()}</div>
-              <h2 style={{
+              <h2 data-nq-id="kqkzf1x3" style={{
                 fontFamily: 'var(--font-serif)', fontWeight: 600,
                 fontSize: isMobile ? 'clamp(22px, 6.6vw, 30px)' : 'clamp(28px, 3vw, 42px)',
                 margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
               }}>
                 {svc.jp}
-                <span style={{
+                <span data-nq-id="8kb59w2q" style={{
                   fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 14,
                   fontWeight: 600, color: 'var(--ink-soft)', letterSpacing: '0.03em',
                   marginLeft: isMobile ? 0 : 16, display: isMobile ? 'block' : 'inline',
@@ -2672,7 +2672,7 @@ function ServiceSection({ svc, index, children }) {
                   <PhotoPending label="イメージ写真" />
                 )}
               </div>
-              <figcaption style={{
+              <figcaption data-nq-id="0iu6s7c5" style={{
                 marginTop: 10, fontFamily: 'var(--font-sans)', fontSize: 11,
                 color: 'var(--stone)', letterSpacing: '0.08em',
               }}>イメージ写真</figcaption>
@@ -2680,12 +2680,12 @@ function ServiceSection({ svc, index, children }) {
           </Reveal>
 
           <Reveal delay={120}>
-            <h3 style={{
+            <h3 data-nq-id="4vokg439" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 18 : 22, lineHeight: 1.6,
               margin: 0, color: 'var(--brand)', letterSpacing: '0.005em',
             }}>{svc.lead}</h3>
-            <p style={{
+            <p data-nq-id="n91oblht" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
               lineHeight: 2.1, color: 'var(--ink-soft)',
               margin: isMobile ? '16px 0 0' : '20px 0 0', letterSpacing: '0.03em',
@@ -2696,7 +2696,7 @@ function ServiceSection({ svc, index, children }) {
               marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--rule)',
             }}>
               {svc.tags.map(t => (
-                <span key={t} style={{
+                <span data-nq-id="oby7y20r" key={t} style={{
                   fontFamily: 'var(--font-sans)', fontSize: 11, color: 'var(--ink-soft)',
                   border: '1px solid var(--rule-soft)', borderRadius: 2,
                   padding: '5px 10px', letterSpacing: '0.04em',
@@ -2705,12 +2705,12 @@ function ServiceSection({ svc, index, children }) {
             </div>
 
             {svc.worksCat && (
-              <button
+              <button data-nq-id="57h6lugz"
                 onClick={() => go('works', { cat: svc.worksCat })}
                 className="btn btn--solid"
                 style={{ marginTop: 22, ...(isMobile ? { width: '100%', justifyContent: 'space-between' } : {}) }}>
-                <span>施工事例へ</span>
-                <span className="btn-arrow">→</span>
+                <span data-nq-id="lx11zh5i">施工事例へ</span>
+                <span data-nq-id="hiu7vlqr" className="btn-arrow">→</span>
               </button>
             )}
           </Reveal>
@@ -2732,11 +2732,11 @@ function RenovationScope() {
           paddingBottom: isMobile ? 16 : 20, borderBottom: '1px solid var(--rule)',
           marginBottom: isMobile ? 20 : 28,
         }}>
-          <h3 style={{
+          <h3 data-nq-id="gdjdb932" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 20 : 26, margin: 0, color: 'var(--ink)', lineHeight: 1.4,
           }}>大規模修繕 工事項目</h3>
-          <p style={{
+          <p data-nq-id="lmxxopol" style={{
             fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 13.5,
             lineHeight: 1.95, color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
           }}>
@@ -2762,12 +2762,12 @@ function RenovationScope() {
                 strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 {RENO_ICONS[icon]}
               </svg>
-              <div style={{
+              <div data-nq-id="qbs5hs9z" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 14.5,
                 fontWeight: 700, color: 'var(--ink)', marginTop: isMobile ? 14 : 18,
                 lineHeight: 1.5, letterSpacing: '0.02em',
               }}>{no}{title}</div>
-              <p style={{
+              <p data-nq-id="86bj536z" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 11.5 : 12,
                 lineHeight: 1.9, color: 'var(--ink-soft)', margin: '10px 0 0',
                 letterSpacing: '0.02em',
@@ -2786,11 +2786,11 @@ function StaffingScope() {
   return (
     <div style={{ marginTop: isMobile ? 32 : 48 }}>
       <Reveal>
-        <h3 style={{
+        <h3 data-nq-id="aotheces" style={{
           fontFamily: 'var(--font-serif)', fontWeight: 600,
           fontSize: isMobile ? 18 : 22, margin: 0, color: 'var(--ink)', lineHeight: 1.4,
         }}>【対応可能な業務】</h3>
-        <p style={{
+        <p data-nq-id="b82vrbz0" style={{
           fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12.5 : 13.5,
           lineHeight: 1.95, color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
         }}>
@@ -2804,11 +2804,11 @@ function StaffingScope() {
       }}>
         {STAFFING_SCOPE.map(([t, b]) => (
           <div key={t} style={{ padding: isMobile ? '18px 16px' : '24px 22px' }}>
-            <div style={{
+            <div data-nq-id="ckvgrhs8" style={{
               fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
               fontWeight: 600, color: 'var(--brand)', marginBottom: 10,
             }}>{t}</div>
-            <p style={{
+            <p data-nq-id="rnlgl9ub" style={{
               fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.9,
               color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
             }}>{b}</p>
@@ -2816,7 +2816,7 @@ function StaffingScope() {
         ))}
       </div>
       <Reveal>
-        <p style={{
+        <p data-nq-id="a9zvpohr" style={{
           fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 12.5,
           lineHeight: 1.95, color: 'var(--ink)', fontWeight: 700,
           margin: isMobile ? '18px 0 0' : '22px 0 0', letterSpacing: '0.02em',
@@ -2880,7 +2880,7 @@ function BusinessPage() {
           display: 'flex', gap: isMobile ? 6 : 10, flexWrap: 'wrap', alignItems: 'center',
         }}>
           {LOOP_SERVICES.map((s) => (
-            <button key={s.key} onClick={() => jumpTo(s.key)} style={{
+            <button data-nq-id="lc1bvnfg" key={s.key} onClick={() => jumpTo(s.key)} style={{
               padding: isMobile ? '10px 12px' : '13px 22px',
               minHeight: isMobile ? 42 : 50,
               border: '1px solid var(--rule-soft)', borderRadius: 3,
@@ -2901,7 +2901,7 @@ function BusinessPage() {
                 e.currentTarget.style.color = 'var(--ink)';
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--brand)', fontSize: isMobile ? 11 : 12 }}>{s.key}</span>
+              <span data-nq-id="b1ak1upd" style={{ fontFamily: 'var(--font-mono)', color: 'var(--brand)', fontSize: isMobile ? 11 : 12 }}>{s.key}</span>
               {s.jp}
             </button>
           ))}
@@ -2937,7 +2937,7 @@ function CompanyGreeting() {
     }}>
       <div style={{ maxWidth: 1560, margin: '0 auto' }}>
         <Reveal>
-          <div className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
+          <div data-nq-id="718ijo3k" className="eyebrow" style={{ marginBottom: isMobile ? 20 : 28 }}>
             CEO MESSAGE — 代表挨拶
           </div>
         </Reveal>
@@ -2956,11 +2956,11 @@ function CompanyGreeting() {
             <div style={{
               marginTop: 20, paddingTop: 18, borderTop: '1px solid var(--rule)',
             }}>
-              <div style={{
+              <div data-nq-id="avh3hb1z" style={{
                 fontFamily: 'var(--font-serif)', fontSize: isMobile ? 24 : 28,
                 color: 'var(--ink)', fontWeight: 600,
               }}>貝塚 昭</div>
-              <div style={{
+              <div data-nq-id="u5q6cnq0" style={{
                 fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--stone)',
                 marginTop: 6, letterSpacing: '0.04em',
               }}>代表取締役 / Akira Kaizuka — since 2006</div>
@@ -2968,25 +2968,25 @@ function CompanyGreeting() {
           </Reveal>
 
           <Reveal delay={120}>
-            <h2 style={{
+            <h2 data-nq-id="an4hf78d" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(30px, 3.2vw, 46px)',
               margin: 0, lineHeight: 1.4, color: 'var(--ink)', letterSpacing: '-0.01em',
             }}>
               <MaskReveal>従業員の力が、</MaskReveal><br />
-              <MaskReveal delay={140}><span style={{ color: 'var(--brand)' }}>お客様の満足</span>になる。</MaskReveal>
+              <MaskReveal delay={140}><span data-nq-id="j2uuiqxa" style={{ color: 'var(--brand)' }}>お客様の満足</span>になる。</MaskReveal>
             </h2>
             <div style={{
               marginTop: isMobile ? 24 : 34,
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 14 : 15.5,
               lineHeight: 2.15, color: 'var(--ink-soft)', letterSpacing: '0.03em',
             }}>
-              <p style={{ margin: 0 }}>
+              <p data-nq-id="tor65969" style={{ margin: 0 }}>
                 当社は2006年の設立以来、「人を第一に考えた会社づくり」に邁進してまいりました。
                 ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、
                 お客様に対して最大限のパフォーマンスをお届けできると考えています。
               </p>
-              <p style={{ margin: '22px 0 0' }}>
+              <p data-nq-id="vddwsgqf" style={{ margin: '22px 0 0' }}>
                 大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、
                 日々、技術と対応力を培ってまいります。
                 これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
@@ -3017,11 +3017,11 @@ function CompanyGreeting() {
                       fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
                       letterSpacing: '0.18em', color: 'var(--brand)', marginBottom: 10,
                     }}>{en.toUpperCase()}</div>
-                    <div style={{
+                    <div data-nq-id="hewc59ue" style={{
                       fontFamily: 'var(--font-serif)', fontSize: isMobile ? 21 : 24,
                       color: 'var(--ink)', fontWeight: 600, marginBottom: 12, lineHeight: 1.4,
                     }}>{jp}</div>
-                    <p style={{
+                    <p data-nq-id="xapwcs01" style={{
                       fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 13.5,
                       lineHeight: 2, color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
                     }}>{body}</p>
@@ -3085,8 +3085,8 @@ function CompanyOverview() {
           gap: isMobile ? 24 : 56,
         }}>
           <Reveal>
-            <div className="eyebrow" style={{ marginBottom: 16 }}>OVERVIEW — 会社概要</div>
-            <h2 style={{
+            <div data-nq-id="1x7u3du0" className="eyebrow" style={{ marginBottom: 16 }}>OVERVIEW — 会社概要</div>
+            <h2 data-nq-id="3q6ngp3p" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(26px, 8vw, 34px)' : 'clamp(30px, 3.2vw, 46px)',
               margin: 0, lineHeight: 1.3, color: 'var(--ink)', letterSpacing: '-0.01em',
@@ -3107,12 +3107,12 @@ function CompanyOverview() {
                       fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
                       color: 'var(--stone)', letterSpacing: '0.18em', marginBottom: 5,
                     }}>{en.toUpperCase()}</div>
-                    <div style={{
+                    <div data-nq-id="6bpsfg9b" style={{
                       fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16,
                       color: 'var(--ink)', fontWeight: 700, letterSpacing: '0.05em',
                     }}>{k}</div>
                   </div>
-                  <div style={{
+                  <div data-nq-id="6su1mfbb" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16.5,
                     color: 'var(--ink)', lineHeight: 1.95, letterSpacing: '0.02em',
                   }}>{v}</div>
@@ -3125,13 +3125,13 @@ function CompanyOverview() {
         {/* 拠点・アクセス */}
         <div style={{ marginTop: isMobile ? 44 : 72 }}>
           <Reveal>
-            <div className="eyebrow" style={{ marginBottom: 16 }}>OFFICES — 拠点</div>
-            <h3 style={{
+            <div data-nq-id="rk9hzqxp" className="eyebrow" style={{ marginBottom: 16 }}>OFFICES — 拠点</div>
+            <h3 data-nq-id="mfein1mn" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(22px, 6.6vw, 28px)' : 'clamp(26px, 2.6vw, 36px)',
               margin: '0 0 8px', lineHeight: 1.35, color: 'var(--ink)',
             }}>拠点・アクセス</h3>
-            <p style={{
+            <p data-nq-id="4v25zb4w" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
               lineHeight: 2, color: 'var(--ink-soft)', margin: '0 0 24px', letterSpacing: '0.03em',
             }}>大阪・神奈川の3拠点で、関西一円および首都圏の現場に対応しています。</p>
@@ -3161,19 +3161,19 @@ function CompanyOverview() {
                     padding: isMobile ? '20px 18px 22px' : '24px 24px 26px',
                     flex: '1 1 auto',
                   }}>
-                    <div style={{
+                    <div data-nq-id="qcmryx7m" style={{
                       fontFamily: 'var(--font-serif)', fontSize: isMobile ? 19 : 21,
                       fontWeight: 600, color: 'var(--ink)', marginBottom: 12,
                     }}>{o.name}</div>
-                    <div style={{
+                    <div data-nq-id="6vp13h70" style={{
                       fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14,
                       lineHeight: 1.95, color: 'var(--ink-soft)', letterSpacing: '0.02em',
                     }}>
                       {o.zip}<br />
                       {o.addr}
-                      <div style={{ marginTop: 10, color: 'var(--ink)', fontWeight: 600 }}>{o.tel}</div>
+                      <div data-nq-id="8hysf5yr" style={{ marginTop: 10, color: 'var(--ink)', fontWeight: 600 }}>{o.tel}</div>
                       {o.access && (
-                        <div style={{ marginTop: 8, fontSize: 12.5, color: 'var(--stone)' }}>{o.access}</div>
+                        <div data-nq-id="vxqkd4tn" style={{ marginTop: 8, fontSize: 12.5, color: 'var(--stone)' }}>{o.access}</div>
                       )}
                     </div>
                   </div>
@@ -3236,26 +3236,26 @@ function PageHeader({ en, jp, title, italic, bg, bgAlt = '', sub }) {
             fontFamily: 'var(--font-sans)', fontSize: 11, letterSpacing: '0.1em',
             color: 'var(--stone)', marginBottom: isMobile ? 16 : 22,
           }}>
-            <a onClick={() => go('home')} className="link-underline" style={{ cursor: 'pointer' }}>HOME</a>
-            <span aria-hidden="true">/</span>
-            <span style={{ color: 'var(--ink-soft)' }}>{jp}</span>
+            <a data-nq-id="w5j7r96e" onClick={() => go('home')} className="link-underline" style={{ cursor: 'pointer' }}>HOME</a>
+            <span data-nq-id="pc4ml1rd" aria-hidden="true">/</span>
+            <span data-nq-id="mq9gu9uv" style={{ color: 'var(--ink-soft)' }}>{jp}</span>
           </nav>
           <Reveal>
-            <div className="eyebrow" style={{ marginBottom: isMobile ? 14 : 18 }}>
+            <div data-nq-id="wsgl76nt" className="eyebrow" style={{ marginBottom: isMobile ? 14 : 18 }}>
               {en.toUpperCase()} — {jp}
             </div>
-            <h1 style={{
+            <h1 data-nq-id="qu1s7lss" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(25px, 7.2vw, 34px)' : 'clamp(30px, 3.1vw, 46px)',
               margin: 0, color: 'var(--ink)', lineHeight: 1.4, letterSpacing: '-0.01em',
             }}>
               <MaskReveal>{title}</MaskReveal>
-              {italic && <><br /><MaskReveal delay={160}><span style={{ color: 'var(--brand)' }}>{italic}</span></MaskReveal></>}
+              {italic && <><br /><MaskReveal delay={160}><span data-nq-id="nikj9a9j" style={{ color: 'var(--brand)' }}>{italic}</span></MaskReveal></>}
             </h1>
           </Reveal>
           {sub && (
             <Reveal delay={120}>
-              <p style={{
+              <p data-nq-id="0rprot7y" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 15,
                 lineHeight: 2.05, color: 'var(--ink-soft)',
                 margin: isMobile ? '18px 0 0' : '24px 0 0',
@@ -3312,14 +3312,14 @@ function WorkModal({ work, onClose }) {
       aria-label={work ? `${work.name} の施工実績詳細` : '施工実績詳細'}
     >
       <div className="wm-panel" onClick={(e) => e.stopPropagation()}>
-        <button ref={closeRef} className="wm-close" onClick={onClose} aria-label="閉じる">×</button>
+        <button data-nq-id="gn754j0a" ref={closeRef} className="wm-close" onClick={onClose} aria-label="閉じる">×</button>
         {work && (
           <>
             <div style={{
               aspectRatio: isMobile ? '4/3' : '16/9',
               background: 'var(--bg-stone)', overflow: 'hidden',
             }}>
-              <img src={work.img} alt={`${work.name} ${work.type}`} style={{
+              <img data-nq-id="0qak1tlu" src={work.img} alt={`${work.name} ${work.type}`} style={{
                 width: '100%', height: '100%', objectFit: 'cover',
                 filter: 'saturate(0.94) brightness(1.02)',
               }} />
@@ -3327,28 +3327,28 @@ function WorkModal({ work, onClose }) {
 
             <div style={{ padding: isMobile ? '24px 20px 28px' : '36px 40px 40px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                <span style={{
+                <span data-nq-id="r6i6r0hu" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
                   letterSpacing: '0.1em', color: 'var(--brand)',
                   background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
                 }}>{cat ? cat.jp : ''}</span>
-                <span style={{
+                <span data-nq-id="j0ceuexg" style={{
                   fontFamily: 'var(--font-mono)', fontSize: 11,
                   letterSpacing: '0.14em', color: 'var(--stone)',
                 }}>{work.year}</span>
               </div>
 
-              <h2 style={{
+              <h2 data-nq-id="a65v9lw5" style={{
                 fontFamily: 'var(--font-serif)', fontWeight: 600,
                 fontSize: isMobile ? 22 : 30, lineHeight: 1.4,
                 margin: 0, color: 'var(--ink)', letterSpacing: '-0.005em',
               }}>{work.name}</h2>
-              <div style={{
+              <div data-nq-id="zls2lng9" style={{
                 fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
                 marginTop: 8, letterSpacing: '0.03em',
               }}>{work.area}　/　{work.type}</div>
 
-              <p style={{
+              <p data-nq-id="ei1efzkq" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
                 lineHeight: 2.05, color: 'var(--ink-soft)',
                 margin: '22px 0 0', letterSpacing: '0.03em',
@@ -3360,11 +3360,11 @@ function WorkModal({ work, onClose }) {
               }}>
                 {work.specs.map(([k, v]) => (
                   <div key={k} style={{ padding: isMobile ? '14px 12px' : '18px 18px' }}>
-                    <div style={{
+                    <div data-nq-id="9junmrdx" style={{
                       fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
                       letterSpacing: '0.12em', color: 'var(--stone)', marginBottom: 6,
                     }}>{k}</div>
-                    <div style={{
+                    <div data-nq-id="9xgu4izv" style={{
                       fontFamily: 'var(--font-serif)', fontSize: isMobile ? 14 : 16,
                       fontWeight: 600, color: 'var(--ink)', lineHeight: 1.5,
                     }}>{v}</div>
@@ -3372,7 +3372,7 @@ function WorkModal({ work, onClose }) {
                 ))}
               </div>
 
-              <p style={{
+              <p data-nq-id="twi6txm2" style={{
                 fontFamily: 'var(--font-sans)', fontSize: 11.5, lineHeight: 1.8,
                 color: 'var(--stone)', margin: '20px 0 0', letterSpacing: '0.02em',
               }}>
@@ -3438,7 +3438,7 @@ function WorksPage() {
           display: 'flex', gap: isMobile ? 6 : 10, flexWrap: 'wrap', alignItems: 'center',
         }}>
           {LOOP_CATEGORIES.map((c) => (
-            <button key={c.key} onClick={() => jumpTo(c.key)} style={{
+            <button data-nq-id="1e113gdq" key={c.key} onClick={() => jumpTo(c.key)} style={{
               padding: isMobile ? '12px 16px' : '14px 26px',
               minHeight: isMobile ? 44 : 52,
               border: '1px solid var(--rule-soft)', borderRadius: 3,
@@ -3459,13 +3459,13 @@ function WorksPage() {
               }}
             >
               {c.jp}
-              <span style={{ color: 'var(--stone)', fontWeight: 600, marginLeft: 6 }}>
+              <span data-nq-id="qnnco9ty" style={{ color: 'var(--stone)', fontWeight: 600, marginLeft: 6 }}>
                 {worksByCat(c.key).length}
               </span>
             </button>
           ))}
           {!isMobile && (
-            <span style={{
+            <span data-nq-id="1g649oec" style={{
               marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 11,
               color: 'var(--stone)', letterSpacing: '0.18em',
             }}>{LOOP_WORKS.length} CASES</span>
@@ -3494,18 +3494,18 @@ function WorksPage() {
                   paddingBottom: isMobile ? 16 : 22, borderBottom: '1px solid var(--rule)',
                 }}>
                   <div>
-                    <div className="eyebrow" style={{ marginBottom: 14 }}>{c.en}</div>
-                    <h2 style={{
+                    <div data-nq-id="oiq9tbgw" className="eyebrow" style={{ marginBottom: 14 }}>{c.en}</div>
+                    <h2 data-nq-id="5yzmwyfo" style={{
                       fontFamily: 'var(--font-serif)', fontWeight: 600,
                       fontSize: isMobile ? 'clamp(24px, 7.5vw, 32px)' : 'clamp(28px, 3vw, 44px)',
                       margin: 0, color: 'var(--ink)', lineHeight: 1.3, letterSpacing: '-0.01em',
                     }}>{c.jp}</h2>
-                    <p style={{
+                    <p data-nq-id="y1fbe51b" style={{
                       fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 1.9,
                       color: 'var(--ink-soft)', margin: '10px 0 0', letterSpacing: '0.03em',
                     }}>{c.lead}</p>
                   </div>
-                  <span style={{
+                  <span data-nq-id="pi2a1xo0" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 11,
                     color: 'var(--stone)', letterSpacing: '0.18em',
                   }}>{items.length} CASES</span>
@@ -3514,7 +3514,7 @@ function WorksPage() {
 
               {items.length === 0 ? (
                 <Reveal>
-                  <p style={{
+                  <p data-nq-id="tvi7baz4" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 13.5, lineHeight: 2,
                     color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
                   }}>
@@ -3529,7 +3529,7 @@ function WorksPage() {
                 }}>
                   {items.map((w, i) => (
                     <Reveal key={w.id} delay={(i % 3) * 80}>
-                      <a
+                      <a data-nq-id="7db55mn4"
                         className="card-lift card-action"
                         role="button"
                         tabIndex={0}
@@ -3543,7 +3543,7 @@ function WorksPage() {
                           height: '100%', cursor: 'pointer',
                         }}>
                         <div className="img-zoom" style={{ aspectRatio: '4/3', background: 'var(--bg-stone)' }}>
-                          <img src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                          <img data-nq-id="3seu4c3j" src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
                             width: '100%', height: '100%', objectFit: 'cover',
                             filter: 'saturate(0.94) brightness(1.02)',
                           }} />
@@ -3552,20 +3552,20 @@ function WorksPage() {
                           padding: isMobile ? '18px 18px 18px' : '24px 24px 22px',
                           display: 'flex', flexDirection: 'column', flex: '1 1 auto',
                         }}>
-                          <div style={{
+                          <div data-nq-id="93qnnfy8" style={{
                             fontFamily: 'var(--font-mono)', fontSize: 10.5,
                             letterSpacing: '0.14em', color: 'var(--stone)', marginBottom: 10,
                           }}>{w.year}</div>
-                          <h3 style={{
+                          <h3 data-nq-id="099vzifr" style={{
                             fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
                             fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.5,
                           }}>{w.name}</h3>
-                          <p style={{
+                          <p data-nq-id="qp79ynva" style={{
                             fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
                             margin: '8px 0 0', letterSpacing: '0.03em', lineHeight: 1.7,
                             flex: '1 1 auto',
                           }}>{w.area}　/　{w.type}</p>
-                          <span style={{
+                          <span data-nq-id="emzh09c9" style={{
                             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                             gap: 10, marginTop: 16, paddingTop: 14,
                             borderTop: '1px solid var(--rule)',
@@ -3573,7 +3573,7 @@ function WorksPage() {
                             letterSpacing: '0.06em', color: 'var(--brand)',
                           }}>
                             詳細を見る
-                            <span className="card-action-arrow">→</span>
+                            <span data-nq-id="9rw6jxt5" className="card-action-arrow">→</span>
                           </span>
                         </div>
                       </a>
@@ -3591,8 +3591,8 @@ function WorksPage() {
                       paddingBottom: isMobile ? 14 : 18, borderBottom: '1px solid var(--rule)',
                       marginBottom: isMobile ? 4 : 8,
                     }}>
-                      <span className="eyebrow">OTHER PROJECTS</span>
-                      <span style={{
+                      <span data-nq-id="agqz84tz" className="eyebrow">OTHER PROJECTS</span>
+                      <span data-nq-id="b9hfvwau" style={{
                         fontFamily: 'var(--font-sans)', fontSize: 12.5,
                         color: 'var(--ink-soft)', letterSpacing: '0.03em',
                       }}>その他の公共工事実績</span>
@@ -3609,7 +3609,7 @@ function WorksPage() {
                           padding: isMobile ? '16px 0' : '20px 0',
                           borderBottom: '1px solid var(--rule)',
                         }}>
-                          <div style={{
+                          <div data-nq-id="6oaeaak0" style={{
                             fontFamily: 'var(--font-serif)', fontSize: isMobile ? 15.5 : 17,
                             fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6,
                           }}>{name}</div>
@@ -3618,8 +3618,8 @@ function WorksPage() {
                             fontFamily: 'var(--font-sans)', fontSize: 12.5,
                             color: 'var(--ink-soft)', letterSpacing: '0.03em',
                           }}>
-                            <span>着工：{started}</span>
-                            <span>所在地：{place}</span>
+                            <span data-nq-id="j4acz9fk">着工：{started}</span>
+                            <span data-nq-id="120b8jli">所在地：{place}</span>
                           </div>
                         </div>
                       </Reveal>
@@ -3653,11 +3653,11 @@ function WorksPage() {
                   background: 'var(--brand-pale)', borderRadius: 4,
                   border: '1px solid var(--rule)',
                 }}>
-                  <div style={{
+                  <div data-nq-id="h4f3rkbz" style={{
                     fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
                     fontWeight: 600, color: 'var(--ink)', marginBottom: 10,
                   }}>{t}について</div>
-                  <p style={{
+                  <p data-nq-id="zlnfucfe" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 12.5, lineHeight: 1.95,
                     color: 'var(--ink-soft)', margin: 0, letterSpacing: '0.03em',
                   }}>{b}</p>
@@ -3697,7 +3697,7 @@ function NewsPage() {
         <div style={{ borderTop: '1px solid var(--rule)' }}>
           {items.map(([date, tag, title, desc], i) => (
             <Reveal key={i} delay={i * 40}>
-              <a style={{
+              <a data-nq-id="71gc4enr" style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? '1fr' : '140px 100px 1fr 24px',
                 gap: isMobile ? 10 : 32, padding: isMobile ? '20px 0' : '36px 0', alignItems: 'baseline',
@@ -3707,26 +3707,26 @@ function NewsPage() {
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-cream)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
               >
-                <span style={{
+                <span data-nq-id="momporrl" style={{
                   fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--stone)',
                   letterSpacing: '0.08em',
                 }}>{date}</span>
-                <span style={{
+                <span data-nq-id="3k46qiau" style={{
                   fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--orange)',
                   letterSpacing: '0.22em', border: '1px solid var(--orange)',
                   padding: '4px 10px', justifySelf: 'start', textAlign: 'center',
                 }}>{tag}</span>
                 <div>
-                  <div style={{
+                  <div data-nq-id="7j92oibe" style={{
                     fontFamily: 'var(--font-serif)', fontSize: 24, color: 'var(--ink)',
                     marginBottom: 8, fontWeight: 500,
                   }}>{title}</div>
-                  <div style={{
+                  <div data-nq-id="77uvosql" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
                     lineHeight: 1.8, letterSpacing: '0.04em',
                   }}>{desc}</div>
                 </div>
-                {!isMobile && <span style={{ color: 'var(--orange)', fontFamily: 'var(--font-serif)', fontSize: 22 }}>→</span>}
+                {!isMobile && <span data-nq-id="nyo53vst" style={{ color: 'var(--orange)', fontFamily: 'var(--font-serif)', fontSize: 22 }}>→</span>}
               </a>
             </Reveal>
           ))}
@@ -3792,12 +3792,12 @@ function PrivacyPage() {
                       color: 'var(--brand)', fontWeight: 600, flex: '0 0 auto',
                     }}>{String(i + 1).padStart(2, '0')}</span>
                     <div>
-                      <h2 style={{
+                      <h2 data-nq-id="x739cpdi" style={{
                         fontFamily: 'var(--font-serif)', fontWeight: 600,
                         fontSize: isMobile ? 17 : 21, margin: 0,
                         color: 'var(--ink)', lineHeight: 1.5,
                       }}>{h}</h2>
-                      <p style={{
+                      <p data-nq-id="j2md48yq" style={{
                         fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
                         lineHeight: 2.1, color: 'var(--ink-soft)',
                         margin: '12px 0 0', letterSpacing: '0.03em',
@@ -3817,11 +3817,11 @@ function PrivacyPage() {
               padding: isMobile ? '22px 20px 24px' : '30px 32px 32px',
               background: 'var(--bg-cream)', border: '1px solid var(--rule)', borderRadius: 4,
             }}>
-              <div style={{
+              <div data-nq-id="hcsaj4oe" style={{
                 fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 20,
                 fontWeight: 600, color: 'var(--ink)', marginBottom: 14,
               }}>個人情報に関するお問い合わせ窓口</div>
-              <div style={{
+              <div data-nq-id="a9hni47l" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
                 lineHeight: 2.05, color: 'var(--ink-soft)', letterSpacing: '0.03em',
               }}>
@@ -3834,7 +3834,7 @@ function PrivacyPage() {
           </Reveal>
 
           <Reveal>
-            <p style={{
+            <p data-nq-id="qyguaubl" style={{
               fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--stone)',
               marginTop: 24, letterSpacing: '0.04em', textAlign: isMobile ? 'left' : 'right',
             }}>制定日：2026年7月27日　株式会社ループ　代表取締役　貝塚 昭</p>
@@ -3865,8 +3865,8 @@ function RecruitPage() {
       }}>
         <div style={{ maxWidth: 1560, margin: '0 auto' }}>
           <Reveal>
-            <div className="eyebrow" style={{ marginBottom: 14 }}>WHY US</div>
-            <h2 style={{
+            <div data-nq-id="52s727rd" className="eyebrow" style={{ marginBottom: 14 }}>WHY US</div>
+            <h2 data-nq-id="bezmmhdi" style={{
               fontFamily: 'var(--font-serif)', fontWeight: 600,
               fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
               margin: 0, color: 'var(--ink)', lineHeight: 1.35, letterSpacing: '-0.01em',
@@ -3886,12 +3886,12 @@ function RecruitPage() {
                 <div className="card-lift" style={{
                   height: '100%', padding: isMobile ? '24px 20px 26px' : '32px 28px 34px',
                 }}>
-                  <div className="strength-no">{num}</div>
-                  <h3 style={{
+                  <div data-nq-id="gpj9rp7m" className="strength-no">{num}</div>
+                  <h3 data-nq-id="8suwfboc" style={{
                     fontFamily: 'var(--font-serif)', fontSize: isMobile ? 20 : 24,
                     fontWeight: 600, margin: '14px 0 0', color: 'var(--ink)', lineHeight: 1.4,
                   }}>{jp}</h3>
-                  <p style={{
+                  <p data-nq-id="va9ph0y2" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 13.5,
                     lineHeight: 2, color: 'var(--ink-soft)', margin: '14px 0 0', letterSpacing: '0.03em',
                   }}>{body}</p>
@@ -3907,13 +3907,13 @@ function RecruitPage() {
                 aspectRatio: isMobile ? '16/9' : '16/6',
                 borderRadius: 4, overflow: 'hidden', background: 'var(--bg-stone)',
               }}>
-                <img src="assets/staff/staff-sealing.jpg"
+                <img data-nq-id="1g5b5bzg" src="assets/staff/staff-sealing.jpg"
                   alt="マンション共用廊下でシーリング作業を行う社員" loading="lazy" style={{
                     width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%',
                     filter: 'saturate(0.94) brightness(1.02)',
                   }} />
               </div>
-              <figcaption style={{
+              <figcaption data-nq-id="jf7jf62p" style={{
                 marginTop: 10, fontFamily: 'var(--font-sans)', fontSize: 12.5,
                 color: 'var(--ink-soft)', letterSpacing: '0.03em', lineHeight: 1.8,
               }}>一つひとつの手仕事が、建物の寿命を伸ばします。</figcaption>
@@ -3924,8 +3924,8 @@ function RecruitPage() {
 
       <section style={{ padding: isMobile ? '52px 20px' : '96px 56px', background: 'var(--bg)' }}>
         <Reveal>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>OPEN POSITIONS</div>
-          <h2 style={{
+          <div data-nq-id="bejtzgli" className="eyebrow" style={{ marginBottom: 14 }}>OPEN POSITIONS</div>
+          <h2 data-nq-id="4wk62pll" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
             margin: 0, lineHeight: 1.35, color: 'var(--ink)', letterSpacing: '-0.01em',
@@ -3950,28 +3950,28 @@ function RecruitPage() {
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
               >
                 <div>
-                  <div style={{
+                  <div data-nq-id="0ywk4thf" style={{
                     fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 16,
                     color: 'var(--orange)', marginBottom: 4, letterSpacing: '0.02em',
                   }}>— {en}</div>
-                  <div style={{
+                  <div data-nq-id="ob6b1ap3" style={{
                     fontFamily: 'var(--font-serif)', fontSize: 24, fontWeight: 500, color: 'var(--ink)',
                   }}>{jp}</div>
                 </div>
-                <div style={{
+                <div data-nq-id="a3rjqa04" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--ink-soft)',
                   lineHeight: 1.7, letterSpacing: '0.04em',
                 }}>{body}</div>
                 <div>
-                  <div style={{
+                  <div data-nq-id="scboxe3a" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
                     letterSpacing: '0.22em', marginBottom: 4,
                   }}>SALARY · {type}</div>
-                  <div style={{
+                  <div data-nq-id="v9f90o0o" style={{
                     fontFamily: 'var(--font-serif)', fontSize: 17, color: 'var(--ink)', fontWeight: 500,
                   }}>{salary}</div>
                 </div>
-                {!isMobile && <span style={{ color: 'var(--orange)', fontSize: 22 }}>→</span>}
+                {!isMobile && <span data-nq-id="6y2ftakp" style={{ color: 'var(--orange)', fontSize: 22 }}>→</span>}
               </div>
             </Reveal>
           ))}
@@ -3983,8 +3983,8 @@ function RecruitPage() {
         background: 'var(--bg-cream)', borderTop: '1px solid var(--rule)',
       }}>
         <Reveal>
-          <div className="eyebrow" style={{ marginBottom: 14 }}>REQUIREMENTS</div>
-          <h2 style={{
+          <div data-nq-id="keva0oxu" className="eyebrow" style={{ marginBottom: 14 }}>REQUIREMENTS</div>
+          <h2 data-nq-id="fzejrubj" style={{
             fontFamily: 'var(--font-serif)', fontWeight: 600,
             fontSize: isMobile ? 'clamp(24px, 7vw, 32px)' : 'clamp(28px, 3vw, 42px)',
             margin: 0, lineHeight: 1.35, color: 'var(--ink)', letterSpacing: '-0.01em',
@@ -4013,12 +4013,12 @@ function RecruitPage() {
                     fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
                     color: 'var(--stone)', letterSpacing: '0.18em', marginBottom: 5,
                   }}>{en.toUpperCase()}</div>
-                  <div style={{
+                  <div data-nq-id="mgbqx8qo" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16, color: 'var(--ink)',
                     fontWeight: 700, letterSpacing: '0.05em',
                   }}>{k}</div>
                 </div>
-                <div style={{
+                <div data-nq-id="9z6wxo57" style={{
                   fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16.5,
                   color: 'var(--ink)', lineHeight: 1.95, letterSpacing: '0.02em',
                   whiteSpace: 'pre-line',
@@ -4139,16 +4139,16 @@ function InquiryModal() {
           position: 'sticky', top: 0, background: 'var(--bg-cream)', zIndex: 1,
         }}>
           <div>
-            <div style={{
+            <div data-nq-id="ee69kmdh" style={{
               fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 18,
               color: 'var(--orange)', letterSpacing: '0.02em',
             }}>— Get in touch</div>
-            <h2 style={{
+            <h2 data-nq-id="vnsm831m" style={{
               fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500,
               margin: '2px 0 0', color: 'var(--ink)', letterSpacing: '-0.01em',
             }}>無料現地調査・お見積り</h2>
           </div>
-          <button onClick={() => setInquiryOpen(false)} style={{
+          <button data-nq-id="iqbka7va" onClick={() => setInquiryOpen(false)} style={{
             width: 40, height: 40, borderRadius: '50%', border: '1px solid var(--rule)',
             background: 'transparent', cursor: 'pointer', display: 'flex',
             alignItems: 'center', justifyContent: 'center',
@@ -4157,23 +4157,23 @@ function InquiryModal() {
             onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--ink)'; e.currentTarget.style.color = 'var(--bg-cream)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = ''; e.currentTarget.style.color = ''; }}
           >
-            <span style={{ fontSize: 18, lineHeight: 1 }}>×</span>
+            <span data-nq-id="ety69muw" style={{ fontSize: 18, lineHeight: 1 }}>×</span>
           </button>
         </div>
 
         {submitted ? (
           <div style={{ padding: '96px 48px', textAlign: 'center' }}>
-            <div style={{
+            <div data-nq-id="zfljn9v9" style={{
               width: 72, height: 72, borderRadius: '50%', background: 'var(--orange)',
               color: 'var(--bg-cream)', margin: '0 auto 32px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontFamily: 'var(--font-serif)', fontSize: 36,
             }}>✓</div>
-            <h3 style={{
+            <h3 data-nq-id="28kz8szl" style={{
               fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500,
               margin: 0, color: 'var(--ink)',
             }}>{viaMail ? 'メールソフトを開きました' : '送信されました'}</h3>
-            <p style={{
+            <p data-nq-id="eegt1jm9" style={{
               fontFamily: 'var(--font-sans)', fontSize: 14, lineHeight: 2,
               color: 'var(--ink-soft)', marginTop: 16, letterSpacing: '0.04em',
             }}>
@@ -4182,7 +4182,7 @@ function InquiryModal() {
                   ご入力内容を差し込んだメールを作成しました。<br />
                   内容をご確認のうえ、そのまま送信してください。<br />
                   メールソフトが開かない場合は、お手数ですが<br />
-                  <a href={`mailto:${INQUIRY_MAILTO}`} className="link-underline"
+                  <a data-nq-id="hzph10h6" href={`mailto:${INQUIRY_MAILTO}`} className="link-underline"
                     style={{ color: 'var(--brand)', fontWeight: 700 }}>{INQUIRY_MAILTO}</a>
                   {' '}宛にご連絡ください。
                 </>
@@ -4193,9 +4193,9 @@ function InquiryModal() {
                 </>
               )}
             </p>
-            <button onClick={() => setInquiryOpen(false)} className="btn btn--outline" style={{ marginTop: 36 }}>
-              <span>閉じる</span>
-              <span className="btn-arrow">→</span>
+            <button data-nq-id="dq064ngc" onClick={() => setInquiryOpen(false)} className="btn btn--outline" style={{ marginTop: 36 }}>
+              <span data-nq-id="np9lxqdh">閉じる</span>
+              <span data-nq-id="gqgp5vik" className="btn-arrow">→</span>
             </button>
           </div>
         ) : (
@@ -4214,8 +4214,8 @@ function InquiryModal() {
               fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
               letterSpacing: '0.22em',
             }}>
-              <span>STEP {step} / 3</span>
-              <span>{step === 1 ? '建物について' : step === 2 ? '連絡先' : '確認'}</span>
+              <span data-nq-id="5sjw1lx5">STEP {step} / 3</span>
+              <span data-nq-id="g78dq1i5">{step === 1 ? '建物について' : step === 2 ? '連絡先' : '確認'}</span>
             </div>
 
             {step === 1 && (
@@ -4259,7 +4259,7 @@ function InquiryModal() {
                     placeholder="taro@example.com" style={inputStyle}
                     aria-invalid={data.email !== '' && !isValidEmail(data.email)} />
                   {data.email !== '' && !isValidEmail(data.email) && (
-                    <div style={{
+                    <div data-nq-id="sfnxiz5t" style={{
                       fontFamily: 'var(--font-sans)', fontSize: 12, color: '#B4443A',
                       marginTop: 8, letterSpacing: '0.03em',
                     }}>メールアドレスの形式をご確認ください。</div>
@@ -4282,7 +4282,7 @@ function InquiryModal() {
                 <div style={{
                   background: 'var(--bg)', padding: 32, border: '1px solid var(--rule)',
                 }}>
-                  <div style={{
+                  <div data-nq-id="x65hat3e" style={{
                     fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--stone)',
                     letterSpacing: '0.22em', marginBottom: 24,
                   }}>SUMMARY</div>
@@ -4302,12 +4302,12 @@ function InquiryModal() {
                       display: 'grid', gridTemplateColumns: '140px 1fr', gap: 16,
                       fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--ink)',
                     }}>
-                      <span style={{ color: 'var(--stone)', fontSize: 11.5, letterSpacing: '0.06em' }}>{k}</span>
-                      <span style={{ fontFamily: 'var(--font-serif)', fontSize: 15, lineHeight: 1.6 }}>{v}</span>
+                      <span data-nq-id="km024lnm" style={{ color: 'var(--stone)', fontSize: 11.5, letterSpacing: '0.06em' }}>{k}</span>
+                      <span data-nq-id="fpoolqdo" style={{ fontFamily: 'var(--font-serif)', fontSize: 15, lineHeight: 1.6 }}>{v}</span>
                     </div>
                   ))}
                 </div>
-                <p style={{
+                <p data-nq-id="axgrr8qg" style={{
                   fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--stone)',
                   marginTop: 24, lineHeight: 1.9, letterSpacing: '0.04em',
                 }}>
@@ -4315,7 +4315,7 @@ function InquiryModal() {
                   ※ 現地調査・お見積りは無料です。
                 </p>
                 {error && (
-                  <div role="alert" style={{
+                  <div data-nq-id="pp0qsrkx" role="alert" style={{
                     marginTop: 20, padding: '14px 16px', borderRadius: 4,
                     background: '#FDF1F0', border: '1px solid #EBC6C2',
                     fontFamily: 'var(--font-sans)', fontSize: 13, lineHeight: 1.9,
@@ -4346,24 +4346,24 @@ const inputStyle = {
 
 function FormGroup({ label, en, optional, children }) {
   return (
-    <div style={{ marginBottom: 28 }}>
+    <div data-nq-id="iv2rez72" style={{ marginBottom: 28 }}>
       <div style={{
         display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10,
       }}>
-        <span style={{
+        <span data-nq-id="q7hb7aus" style={{
           fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, color: 'var(--ink)',
         }}>{label}</span>
-        <span style={{
+        <span data-nq-id="30ni6u3n" style={{
           fontFamily: 'var(--font-latin)', fontStyle: 'italic', fontSize: 13, color: 'var(--orange)',
         }}>{en}</span>
         {optional && (
-          <span style={{
+          <span data-nq-id="0asegq2a" style={{
             marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 9.5,
             color: 'var(--stone)', letterSpacing: '0.22em',
           }}>OPTIONAL</span>
         )}
         {!optional && (
-          <span style={{
+          <span data-nq-id="cu5p1tlx" style={{
             marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 9.5,
             color: 'var(--orange)', letterSpacing: '0.22em',
           }}>REQUIRED</span>
@@ -4378,7 +4378,7 @@ function Radios({ value, onChange, options }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
       {options.map(opt => (
-        <button key={opt} onClick={() => onChange(opt)} style={{
+        <button data-nq-id="a08vl896" key={opt} onClick={() => onChange(opt)} style={{
           padding: '10px 16px', cursor: 'pointer',
           background: value === opt ? 'var(--ink)' : 'transparent',
           color: value === opt ? 'var(--bg-cream)' : 'var(--ink)',
@@ -4398,17 +4398,17 @@ function ModalNav({ onBack, onNext, nextDisabled, nextLabel = '次へ' }) {
       paddingTop: 24, borderTop: '1px solid var(--rule)',
     }}>
       {onBack ? (
-        <button onClick={onBack} className="btn btn--outline" style={{ padding: '14px 22px' }}>
-          <span style={{ transform: 'scaleX(-1)', display: 'inline-block' }}>→</span>
-          <span>戻る</span>
+        <button data-nq-id="boh8j49a" onClick={onBack} className="btn btn--outline" style={{ padding: '14px 22px' }}>
+          <span data-nq-id="i09e6irq" style={{ transform: 'scaleX(-1)', display: 'inline-block' }}>→</span>
+          <span data-nq-id="zbyf7g4w">戻る</span>
         </button>
       ) : <span />}
-      <button onClick={onNext} disabled={nextDisabled} className={`btn ${nextDisabled ? 'btn--outline' : 'btn--orange'}`} style={{
+      <button data-nq-id="qiea9tps" onClick={onNext} disabled={nextDisabled} className={`btn ${nextDisabled ? 'btn--outline' : 'btn--orange'}`} style={{
         padding: '14px 22px', opacity: nextDisabled ? 0.4 : 1,
         cursor: nextDisabled ? 'not-allowed' : 'pointer',
       }}>
-        <span>{nextLabel}</span>
-        <span className="btn-arrow">→</span>
+        <span data-nq-id="kj122bvi">{nextLabel}</span>
+        <span data-nq-id="a11ebizr" className="btn-arrow">→</span>
       </button>
     </div>
   );
