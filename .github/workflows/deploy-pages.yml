@@ -27,6 +27,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # 依頼がどのビルドに対して出されたかを記録するため（Nortiq Revise 9.3）
+      - name: Embed commit SHA (nq-sha)
+        run: node nq-sha.mjs
+
       - name: Upload site (repo root)
         uses: actions/upload-pages-artifact@v3
         with:
