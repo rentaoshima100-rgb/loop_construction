@@ -724,57 +724,6 @@ h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
   .cat-btn-foot { font-size: 12.5px; padding-top: 12px; }
 }
 
-/* 施工実績の詳細ポップアップ */
-.wm-backdrop {
-  position: fixed; inset: 0;
-  z-index: 320;
-  background: rgba(12, 25, 40, 0.62);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s;
-}
-.wm-backdrop.is-open { opacity: 1; pointer-events: auto; }
-.wm-panel {
-  position: relative;
-  width: 900px;
-  max-width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: #FFFFFF;
-  border-radius: 5px;
-  box-shadow: 0 24px 80px rgba(12, 25, 40, 0.34);
-  transform: translateY(18px) scale(0.985);
-  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.wm-backdrop.is-open .wm-panel { transform: translateY(0) scale(1); }
-.wm-close {
-  position: absolute;
-  top: 14px; right: 14px;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 10px rgba(12, 25, 40, 0.18);
-  transition: background-color .2s, color .2s;
-  z-index: 2;
-}
-.wm-close:hover { background: var(--ink); color: #FFFFFF; }
-@media (max-width: 720px) {
-  .wm-backdrop { padding: 0; align-items: flex-end; }
-  .wm-panel { max-height: 92vh; border-radius: 5px 5px 0 0; }
-}
-
 /* 数字ストリップ — 実績をトップビューで見せる */
 .stat-strip {
   display: grid;
@@ -3288,113 +3237,10 @@ function PageHeader({ en, jp, title, italic, bg, bgAlt = '', sub }) {
   );
 }
 
-// ─── 施工実績の詳細ポップアップ ─────────────────────────────────────────
-function WorkModal({ work, onClose }) {
-  const isMobile = useMobile();
-  const closeRef = useRef(null);
-
-  useEffect(() => {
-    if (!work) return;
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    if (closeRef.current) closeRef.current.focus();
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [work, onClose]);
-
-  const cat = work ? LOOP_CATEGORIES.find(c => c.key === work.cat) : null;
-
-  return (
-    <div
-      className={`wm-backdrop ${work ? 'is-open' : ''}`}
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label={work ? `${work.name} の施工実績詳細` : '施工実績詳細'}
-    >
-      <div className="wm-panel" onClick={(e) => e.stopPropagation()}>
-        <button data-nq-id="gn754j0a" ref={closeRef} className="wm-close" onClick={onClose} aria-label="閉じる">×</button>
-        {work && (
-          <>
-            <div style={{
-              aspectRatio: isMobile ? '4/3' : '16/9',
-              background: 'var(--bg-stone)', overflow: 'hidden',
-            }}>
-              <img data-nq-id="0qak1tlu" src={work.img} alt={`${work.name} ${work.type}`} style={{
-                width: '100%', height: '100%', objectFit: 'cover',
-                filter: 'saturate(0.94) brightness(1.02)',
-              }} />
-            </div>
-
-            <div style={{ padding: isMobile ? '24px 20px 28px' : '36px 40px 40px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                <span data-nq-id="r6i6r0hu" style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 10.5, fontWeight: 700,
-                  letterSpacing: '0.1em', color: 'var(--brand)',
-                  background: 'var(--brand-pale)', padding: '5px 10px', borderRadius: 2,
-                }}>{cat ? cat.jp : ''}</span>
-                <span data-nq-id="j0ceuexg" style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 11,
-                  letterSpacing: '0.14em', color: 'var(--stone)',
-                }}>{work.year}</span>
-              </div>
-
-              <h2 data-nq-id="a65v9lw5" style={{
-                fontFamily: 'var(--font-serif)', fontWeight: 600,
-                fontSize: isMobile ? 22 : 30, lineHeight: 1.4,
-                margin: 0, color: 'var(--ink)', letterSpacing: '-0.005em',
-              }}>{work.name}</h2>
-              <div data-nq-id="zls2lng9" style={{
-                fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
-                marginTop: 8, letterSpacing: '0.03em',
-              }}>{work.area}　/　{work.type}</div>
-
-              <p data-nq-id="ei1efzkq" style={{
-                fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
-                lineHeight: 2.05, color: 'var(--ink-soft)',
-                margin: '22px 0 0', letterSpacing: '0.03em',
-              }}>{work.summary}</p>
-
-              <div className="stat-strip" style={{
-                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : `repeat(${work.specs.length}, 1fr)`,
-                marginTop: 26, borderRadius: 4, overflow: 'hidden',
-              }}>
-                {work.specs.map(([k, v]) => (
-                  <div key={k} style={{ padding: isMobile ? '14px 12px' : '18px 18px' }}>
-                    <div data-nq-id="9junmrdx" style={{
-                      fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
-                      letterSpacing: '0.12em', color: 'var(--stone)', marginBottom: 6,
-                    }}>{k}</div>
-                    <div data-nq-id="9xgu4izv" style={{
-                      fontFamily: 'var(--font-serif)', fontSize: isMobile ? 14 : 16,
-                      fontWeight: 600, color: 'var(--ink)', lineHeight: 1.5,
-                    }}>{v}</div>
-                  </div>
-                ))}
-              </div>
-
-              <p data-nq-id="twi6txm2" style={{
-                fontFamily: 'var(--font-sans)', fontSize: 11.5, lineHeight: 1.8,
-                color: 'var(--stone)', margin: '20px 0 0', letterSpacing: '0.02em',
-              }}>
-                ※ 掲載写真はイメージです。詳しい施工内容についてはお問い合わせください。
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
 // ─── Works ───────────────────────────────────────────────────────────────
 function WorksPage() {
   const isMobile = useMobile();
   const { worksCat, setWorksCat } = useRouter();
-  const [active, setActive] = useState(null);
 
   // トップの事業ボタンから来た場合、該当セクションへスクロール
   useEffect(() => {
@@ -3533,54 +3379,22 @@ function WorksPage() {
                 }}>
                   {items.map((w, i) => (
                     <Reveal key={w.id} delay={(i % 3) * 80}>
-                      <a data-nq-id="7db55mn4"
-                        className="card-lift card-action"
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`${w.name} の詳細を見る`}
-                        onClick={() => setActive(w)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(w); }
-                        }}
-                        style={{
-                          display: 'flex', flexDirection: 'column',
-                          height: '100%', cursor: 'pointer',
+                      <figure style={{ margin: 0 }}>
+                        <div style={{
+                          aspectRatio: '4/3', background: 'var(--bg-stone)',
+                          borderRadius: 4, overflow: 'hidden',
                         }}>
-                        <div className="img-zoom" style={{ aspectRatio: '4/3', background: 'var(--bg-stone)' }}>
                           <img data-nq-id="3seu4c3j" src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
                             width: '100%', height: '100%', objectFit: 'cover',
                             filter: 'saturate(0.94) brightness(1.02)',
                           }} />
                         </div>
-                        <div style={{
-                          padding: isMobile ? '18px 18px 18px' : '24px 24px 22px',
-                          display: 'flex', flexDirection: 'column', flex: '1 1 auto',
-                        }}>
-                          <div data-nq-id="93qnnfy8" style={{
-                            fontFamily: 'var(--font-mono)', fontSize: 10.5,
-                            letterSpacing: '0.14em', color: 'var(--stone)', marginBottom: 10,
-                          }}>{w.year}</div>
-                          <h3 data-nq-id="099vzifr" style={{
-                            fontFamily: 'var(--font-serif)', fontSize: isMobile ? 17 : 19,
-                            fontWeight: 600, margin: 0, color: 'var(--ink)', lineHeight: 1.5,
-                          }}>{w.name}</h3>
-                          <p data-nq-id="qp79ynva" style={{
-                            fontFamily: 'var(--font-sans)', fontSize: 12.5, color: 'var(--ink-soft)',
-                            margin: '8px 0 0', letterSpacing: '0.03em', lineHeight: 1.7,
-                            flex: '1 1 auto',
-                          }}>{w.area}　/　{w.type}</p>
-                          <span data-nq-id="emzh09c9" style={{
-                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                            gap: 10, marginTop: 16, paddingTop: 14,
-                            borderTop: '1px solid var(--rule)',
-                            fontFamily: 'var(--font-sans)', fontSize: 13.5, fontWeight: 700,
-                            letterSpacing: '0.06em', color: 'var(--brand)',
-                          }}>
-                            詳細を見る
-                            <span data-nq-id="9rw6jxt5" className="card-action-arrow">→</span>
-                          </span>
-                        </div>
-                      </a>
+                        <figcaption data-nq-id="099vzifr" style={{
+                          marginTop: isMobile ? 12 : 14,
+                          fontFamily: 'var(--font-serif)', fontSize: isMobile ? 16 : 18,
+                          fontWeight: 600, color: 'var(--ink)', lineHeight: 1.6,
+                        }}>{w.name}</figcaption>
+                      </figure>
                     </Reveal>
                   ))}
                 </div>
@@ -3672,7 +3486,6 @@ function WorksPage() {
         </div>
       </section>
 
-      <WorkModal work={active} onClose={() => setActive(null)} />
       <HomeCTA />
     </div>
   );
