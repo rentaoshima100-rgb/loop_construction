@@ -143,8 +143,7 @@ html, body {
   font-family: var(--font-sans);
   font-feature-settings: "palt" 1;
   /* 横スクロール抑止。overflow-x: hidden は position: sticky を無効化するため、
-     対応ブラウザでは scroll container を作らない overflow-x: clip を使う。
-     （clip 非対応ブラウザでは hidden にフォールバックする） */
+     対応ブラウザでは scroll container を作らない overflow-x: clip を使う。（clip 非対応ブラウザでは hidden にフォールバックする） */
   overflow-x: hidden;
   overflow-x: clip;
   max-width: 100vw;
@@ -607,7 +606,19 @@ button { font: inherit; color: inherit; }
 }
 /* Narrow-viewport safety: let big headings wrap instead of being clipped by overflow-x:hidden */
 .mask-reveal, .mask-reveal-inner { max-width: 100%; }
-h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
+h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; text-wrap: pretty; }
+/* 日本語の文節単位で改行（対応ブラウザのみ）。見出しの不自然な折り返しを抑える */
+h1, h2, h3, figcaption { word-break: auto-phrase; }
+p, li, figcaption { text-wrap: pretty; overflow-wrap: anywhere; }
+body { overflow-wrap: break-word; }
+/* 幅の狭い端末では、ボタン文言の折り返しを許可し横溢れを防ぐ */
+@media (max-width: 420px) {
+  .btn { white-space: normal; padding: 16px 22px; font-size: 14px; text-align: left; line-height: 1.5; }
+}
+/* iOS でフォーム入力時に自動ズームさせない */
+@media (max-width: 720px) {
+  input, textarea, select { font-size: 16px !important; }
+}
 
 
 /* hero pulse */
@@ -779,8 +790,7 @@ h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
 .rule-list > * + * { border-top: 1px solid var(--rule); }
 
 /* 動きを減らす設定への配慮。
-   全停止はせず「大きな移動・拡大」だけを抑え、フェードは残す。
-   （OS 側で視覚効果オフでも、演出が消えたようには見えないようにする） */
+   全停止はせず「大きな移動・拡大」だけを抑え、フェードは残す。（OS 側で視覚効果オフでも、演出が消えたようには見えないようにする） */
 @media (prefers-reduced-motion: reduce) {
   /* 上下移動をやめてフェードのみに */
   .reveal {
@@ -1124,7 +1134,7 @@ window.FigMeta = FigMeta;
 
 function Nav() {
   const { route, go, setInquiryOpen } = useRouter();
-  const isMobile = useMobile();
+  const isMobile = useMobile(1024);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -1458,7 +1468,7 @@ const LOOP_STRENGTHS = [
 const LOOP_SERVICES = [
   {
     key: '01', jp: '新築工事', sub: 'マンション・ビル・クリニック', en: 'New Construction',
-    img: 'assets/biz/new-construction-site-2.jpg', worksCat: 'new',
+    img: 'assets/biz/new-construction-site-3.jpg', worksCat: 'new',
     lead: 'ゼロからの物語を、確かな技術とともに',
     body: '当社では、高い技術力と確かな提案力で、資産価値が長く続く新築工事をご提供しております。確かな知識と豊富な経験を持つ「国家資格保有者」が現場を統括。独自の厳しい品質基準を設け、安全かつ高精度な施工を徹底いたします。',
     tags: ['マンション', 'ビル', 'クリニック'],
@@ -1512,7 +1522,7 @@ const LOOP_WORKS = [
     id: 'new-toyonaka-b', cat: 'new', img: 'assets/works/new-toyonaka-b.jpg',
     name: '豊中市マンション', area: '大阪府豊中市', type: 'マンション新築工事', year: '2019',
     summary: '豊中市にて、マンションの新築工事を実施しました。',
-    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['竣工', '2019年']],
+    specs: [['用途', '共同住宅'], ['工種', '新築工事'], ['所在地', '大阪府豊中市'], ['竣工', '2019']],
   },
   {
     id: 'new-abeno', cat: 'new', img: 'assets/works/new-abeno.jpg',
@@ -1536,7 +1546,7 @@ const LOOP_WORKS = [
     id: 'new-clinic-b', cat: 'new', img: 'assets/works/new-clinic-b.jpg',
     name: '歯科クリニック', area: '大阪府吹田市', type: 'クリニック新装工事', year: '2024',
     summary: '吹田市にて、歯科クリニックの新装工事を実施しました。内装・電気・給排水・サインまで一貫して対応しています。',
-    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024年']],
+    specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024']],
   },
 
   // ── 大規模修繕 ────────────────────────────────────────────
@@ -1568,19 +1578,19 @@ const LOOP_WORKS = [
   // ── 公共工事（写真あり） ──────────────────────────────────
   {
     id: 'pub-daikoku', cat: 'pub', img: 'assets/works/pub-daikoku.jpg',
-    name: '大国住宅2号館屋上防水改修工事', area: '大阪市浪速区', type: '屋上防水改修工事', year: '2024年',
+    name: '大国住宅2号館屋上防水改修工事', area: '大阪市浪速区', type: '屋上防水改修工事', year: '2024',
     summary: '大阪市発注の大国住宅2号館において、屋上防水改修工事を実施しました。官公庁の仕様・検査基準に沿った施工と書類管理を行っています。',
     specs: [['発注', '大阪市'], ['用途', '公共住宅'], ['工種', '屋上防水改修'], ['着工', '令和6年11月']],
   },
   {
     id: 'pub-sugawara', cat: 'pub', img: 'assets/works/pub-sugawara.jpg',
-    name: '菅原小学校外壁改修その他工事', area: '大阪市東淀川区', type: '外壁改修その他工事', year: '2016年',
+    name: '菅原小学校外壁改修その他工事', area: '大阪市東淀川区', type: '外壁改修その他工事', year: '2016',
     summary: '大阪市発注の菅原小学校において、外壁改修その他工事を実施しました。児童の安全確保のため、動線・騒音・粉塵対策を徹底しています。',
     specs: [['発注', '大阪市'], ['用途', '小学校'], ['工種', '外壁改修'], ['着工', '平成28年8月']],
   },
   {
     id: 'pub-sumieoka', cat: 'pub', img: 'assets/works/pub-sumieoka.jpg',
-    name: '墨江丘中学校外壁改修その他工事', area: '大阪市住吉区', type: '外壁改修その他工事', year: '2015年',
+    name: '墨江丘中学校外壁改修その他工事', area: '大阪市住吉区', type: '外壁改修その他工事', year: '2015',
     summary: '大阪市発注の墨江丘中学校において、外壁改修その他工事に着工しました。',
     specs: [['発注', '大阪市'], ['用途', '中学校'], ['工種', '外壁改修'], ['着工', '平成27年9月']],
   },
@@ -1622,7 +1632,7 @@ function HomeHero() {
       img: 'assets/works/pub-daikoku.jpg',
       place: '大国住宅2号館',
       type: '屋上防水改修工事',
-      year: '2024年',
+      year: '2024',
     },
     {
       img: 'assets/works/new-abeno.jpg',
@@ -1667,8 +1677,7 @@ function HomeHero() {
               maxWidth: 520, letterSpacing: '0.03em',
             }}>
               新築から大規模修繕、公共工事、道路維持・保全まで。
-              2006年の設立以来、株式会社ループは大阪・神奈川を拠点に、
-              一つひとつの現場を誠実に積み重ねてきました。
+              2006年の設立以来、株式会社ループは大阪・神奈川を拠点に、一つひとつの現場を誠実に積み重ねてきました。
             </p>
           </Reveal>
 
@@ -1937,21 +1946,15 @@ function HomeIntro() {
             lineHeight: 2.15, color: 'var(--ink-soft)', letterSpacing: '0.03em',
           }}>
             <p data-nq-id="glhti6le" style={{ margin: 0 }}>
-              株式会社ループは、2006年に大阪市淀川区東三国で設立した総合建設会社です。
-              マンションの大規模修繕、店舗・クリニックの新装、学校や公共施設の改修工事、
-              そしてマンションの新築工事まで、建物にまつわる幅広い工事を手がけてきました。
+              株式会社ループは、2006年に大阪市淀川区東三国で設立した総合建設会社です。マンションの大規模修繕、店舗・クリニックの新装、学校や公共施設の改修工事、そしてマンションの新築工事まで、建物にまつわる幅広い工事を手がけてきました。
             </p>
             <p data-nq-id="iayaadr9" style={{ margin: '24px 0 0' }}>
               私たちが設立以来ずっと大切にしてきたのは、
               <span data-nq-id="otm6png2" style={{ color: 'var(--ink)', fontWeight: 700 }}>「人を第一に考えた会社づくり」</span>
-              です。ESなくしてCSはない——社員がいきいきと働ける環境を整えることが、
-              そのままお客様への対応品質になると考えています。
+              です。ESなくしてCSはない——社員がいきいきと働ける環境を整えることが、そのままお客様への対応品質になると考えています。
             </p>
             <p data-nq-id="w9pk0scz" style={{ margin: '24px 0 0' }}>
-              だからこそ、目先の受注よりも、一つひとつの現場を誠実にやり切ることを優先します。
-              長くお付き合いいただいている取引先様、協力会社の皆様に支えられて、
-              いまのループがあります。ハードなものを、ソフトなマインドで。
-              これからも変わらず、つくり続けてまいります。
+              だからこそ、目先の受注よりも、一つひとつの現場を誠実にやり切ることを優先します。長くお付き合いいただいている取引先様、協力会社の皆様に支えられて、いまのループがあります。ハードなものを、ソフトなマインドで。これからも変わらず、つくり続けてまいります。
             </p>
           </div>
 
@@ -2038,8 +2041,7 @@ function HomeWorks() {
                 lineHeight: 2, color: 'var(--ink-soft)', margin: '18px 0 0',
                 maxWidth: 620, letterSpacing: '0.03em',
               }}>
-                大阪を中心に積み重ねてきた、公共・新築・修繕の施工事例。
-                工事の内容と規模を、そのまま公開しています。
+                大阪を中心に積み重ねてきた、公共・新築・修繕の施工事例。工事の内容と規模を、そのまま公開しています。
               </p>
             </div>
             {!isMobile && (
@@ -2121,7 +2123,7 @@ function HomeRecruit() {
   const points = [
     ['資格取得を、会社が支援する', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられる環境です。'],
     ['幅広い現場を、経験できる', 'マンション修繕から新築、公共工事まで。18業種の許可を持つ会社だからこそ、多様な現場を経験できます。'],
-    ['頑張りが、正当に評価される', '賞与・資格手当・職能手当・役職手当。社宅や保養所、社員旅行など、長く働ける環境を整えています。'],
+    ['頑張りが、正当に評価される', '資格手当・職能手当・役職手当。社宅や保養所、社員旅行など、長く働ける環境を整えています。'],
   ];
 
   const facts = [
@@ -2183,12 +2185,9 @@ function HomeRecruit() {
               lineHeight: 2.15, color: 'var(--ink-soft)', margin: '22px 0 0',
               letterSpacing: '0.03em', maxWidth: 520,
             }}>
-              ループは、自ら考え行動することを大事にする会社です。
-              指示を待つのではなく、現場で何が最善かを考えられる人が育っています。
+              ループは、自ら考え行動することを大事にする会社です。指示を待つのではなく、現場で何が最善かを考えられる人が育っています。
               <br /><br />
-              「ESなくしてCSはない」——社員がいきいきと働ける環境を整えることが、
-              お客様への最大限のパフォーマンスにつながると本気で考えています。
-              その想いに共感し、一緒に働く仲間を募集しています。
+              「ESなくしてCSはない」——社員がいきいきと働ける環境を整えることが、お客様への最大限のパフォーマンスにつながると本気で考えています。その想いに共感し、一緒に働く仲間を募集しています。
             </p>
 
             <div style={{ display: 'flex', gap: 12, marginTop: isMobile ? 26 : 36, flexWrap: 'wrap' }}>
@@ -2382,8 +2381,7 @@ function HomeCTA() {
             lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
             letterSpacing: '0.03em', maxWidth: 460,
           }}>
-            現地調査・お見積りは無料です。管理組合様、オーナー様、
-            協力会社の皆様、お気軽にご連絡ください。
+            現地調査・お見積りは無料です。管理組合様、オーナー様、協力会社の皆様、お気軽にご連絡ください。
           </p>
           <div style={{ marginTop: isMobile ? 22 : 28 }}>
             <div data-nq-id="0ot22xzp" style={{
@@ -2433,9 +2431,7 @@ function HomeCTA() {
             lineHeight: 2, margin: '18px 0 0', opacity: 0.92,
             letterSpacing: '0.03em', maxWidth: 460,
           }}>
-            建築施工管理・工事監理を募集しています。
-            資格取得支援制度あり。未経験からでも、有資格者としても、
-            まずは一度お話をさせてください。
+            建築施工管理・工事監理を募集しています。資格取得支援制度あり。未経験からでも、有資格者としても、まずは一度お話をさせてください。
           </p>
           <div style={{ marginTop: isMobile ? 22 : 28 }}>
             <div data-nq-id="q82j8akx" style={{
@@ -2485,46 +2481,78 @@ window.HomePage = HomePage;
 // 株式会社ループ — 事業案内（5事業）
 
 // ─── 大規模修繕の工事項目アイコン ────────────────────────────────────
-//     線画アイコン。24×24 の viewBox で統一。
+//     2トーンの線画アイコン。48×48 viewBox・2px グリッド。主線 1.6 / 細部 1.1 / 面は brand 14%。
 const RENO_ICONS = {
-  // 共通仮設：現場事務所・資材置き場
+  // 共通仮設：ユニットハウス（現場事務所）
   temp: (
-    <><path d="M3 10.5 12 5l9 5.5" /><path d="M5 10.5V19h14v-8.5" />
-    <path d="M9 19v-5h6v5" /><path d="M9 14l6 5M15 14l-6 5" /></>
+    <><rect x="5" y="10" width="38" height="4" rx="1" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M8 14v22h32V14" />
+    <rect x="11" y="21" width="6" height="15" />
+    <circle cx="15.5" cy="29" r="0.7" fill="var(--brand)" stroke="none" />
+    <rect x="23" y="20" width="14" height="8" />
+    <path d="M30 20v8M23 24h14" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <path d="M10 36v5M38 36v5M3 41h42" /></>
   ),
-  // 直接仮設：足場
+  // 直接仮設：枠組足場（支柱・布材・足場板・筋交い・手すり・ベース）
   scaffold: (
-    <><path d="M4 5v14M9.33 5v14M14.66 5v14M20 5v14" />
-    <path d="M3 9h18M3 15h18" /></>
+    <><rect x="10" y="13" width="28" height="2.5" fill="var(--brand)" stroke="none" fillOpacity="0.14" />
+    <rect x="10" y="25" width="28" height="2.5" fill="var(--brand)" stroke="none" fillOpacity="0.14" />
+    <path d="M10 8h28" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <path d="M10 5v36M24 5v36M38 5v36" />
+    <path d="M7 13h34M7 25h34M7 37h34" />
+    <path d="M10 13l14 12M38 25l-14 12" />
+    <path d="M7 41h6M21 41h6M35 41h6" /></>
   ),
-  // 躯体修繕：下地補修（コテ）
+  // 躯体修繕：ひび割れたコンクリート壁と補修範囲
   concrete: (
-    <><path d="M4 15.5c2.5-3.5 6-5.5 10.5-6.5l4-1-1 4c-1 4.5-3 8-6.5 10.5z" />
-    <path d="M9.5 13.5 3.5 20.5" /></>
+    <><rect x="6" y="8" width="36" height="32" rx="2" />
+    <path d="M22 8l-3 7.5 4 5-2.5 3.5" />
+    <path d="M19 15.5l-6-2M23 20.5l5-3" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <rect x="13" y="24" width="14" height="12" rx="1.5" fill="var(--brand)" fillOpacity="0.14" strokeWidth="1.1" stroke="var(--brand-soft)" strokeDasharray="2 2" /></>
   ),
   // シーリング：コーキングガン
   sealing: (
-    <><path d="M3 13h11v4H3z" /><path d="M14 15h3l4-5" />
-    <path d="M5 13V9h5v4" /><path d="M6.5 17v3" /></>
+    <><rect x="7" y="15" width="24" height="10" rx="2" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M27 15v10" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <path d="M31 17.5h3l8-4M31 22.5h3l8-9M34 17.5v5" />
+    <path d="M7 20H5.8" /><circle cx="4" cy="20" r="1.8" />
+    <path d="M11 25l-3 15h8l2-15" />
+    <path d="M21 25v3.5a2.5 2.5 0 0 1-2.5 2.5H18" /></>
   ),
-  // 塗装：刷毛
+  // 塗装：ローラーとトレイ
   paint: (
-    <><path d="M14.5 3.5 20.5 9.5l-7 7-6-6z" /><path d="M7.5 10.5 4 14l6 6 3.5-3.5" />
-    <path d="M4 14l-1.5 5.5L8 18" /></>
+    <><rect x="6" y="6" width="26" height="9" rx="3" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M32 10.5h6v8H24v5" />
+    <rect x="21" y="23.5" width="6" height="11" rx="1.5" />
+    <path d="M5 36h38l-2.5 6h-33z" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M9 39h30" strokeWidth="1.1" stroke="var(--brand-soft)" /></>
   ),
-  // 防水：雫と傘（雨をはじく）
+  // 防水：雫とスラブ断面（防水層）
   waterproof: (
-    <><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z" />
-    <path d="M9 13.5a3 3 0 0 0 3 3" /></>
+    <><path d="M24 5c-4.7 5.6-7 9.9-7 13a7 7 0 0 0 14 0c0-3.1-2.3-7.4-7-13z" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M20.5 18.5a3.5 3.5 0 0 0 3.5 3.5" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <path d="M11 29l-2-3M37 29l2-3" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <rect x="6" y="32" width="36" height="3" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M8 35v6h32v-6" />
+    <path d="M13 41l3-6M22 41l3-6M31 41l3-6" strokeWidth="1.1" stroke="var(--brand-soft)" /></>
   ),
-  // 防滑塩ビシート：シート敷設
+  // 防滑塩ビシート：ロールから手前へ敷設中のシート（防滑エンボス付き）
   sheet: (
-    <><path d="M4 7h13l3 3v9H4z" /><path d="M17 7v3h3" />
-    <path d="M7 13h8M7 16h5" /></>
+    <><path d="M10 29L4 41h29l6-12z" fill="var(--brand)" fillOpacity="0.14" />
+    <path d="M10 19h28M10 29h28" />
+    <path d="M10 19a3 5 0 0 0 0 10" />
+    <ellipse cx="38" cy="24" rx="3" ry="5" />
+    <ellipse cx="38" cy="24" rx="1" ry="1.8" strokeWidth="1.1" stroke="var(--brand-soft)" />
+    <g fill="var(--brand)" stroke="none"><circle cx="13" cy="34" r="0.8" /><circle cx="19" cy="34" r="0.8" /><circle cx="25" cy="34" r="0.8" /><circle cx="31" cy="34" r="0.8" />
+    <circle cx="11" cy="37.5" r="0.8" /><circle cx="17" cy="37.5" r="0.8" /><circle cx="23" cy="37.5" r="0.8" /><circle cx="29" cy="37.5" r="0.8" /></g></>
   ),
-  // その他：スパナ
+  // その他：工具箱
   others: (
-    <><path d="M15.5 3.5a5 5 0 0 0-4.6 6.9L3.5 17.8l2.7 2.7 7.4-7.4a5 5 0 0 0 6.9-4.6c0-.7-.1-1.3-.4-1.9l-3 3-2.6-2.6 3-3c-.6-.3-1.3-.5-2-.5z" /></>
+    <><path d="M5 27v-7a2 2 0 0 1 2-2h34a2 2 0 0 1 2 2v7z" fill="var(--brand)" stroke="none" fillOpacity="0.14" />
+    <rect x="5" y="18" width="38" height="22" rx="2" />
+    <path d="M5 27h15M28 27h15" />
+    <path d="M17 18v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
+    <rect x="20" y="24" width="8" height="6" rx="1" fill="var(--bg-cream)" /></>
   ),
 };
 
@@ -2706,11 +2734,17 @@ function RenovationScope() {
               padding: isMobile ? '20px 14px 22px' : '28px 24px 30px',
               display: 'flex', flexDirection: 'column',
             }}>
-              <svg width={isMobile ? 34 : 40} height={isMobile ? 34 : 40} viewBox="0 0 24 24"
-                fill="none" stroke="var(--brand)" strokeWidth="1.2"
-                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                {RENO_ICONS[icon]}
-              </svg>
+              <div style={{
+                width: isMobile ? 48 : 56, height: isMobile ? 48 : 56, flex: '0 0 auto',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'var(--bg-cream)', border: '1px solid var(--rule-soft)', borderRadius: 4,
+              }}>
+                <svg width={isMobile ? 30 : 34} height={isMobile ? 30 : 34} viewBox="0 0 48 48"
+                  fill="none" stroke="var(--brand)" strokeWidth="1.6"
+                  strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {RENO_ICONS[icon]}
+                </svg>
+              </div>
               <div data-nq-id="qbs5hs9z" style={{
                 fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13 : 14.5,
                 fontWeight: 700, color: 'var(--ink)', marginTop: isMobile ? 14 : 18,
@@ -2811,8 +2845,8 @@ function BusinessPage() {
         jp="事業案内"
         title="「創る」「守る」「支える」"
         italic="建築のすべてに、応える技術を。"
-        bg="assets/works/new-abeno.jpg"
-        bgAlt="当社が手がけたマンション新築工事"
+        bg="assets/biz/office-planning.jpg"
+        bgAlt="図面を確認しながら打ち合わせをする施工管理者（イメージ写真）"
         sub="建設業許可18業種を保有し、新築から大規模修繕、公共工事、施工管理の派遣、道路維持・保全事業まで幅広く対応しています。"
       />
 
@@ -2936,13 +2970,10 @@ function CompanyGreeting() {
             }}>
               <p data-nq-id="tor65969" style={{ margin: 0 }}>
                 当社は2006年の設立以来、「人を第一に考えた会社づくり」に邁進してまいりました。
-                ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、
-                お客様に対して最大限のパフォーマンスをお届けできると考えています。
+                ESなくしてCSはない——従業員がいきいきと働ける環境を整えることにより、お客様に対して最大限のパフォーマンスをお届けできると考えています。
               </p>
               <p data-nq-id="vddwsgqf" style={{ margin: '22px 0 0' }}>
-                大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、
-                日々、技術と対応力を培ってまいります。
-                これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
+                大規模修繕から新築、公共工事まで、多様化・高度化するご要望に応えるべく、日々、技術と対応力を培ってまいります。これからもハードなものを、ソフトなマインドで、つくり続けてまいります。
               </p>
             </div>
 
@@ -2998,7 +3029,7 @@ function CompanyOverview() {
     ['設立', 'Established', '2006年（平成18年）8月10日'],
     ['資本金', 'Capital', '4,000万円'],
     ['建設業許可', 'License', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
-    ['取引銀行', 'Main Banks', 'りそな銀行 / 北おおさか信用金庫'],
+    ['取引銀行', 'Main Banks', 'りそな銀行 / 北おおさか信用金庫 / 播州信用金庫'],
     ['有資格者', 'Qualified Personnel', '一級建築施工管理技士 4名'],
     ['事業内容', 'Scope of Business', '新築工事 / 大規模修繕 / 公共工事 / 派遣事業 / 道路維持・保全事業'],
   ];
@@ -3022,7 +3053,7 @@ function CompanyOverview() {
       addr: '神奈川県藤沢市遠藤3099',
       tel: 'TEL 046-688-6389',
       access: '',
-      map: null,
+      map: 'https://maps.google.com/maps?q=' + encodeURIComponent('神奈川県藤沢市遠藤3099') + '&hl=ja&z=16&output=embed',
     },
   ];
 
@@ -3068,6 +3099,7 @@ function CompanyOverview() {
                   <div data-nq-id="6su1mfbb" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 15 : 16.5,
                     color: 'var(--ink)', lineHeight: 1.95, letterSpacing: '0.02em',
+                    minWidth: 0, overflowWrap: 'anywhere',
                   }}>{v}</div>
                 </div>
               </Reveal>
@@ -3148,8 +3180,8 @@ function CompanyPage() {
         jp="企業情報"
         title="人とのつながりを大切にする"
         italic="信頼と実績のループ。"
-        bg="assets/works/reno-suita-bld.jpg"
-        bgAlt="当社が手がけた商業ビルの大規模修繕工事"
+        bg="assets/staff/staff-drawings.png"
+        bgAlt="図面を確認する株式会社ループの社員"
         sub="公共工事から民間の商業建築、集合住宅の建設、施工管理技士派遣、道路維持管理業務まで幅広く手がける総合建設会社です。"
       />
       <CompanyGreeting />
@@ -3270,8 +3302,8 @@ function WorksPage() {
         jp="施工事例"
         title="これまでの、"
         italic="現場の記録。"
-        bg="assets/works/reno-kakogawa.jpg"
-        bgAlt="加古川市マンションの大規模修繕工事"
+        bg="assets/works/site-scaffold-inspection.jpg"
+        bgAlt="足場が組まれた大規模修繕現場を確認する施工管理者（イメージ写真）"
         sub="手掛けた数だけ、確かな答えがあります。大阪を中心に積み重ねてきた、新築・大規模修繕・公共工事の施工事例を、事業ごとにご覧いただけます。"
       />
 
@@ -3535,8 +3567,8 @@ function NewsPage() {
                 }}>{tag}</span>
                 <div>
                   <div data-nq-id="7j92oibe" style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 24, color: 'var(--ink)',
-                    marginBottom: 8, fontWeight: 500,
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 18 : 24, color: 'var(--ink)',
+                    marginBottom: 8, fontWeight: 500, lineHeight: 1.5,
                   }}>{title}</div>
                   <div data-nq-id="77uvosql" style={{
                     fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--ink-soft)',
@@ -3697,7 +3729,7 @@ function RecruitPage() {
             {[
               ['01', '資格取得を支援', '一級建築施工管理技士などの資格取得支援制度（専門学校の学費一部負担）。専門性を高め、市場価値を上げられます。'],
               ['02', '幅広い現場', 'マンション修繕から新築・公共工事まで。18業種の許可を持つ会社で、多様な経験を積めます。'],
-              ['03', '人を大切にする', 'ESなくしてCSはなし。賞与・社宅・保養所・社員旅行など、長く働ける環境を整えています。'],
+              ['03', '人を大切にする', 'ESなくしてCSはなし。社宅・保養所・社員旅行など、長く働ける環境を整えています。'],
             ].map(([num, jp, body], i) => (
               <Reveal key={num} delay={i * 80}>
                 <div className="card-lift" style={{
@@ -3772,7 +3804,8 @@ function RecruitPage() {
                     color: 'var(--orange)', marginBottom: 4, letterSpacing: '0.02em',
                   }}>— {en}</div>
                   <div data-nq-id="ob6b1ap3" style={{
-                    fontFamily: 'var(--font-serif)', fontSize: 24, fontWeight: 500, color: 'var(--ink)',
+                    fontFamily: 'var(--font-serif)', fontSize: isMobile ? 20 : 24, fontWeight: 500, color: 'var(--ink)',
+                    lineHeight: 1.5,
                   }}>{jp}</div>
                 </div>
                 <div data-nq-id="a3rjqa04" style={{
@@ -3813,7 +3846,7 @@ function RecruitPage() {
             ['勤務地', 'Location', '〒532-0002 大阪府大阪市淀川区東三国2-32-17 ループ大阪6F（大阪メトロ御堂筋線「東三国」駅より徒歩4分）\n〒561-0817 大阪府豊中市浜1-1-5 ループ天神202（阪急宝塚線「服部天神」駅より徒歩10分）'],
             ['勤務時間', 'Hours', '8:30〜17:30（実働8時間）。残業は月20時間以内（経験・スキルにより変動）。'],
             ['休日休暇', 'Holidays', '月6〜9日休み（月1〜3回 土曜出勤あり）／祝日／有給休暇／慶弔休暇／GW休暇／夏季休暇／年末年始休暇／産前産後・育児・介護休業。'],
-            ['待遇・福利厚生', 'Benefits', '社会保険完備／賞与／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行／マイカー通勤可／オフィス内分煙。'],
+            ['待遇・福利厚生', 'Benefits', '社会保険完備／時間外手当／交通費支給（月2万円まで）／役職手当／職能手当／資格手当（建築施工管理技士）／資格取得支援制度／社宅あり／保養所あり／社員旅行／マイカー通勤可／オフィス内分煙。'],
             ['求める人物像', 'Ideal Candidate', '普通自動車運転免許（AT限定可）をお持ちの方／人とコミュニケーションを取るのが好きな方／物事にコツコツ取り組める方／専門スキルを身につけ市場価値を高めたい方／頑張りが正当に評価される環境で働きたい方。施工管理の実務経験、マンション修繕工事の経験がある方は歓迎します。'],
             ['選考フロー', 'Selection Process', '書類選考 → 面接 → 内定'],
             ['応募方法', 'How to Apply', 'お電話またはメールにてご連絡ください。TEL 06-6394-7778 ／ loop_kanri@kabuloop.sakura.ne.jp'],
@@ -4120,7 +4153,7 @@ function InquiryModal() {
                   ].map(([k, v]) => (
                     <div key={k} style={{
                       padding: '12px 0', borderBottom: '1px solid var(--rule)',
-                      display: 'grid', gridTemplateColumns: '140px 1fr', gap: 16,
+                      display: 'grid', gridTemplateColumns: window.innerWidth < 480 ? '1fr' : '140px 1fr', gap: window.innerWidth < 480 ? 4 : 16,
                       fontFamily: 'var(--font-sans)', fontSize: 13.5, color: 'var(--ink)',
                     }}>
                       <span data-nq-id="km024lnm" style={{ color: 'var(--stone)', fontSize: 11.5, letterSpacing: '0.06em' }}>{k}</span>
