@@ -82,6 +82,18 @@
         "streetAddress": "遠藤3099",
         "addressCountry": "JP"
       }
+    },
+    {
+      "@type": "LocalBusiness",
+      "name": "株式会社ループ 宮城営業所",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "989-5503",
+        "addressRegion": "宮城県",
+        "addressLocality": "栗原市",
+        "streetAddress": "若柳字下畑岡内谷川126番地",
+        "addressCountry": "JP"
+      }
     }
   ]
 }
@@ -1657,7 +1669,7 @@ function Footer() {
           }}>
             <Ph>人とのつながりを大切にする、<br />信頼と実績のループ。</Ph>
           </div>
-          <div data-nq-id="gbzcyxbr" style={{ fontSize: isMobile ? 13 : 12.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
+          <div data-nq-id="gbzcyxbr" style={{ fontSize: isMobile ? 14 : 14.5, color: 'var(--ink-soft)', lineHeight: 2, letterSpacing: '0.04em' }}>
             <div data-nq-id="0m76dvsa" style={{ fontWeight: 700, color: 'var(--ink)' }}>本社</div>
             <Ph>〒532-0002　大阪府大阪市淀川区東三国2-32-17 ループ大阪6F</Ph><br />
             {contactLinks('TEL 06-6394-7778')}　FAX 06-6394-7779
@@ -1667,6 +1679,8 @@ function Footer() {
             <div data-nq-id="r20ilzgb" style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>藤沢営業所</div>
             <Ph>〒252-0816　神奈川県藤沢市遠藤3099</Ph><br />
             {contactLinks('TEL 046-688-6389')}
+            <div data-nq-id="m7ygk2ro" style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>宮城営業所</div>
+            <Ph>〒989-5503　宮城県栗原市若柳字下畑岡内谷川126番地</Ph>
             <div data-nq-id="r4cjkcsh" style={{ marginTop: 14 }}><Ph>受付 9:00 – 18:00 / 平日（土日祝休）</Ph></div>
           </div>
           <button data-nq-id="sjgcnyzf" onClick={() => setInquiryOpen(true)} className="btn btn--solid"
@@ -1687,12 +1701,12 @@ function Footer() {
                 fontWeight: 600, color: 'var(--ink)', letterSpacing: '0.02em', whiteSpace: 'nowrap',
               }}>{h}</div>
               <div data-nq-id="qffhlrxe" style={{
-                fontFamily: 'var(--font-sans)', fontSize: 9.5, fontWeight: 600,
+                fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600,
                 color: 'var(--stone)', letterSpacing: '0.16em', marginTop: 3,
               }}>{en}</div>
             </div>
             {/* スマホでは1行ごとの高さを指で押せる大きさ（40px）まで広げる。下線は文字の幅のまま */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 0 : 10, fontSize: isMobile ? 14 : 13 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 0 : 12, fontSize: isMobile ? 15 : 15.5 }}>
               {items.map(([label, target]) => (
                 <a data-nq-id="hzrgfnip" key={label} onClick={() => go(target)} style={{
                   color: 'var(--ink)', alignSelf: 'flex-start', cursor: 'pointer',
@@ -1712,13 +1726,13 @@ function Footer() {
         flexDirection: isMobile ? 'column' : 'row',
         justifyContent: 'space-between',
         gap: isMobile ? 12 : 0,
-        fontSize: 11, color: 'var(--stone)', letterSpacing: '0.08em',
+        fontSize: 12.5, color: 'var(--stone)', letterSpacing: '0.08em',
       }}>
         <span data-nq-id="9byelmkv">© 2026 LOOP CO., LTD. — All rights reserved.</span>
-        <span data-nq-id="ck3v60hj" style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
+        <span data-nq-id="ck3v60hj" style={{ fontFamily: 'var(--font-sans)', fontSize: 12.5, fontWeight: 600, color: 'var(--brand)', letterSpacing: '0.12em' }}>
           BUILD · PROTECT · SUSTAIN
         </span>
-        <span style={{ display: 'flex', gap: isMobile ? 20 : 16, fontSize: isMobile ? 12 : 11 }}>
+        <span style={{ display: 'flex', gap: isMobile ? 20 : 18, fontSize: isMobile ? 13 : 12.5 }}>
           <a data-nq-id="js3n1lda" onClick={() => setInquiryOpen(true)} style={{
             cursor: 'pointer', display: 'flex', alignItems: 'center', minHeight: isMobile ? 40 : 0,
           }}><span className="link-underline">お問い合わせ</span></a>
@@ -1772,14 +1786,14 @@ const LOOP_STRENGTHS = [
 const LOOP_SERVICES = [
   {
     key: '01', jp: '新築工事', sub: 'マンション・ビル・クリニック', en: 'New Construction',
-    img: 'assets/biz/new-construction-site-3.jpg', worksCat: 'new',
+    img: 'assets/biz/new-construction-formwork.jpg', worksCat: 'new',
     lead: 'ゼロからの物語を、確かな技術とともに',
     body: '当社では、高い技術力と確かな提案力で、資産価値が長く続く新築工事をご提供しております。確かな知識と豊富な経験を持つ「国家資格保有者」が現場を統括。独自の厳しい品質基準を設け、安全かつ高精度な施工を徹底いたします。',
     tags: ['マンション', 'ビル', 'クリニック'],
   },
   {
     key: '02', jp: '大規模修繕', sub: '外壁・屋上防水・共用部の改修', en: 'Renovation',
-    img: 'assets/works/reno-kakogawa.jpg', worksCat: 'reno',
+    img: 'assets/biz/renovation-scaffold.jpg', worksCat: 'reno',
     lead: '大切な資産に、確かな価値と安心を重ねる',
     body: '新築だけでなく、長期的なメンテナンスや資産価値維持のパートナーとしてお役に立ちます。修繕工事は、新築工事とは異なる特殊な配慮が必要です。当社の技術者は、居住者様へのマナー対応、騒音・振動対策、安全な足場計画、バルコニー等の工事調整など、修繕現場ならではの運営管理を熟知しています。',
     tags: ['外壁改修', '屋上防水', '共用部'],
@@ -1841,13 +1855,13 @@ const LOOP_WORKS = [
     specs: [['用途', '店舗ビル'], ['工種', '新築工事'], ['所在地', '大阪市浪速区']],
   },
   {
-    id: 'new-clinic-a', cat: 'new', img: 'assets/works/new-clinic-a.jpg',
+    id: 'new-clinic-a', cat: 'new', img: 'assets/works/new-clinic-a-2.jpg',
     name: '歯科クリニック', area: '大阪府寝屋川市', type: 'クリニック新装工事', year: '2026',
     summary: '寝屋川市にて、歯科クリニックの新装工事に着手しました。開業日から逆算した工程設計と、衛生・安全基準を満たす施工管理を行っています。',
     specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府寝屋川市'], ['着工', '2026年2月']],
   },
   {
-    id: 'new-clinic-b', cat: 'new', img: 'assets/works/new-clinic-b.jpg',
+    id: 'new-clinic-b', cat: 'new', img: 'assets/works/new-clinic-b-2.jpg',
     name: '歯科クリニック', area: '大阪府吹田市', type: 'クリニック新装工事', year: '2024',
     summary: '吹田市にて、歯科クリニックの新装工事を実施しました。内装・電気・給排水・サインまで一貫して対応しています。',
     specs: [['用途', '歯科クリニック'], ['工種', '内装・設備・サイン'], ['所在地', '大阪府吹田市'], ['施工', '2024']],
@@ -1855,10 +1869,10 @@ const LOOP_WORKS = [
 
   // ── 大規模修繕 ────────────────────────────────────────────
   {
-    id: 'reno-kakogawa', cat: 'reno', img: 'assets/works/reno-kakogawa.jpg',
-    name: '加古川市マンション', area: '兵庫県加古川市', type: '大規模修繕工事', year: '2026',
-    summary: '築30年・66戸のマンションの大規模修繕工事。外壁塗装の劣化、タイルの浮き、屋上防水層の経年劣化に対し、住民様の生活を止めずに統合的に改修を進めています。',
-    specs: [['戸数', '66戸'], ['築年数', '築30年'], ['工種', '外壁・タイル・屋上防水'], ['着工', '2026年4月']],
+    id: 'reno-hyogo', cat: 'reno', img: 'assets/works/reno-hyogo.jpg',
+    name: '兵庫県某マンション', area: '兵庫県', type: '大規模修繕工事', year: '2026',
+    summary: 'マンションの大規模修繕工事。外壁塗装の劣化、タイルの浮き、屋上防水層の経年劣化に対し、住民様の生活を止めずに統合的に改修を進めています。',
+    specs: [['工種', '外壁・タイル・屋上防水'], ['所在地', '兵庫県'], ['着工', '2026年4月']],
   },
   {
     id: 'reno-osaka-bld', cat: 'reno', img: 'assets/works/reno-osaka-bld.jpg',
@@ -1927,22 +1941,10 @@ function HomeHero() {
 
   const shots = [
     {
-      img: 'assets/works/reno-kakogawa.jpg',
-      place: '加古川市マンション',
-      type: '大規模修繕工事・66戸',
-      year: '2026',
-    },
-    {
-      img: 'assets/works/pub-daikoku.jpg',
-      place: '大国住宅2号館',
-      type: '屋上防水改修工事',
-      year: '2024',
-    },
-    {
-      img: 'assets/works/new-abeno.jpg',
-      place: '大阪市阿倍野区マンション',
-      type: 'マンション新築工事',
-      year: '2018',
+      img: 'assets/works/reno-suita-bld.jpg',
+      place: 'ループ江坂',
+      type: '大規模修繕工事',
+      year: '',
     },
   ];
 
@@ -2004,16 +2006,11 @@ function HomeHero() {
 
         {/* 右：実績写真（最初に実績が目に入る） */}
         <Reveal delay={160}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.35fr 1fr',
-            gridTemplateRows: isMobile ? '190px 190px' : 'minmax(200px, 1fr) minmax(200px, 1fr)',
-            gap: isMobile ? 10 : 14,
-          }}>
+          <div>
             {shots.map((s, i) => (
               <figure key={s.place} className="img-zoom" style={{
                 margin: 0, position: 'relative', borderRadius: 4, overflow: 'hidden',
-                gridRow: i === 0 ? 'span 2' : 'auto',
+                aspectRatio: '4/3',
                 background: 'var(--bg-stone)',
               }}>
                 <img data-nq-id="vzl3u1w4" src={s.img} alt={`${s.place} ${s.type}`} loading={i === 0 ? 'eager' : 'lazy'}
@@ -2027,10 +2024,12 @@ function HomeHero() {
                   background: 'linear-gradient(180deg, rgba(12,25,40,0) 0%, rgba(12,25,40,0.72) 100%)',
                   color: '#FFFFFF',
                 }}>
-                  <div data-nq-id="b389fx2p" style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 9.5,
-                    letterSpacing: '0.18em', opacity: 0.88, marginBottom: 4,
-                  }}>{s.year}</div>
+                  {s.year && (
+                    <div data-nq-id="b389fx2p" style={{
+                      fontFamily: 'var(--font-mono)', fontSize: 9.5,
+                      letterSpacing: '0.18em', opacity: 0.88, marginBottom: 4,
+                    }}>{s.year}</div>
+                  )}
                   <div data-nq-id="essplr4e" style={{
                     fontFamily: 'var(--font-sans)', fontSize: isMobile ? 12 : 13,
                     fontWeight: 700, lineHeight: 1.45,
@@ -2310,7 +2309,7 @@ function HomeWorks() {
   const isMobile = useMobile();
 
   // 施工実績は LOOP_WORKS を唯一の情報源とする（実績ページと共通）
-  const pickup = ['reno-kakogawa', 'new-clinic-a', 'pub-daikoku',
+  const pickup = ['reno-hyogo', 'new-clinic-a', 'pub-daikoku',
                   'new-namba', 'reno-suita-bld', 'pub-sumieoka'];
   const works = pickup
     .map(id => LOOP_WORKS.find(w => w.id === id))
@@ -2558,7 +2557,7 @@ function HomeNews() {
   const isMobile = useMobile();
   const news = [
     ['2026.06', 'お知らせ', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。'],
-    ['2026.04', '施工実績', '加古川市マンション 大規模修繕工事 着工', '兵庫県加古川市にて、66戸のマンションの大規模修繕工事に着手いたしました。'],
+    ['2026.04', '施工実績', '兵庫県某マンション 大規模修繕工事 着工', '兵庫県にて、マンションの大規模修繕工事に着手いたしました。'],
     ['2026.02', '施工実績', '歯科クリニック 新装工事 着工', '大阪府寝屋川市にて、歯科クリニックの新装工事に着手いたしました。'],
     ['2024.11', '施工実績', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区にて、屋上防水改修工事を実施いたしました。'],
   ];
@@ -3151,8 +3150,8 @@ function BusinessPage() {
         jp="事業案内"
         title="「創る」「守る」「支える」"
         italic="建築のすべてに、応える技術を。"
-        bg="assets/biz/office-planning.jpg"
-        bgAlt="図面を確認しながら打ち合わせをする施工管理者（イメージ写真）"
+        bg="assets/staff/office-meeting.jpg"
+        bgAlt="図面を見ながら打ち合わせをする社員"
         sub="建設業許可18業種を保有し、新築から大規模修繕、公共工事、施工管理の派遣、道路維持・保全事業まで幅広く対応しています。"
       />
 
@@ -3337,7 +3336,7 @@ function CompanyOverview() {
     ['資本金', 'Capital', '4,000万円'],
     ['建設業許可', 'License', '国土交通省大臣許可（般-3）（特-3）第22143号　土木・建築・大工・とび土工・石・屋根・タイル・鋼構造物・鉄筋・板金・塗装・防水・内装仕上・熱絶縁・建具・舗装・水道施設・硝子 18業種'],
     ['取引銀行', 'Main Banks', 'りそな銀行 / 北おおさか信用金庫 / 播州信用金庫'],
-    ['有資格者', 'Qualified Personnel', '一級建築施工管理技士 4名'],
+    ['有資格者', 'Qualified Personnel', '一級建築施工管理技士 4名 / 一級建築施工管理技士補 2名 / 二級土木施工管理技士 1名'],
     ['事業内容', 'Scope of Business', '新築工事 / 大規模修繕 / 公共工事 / 派遣事業 / 道路維持・保全事業'],
   ];
   const offices = [
@@ -3361,6 +3360,13 @@ function CompanyOverview() {
       tel: 'TEL 046-688-6389',
       access: '',
       map: 'https://maps.google.com/maps?q=' + encodeURIComponent('神奈川県藤沢市遠藤3099') + '&hl=ja&z=16&output=embed',
+    },
+    {
+      name: '宮城営業所', zip: '〒989-5503',
+      addr: '宮城県栗原市若柳字下畑岡内谷川126番地',
+      tel: '',
+      access: '',
+      map: 'https://maps.google.com/maps?q=' + encodeURIComponent('宮城県栗原市若柳字下畑岡内谷川126') + '&hl=ja&z=16&output=embed',
     },
   ];
 
@@ -3426,12 +3432,12 @@ function CompanyOverview() {
             <p data-nq-id="4v25zb4w" style={{
               fontFamily: 'var(--font-sans)', fontSize: isMobile ? 13.5 : 14.5,
               lineHeight: 2, color: 'var(--ink-soft)', margin: '0 0 24px', letterSpacing: '0.03em',
-            }}><Nw>大阪・神奈川の3拠点で、関西一円および首都圏の現場に対応しています。</Nw></p>
+            }}><Nw>大阪・神奈川・宮城に4つの拠点を置き、関西一円および首都圏の現場に対応しています。</Nw></p>
           </Reveal>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? 16 : 24,
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: isMobile ? 16 : 20,
           }}>
             {offices.map((o, i) => (
               <Reveal key={o.name} delay={i * 80}>
@@ -3463,7 +3469,9 @@ function CompanyOverview() {
                     }}>
                       {o.zip}<br />
                       <Ph>{o.addr}</Ph>
-                      <div data-nq-id="8hysf5yr" style={{ marginTop: 10, color: 'var(--ink)', fontWeight: 600 }}><Ph>{contactLinks(o.tel)}</Ph></div>
+                      {o.tel && (
+                        <div data-nq-id="8hysf5yr" style={{ marginTop: 10, color: 'var(--ink)', fontWeight: 600 }}><Ph>{contactLinks(o.tel)}</Ph></div>
+                      )}
                       {o.access && (
                         <div data-nq-id="vxqkd4tn" style={{ marginTop: 8, fontSize: isMobile ? 13 : 12.5, color: 'var(--stone)' }}><Ph>{o.access}</Ph></div>
                       )}
@@ -3724,11 +3732,18 @@ function WorksPage() {
                     <Reveal key={w.id} delay={(i % 3) * 80}>
                       <figure style={{ margin: 0 }}>
                         <div style={{
-                          aspectRatio: '4/3', background: 'var(--bg-stone)',
-                          borderRadius: 4, overflow: 'hidden',
+                          aspectRatio: '1/1', background: 'var(--bg-stone)',
+                          borderRadius: 4, overflow: 'hidden', position: 'relative',
                         }}>
-                          <img data-nq-id="3seu4c3j" src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                          <img src={w.img} alt="" aria-hidden="true" loading="lazy" style={{
+                            position: 'absolute', inset: 0,
                             width: '100%', height: '100%', objectFit: 'cover',
+                            filter: 'blur(18px) saturate(0.7) brightness(1.08)',
+                            transform: 'scale(1.15)', opacity: 0.55,
+                          }} />
+                          <img data-nq-id="3seu4c3j" src={w.img} alt={`${w.name} ${w.type}`} loading="lazy" style={{
+                            position: 'relative',
+                            width: '100%', height: '100%', objectFit: 'contain',
                             filter: 'saturate(0.94) brightness(1.02)',
                           }} />
                         </div>
@@ -3839,7 +3854,7 @@ function NewsPage() {
   const isMobile = useMobile();
   const items = [
     ['2026.06', 'NOTICE', 'コーポレートサイトを公開しました', '株式会社ループの新しいコーポレートサイトを公開いたしました。施工事例・採用情報などを随時更新してまいります。今後ともよろしくお願いいたします。'],
-    ['2026.04', 'WORKS', '加古川市マンション 大規模修繕工事 着工', '兵庫県加古川市にて、66戸のマンションの大規模修繕工事に着手いたしました。'],
+    ['2026.04', 'WORKS', '兵庫県某マンション 大規模修繕工事 着工', '兵庫県にて、マンションの大規模修繕工事に着手いたしました。'],
     ['2026.02', 'WORKS', '歯科クリニック 新装工事 着工', '大阪府寝屋川市にて、歯科クリニックの新装工事に着手いたしました。'],
     ['2024.12', 'WORKS', '相川住宅2号館 屋上防水改修工事', '大阪市東淀川区にて、屋上防水改修工事を実施いたしました。'],
     ['2024.11', 'WORKS', '大国住宅2号館 屋上防水改修工事', '大阪市浪速区にて、屋上防水改修工事を実施いたしました。'],
@@ -4083,6 +4098,7 @@ function RecruitPage() {
       </section>
 
       <section style={{ padding: isMobile ? '52px 20px' : '96px 56px', background: 'var(--bg)' }}>
+        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <Reveal>
           <div data-nq-id="bejtzgli" className="eyebrow" style={{ marginBottom: 14 }}>OPEN POSITIONS</div>
           <h2 data-nq-id="4wk62pll" style={{
@@ -4137,12 +4153,14 @@ function RecruitPage() {
             </Reveal>
           ))}
         </div>
+        </div>
       </section>
 
       <section style={{
         padding: isMobile ? '52px 20px' : '96px 56px',
         background: 'var(--bg-cream)', borderTop: '1px solid var(--rule)',
       }}>
+        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
         <Reveal>
           <div data-nq-id="keva0oxu" className="eyebrow" style={{ marginBottom: 14 }}>REQUIREMENTS</div>
           <h2 data-nq-id="fzejrubj" style={{
@@ -4187,6 +4205,7 @@ function RecruitPage() {
               </div>
             </Reveal>
           ))}
+        </div>
         </div>
       </section>
       <HomeCTA />
