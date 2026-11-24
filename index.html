@@ -86,6 +86,7 @@
     {
       "@type": "LocalBusiness",
       "name": "株式会社ループ 宮城営業所",
+      "telephone": "+81-228-28-1714",
       "address": {
         "@type": "PostalAddress",
         "postalCode": "989-5503",
@@ -1685,7 +1686,8 @@ function Footer() {
             <Ph>〒252-0816</Ph>{isMobile ? <br /> : '　'}<Ph>神奈川県藤沢市遠藤3099</Ph><br />
             {contactLinks('TEL 046-688-6389')}
             <div data-nq-id="m7ygk2ro" style={{ fontWeight: 700, color: 'var(--ink)', marginTop: 14 }}>宮城営業所</div>
-            <Ph>〒989-5503</Ph>{isMobile ? <br /> : '　'}<Ph>宮城県栗原市若柳字下畑岡内谷川126番地</Ph>
+            <Ph>〒989-5503</Ph>{isMobile ? <br /> : '　'}<Ph>宮城県栗原市若柳字下畑岡内谷川126番地</Ph><br />
+            {contactLinks('TEL 0228-28-1714')}
             <div data-nq-id="r4cjkcsh" style={{ marginTop: 14 }}><Ph>受付 9:00 – 18:00 / 平日（土日祝休）</Ph></div>
           </div>
           <button data-nq-id="sjgcnyzf" onClick={() => setInquiryOpen(true)} className="btn btn--solid"
@@ -3377,7 +3379,7 @@ function CompanyOverview() {
     {
       name: '宮城営業所', zip: '〒989-5503',
       addr: '宮城県栗原市若柳字下畑岡内谷川126番地',
-      tel: '',
+      tel: 'TEL 0228-28-1714',
       access: '',
       map: 'https://maps.google.com/maps?q=' + encodeURIComponent('宮城県栗原市若柳字下畑岡内谷川126') + '&hl=ja&z=16&output=embed',
     },
@@ -3508,7 +3510,7 @@ function CompanyPage() {
         jp="企業情報"
         title="人とのつながりを大切にする"
         italic="信頼と実績のループ。"
-        bg="assets/staff/staff-drawings.png"
+        bg="assets/staff/staff-drawings.jpg"
         bgAlt="図面を確認する株式会社ループの社員"
         sub="公共工事から民間の商業建築、集合住宅の建設、施工管理技士派遣、道路維持管理業務まで幅広く手がける総合建設会社です。"
       />
